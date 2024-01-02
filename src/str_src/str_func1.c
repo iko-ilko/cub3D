@@ -33,3 +33,23 @@ char	*ft_strjoin(char *s1, char *s2)
 	res[i] = '\0';
 	return (res);
 }
+
+int	my_strlcpy(char *dst, char *src, int dstsize)
+{
+	int	i;
+	int	src_len;
+
+	src_len = 0;
+	while (*(src + src_len))
+		src_len++;
+	if (dstsize == 0)
+		return (src_len);
+	i = 0;
+	while (*(src + i) && i < dstsize - 1)
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (src_len);
+}

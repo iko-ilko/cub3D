@@ -1,44 +1,35 @@
 #include "../../include/cub3d.h"
 
-static size_t	my_strlcpy(char *dst, const char *src, size_t dstsize)
-{
-	size_t	i;
-	size_t	src_len;
-
-	src_len = 0;
-	while (*(src + src_len))
-		src_len++;
-	if (dstsize == 0)
-		return (src_len);
-	i = 0;
-	while (*(src + i) && i < dstsize - 1)
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = '\0';
-	return (src_len);
-}
-
 static void	my_free_exit(char **res, int cnt_idx)
 {
 	while (cnt_idx >= 0)
 		free(res[cnt_idx--]);
 	free(res);
-	exit (1);
+	exit_error(MALLOC_FAILED, NULL);
 }
 
-static char	**make_wdspace(char const *s, char c, int *wdcnt)
+static int	is_separator(char c, char *sepa)
+{
+	while (*sepa)
+	{
+		if (*sepa == c)
+			return (1);
+		sepa++;
+	}
+	return (0);
+}
+
+static char	**make_wdspace(char *s, char *separators, int *wdcnt)
 {
 	char	**res;
 
 	*wdcnt = 0;
 	while (*s)
 	{
-		if (*s != c)
+		if (!is_separator(*s, separators))
 		{
 			(*wdcnt)++;
-			while (*s != c && *s)
+			while (!is_separator(*s, separators) && *s)
 				s++;
 			continue ;
 		}
@@ -46,27 +37,27 @@ static char	**make_wdspace(char const *s, char c, int *wdcnt)
 	}
 	res = malloc(sizeof(char *) * (*wdcnt + 1));
 	if (res == NULL)
-		exit_error("malloc failed", NULL);
+		exit_error(MALLOC_FAILED, NULL);
 	return (res);
 }
 
-static char	**make_chspace(char const *s, char c, char **res)
+static char	**make_chspace(char *s, char *separators, char **res)
 {
-	size_t	ch_len;
-	size_t	wd_idx;
+	int	ch_len;
+	int	wd_idx;
 
 	wd_idx = 0;
 	while (*s)
 	{
 		ch_len = 0;
-		if (*s != c)
+		if (!is_separator(*s, separators))
 		{
-			while (*(s + ch_len) != c && *(s + ch_len))
+			while (!is_separator(*(s + ch_len), separators) && *(s + ch_len))
 				ch_len++;
-			res[wd_idx] = malloc(sizeof(char) * (ch_len + 2));
-			if (res[wd_idx] == 0)
+			res[wd_idx] = malloc(sizeof(char) * (ch_len + 1));
+			if (res[wd_idx] == NULL)
 				my_free_exit(res, wd_idx - 1);
-			my_strlcpy(res[wd_idx++], s, ch_len + 2);
+			ft_strlcpy(res[wd_idx++], s, ch_len + 1);
 			s += ch_len;
 			continue ;
 		}
@@ -76,18 +67,22 @@ static char	**make_chspace(char const *s, char c, char **res)
 	return (res);
 }
 
-char	**ft_split(char *s, char c)
+char	**ft_split(char *s, char *sepa)
 {
 	char	**res;
 	int		wdcnt;
 
-	if (s == NULL)
-		return (NULL);
-	while (*s && *s == c)
+	if (s == NULL || sepa == NULL)
+	{
+		res = malloc(sizeof(char *));
+		res[0] = NULL;
+		return (res);
+	}
+	while (*s && is_separator(*s, sepa))
 		s++;
-	res = make_wdspace(s, c, &wdcnt);
+	res = make_wdspace(s, sepa, &wdcnt);
 	if (res == 0)
 		return (0);
-	res = make_chspace(s, c, res);
+	res = make_chspace(s, sepa, res);
 	return (res);
 }

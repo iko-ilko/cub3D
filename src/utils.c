@@ -2,22 +2,33 @@
 
 void	exit_error(char *str, char *reason)
 {
+	printf("Error\n");
 	if (reason != NULL)
-		printf("%s%s\n", str, reason);
+		printf("%s: %s\n", str, reason);
 	else
 		printf("%s\n", str);
 	exit(1);
 }
 
-void	one_free(char **p)
+void	single_free(char **p)//ㅍㅣㄹ요시 void *
+{
+	if (*p == NULL)
+		return ;
+	free(*p);
+	*p = NULL;
+}
+
+void	free_double(char ***p)
 {
 	int	i;
 
 	i = 0;
-	while (*p[i])
+	if (*p == NULL)
+		return ;
+	while ((*p)[i])
 	{
-		free(*p[i]);
-		*p[i++] = NULL;
+		free((*p)[i]);
+		(*p)[i++] = NULL;
 	}
 	free(*p);
 	*p = NULL;

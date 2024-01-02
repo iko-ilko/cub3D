@@ -4,11 +4,10 @@
 int main(int arc, char **arv)
 {
 	t_pre_data	data;
-	int	fd;
+	int		fd;
 	char	*temp;
-	
-	init_pre_data(&data);
-	check_arv(&data, arc, arv);
+//파싱에서 쓰이는 데이터 구조체 따로 분리하지않고 실행에 넘겨줄 때 포인터나 값 복사 해주는 쪽으로 하자.
+	preprocess(&data, arc, arv);
 	printf("%s\n", arv[1]);
 
 }

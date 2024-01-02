@@ -6,29 +6,63 @@
 # include <fcntl.h>
 # include <unistd.h>
 
+# define MANY_ARG "too many argument"
+# define FEW_ARG "too few argument"
+# define OPEN_ERROR "open error"
+# define EMPTY_FILE "empty file"
+# define MALLOC_FAILED "malloc_failed"
+# define FILE_NAME_ERROR "file name error"
+
+# define MAP_SIZE_ERROR 3
+# define MAP_ERROR 5
+# define MLX_ERROR 6
+
 typedef struct s_pre_data
 {
-	int		y_size;
+	// int		y_size;
+	char	**cub_file;
+	void	*north;
+	void	*south;
+	void	*west;
+	void	*east;
+	int		floor_color;//int ? uns int?
+	int		ceiling_color;
 	char	**map;
 }	t_pre_data;
+
+// typedef struct s_map_info
+// {
+// 	void	*north;
+// 	void	*south;
+// 	void	*west;
+// 	void	*east;
+// 	int		floor_color;
+// 	int		ceiling_color;
+// }	t_map_info;
 
 /* preprocess.c */
 void	init_pre_data(t_pre_data *data);
 char	**get_map(t_pre_data *data, char *file);
+void	check_map_info(t_pre_data *data);
 void	check_arv(t_pre_data *data, int arc, char **arv);
+void	parse_file_to_strings(t_pre_data *data, char *file);
 
 
 /* util.c */
 void	exit_error(char *str, char *reason);
-void	one_free(char **p);
+void	single_free(char **p);
+void	free_double(char ***p);
+
 
 
 /* str_func.c */
 int		ft_strlen(char *s);
 char	*ft_strjoin(char *s1, char *s2);
+int		my_strlcpy(char *dst, char *src, int dstsize);
 
 /* split.c */
-char	**ft_split(char *s, char c);
+char	**ft_split(char *s, char *sepa);
+
 
 
 #endif
