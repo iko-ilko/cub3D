@@ -81,8 +81,6 @@ char	**ft_split(char *s, char *sepa)
 	while (*s && is_separator(*s, sepa))
 		s++;
 	res = make_wdspace(s, sepa, &wdcnt);
-	if (res == 0)
-		return (0);
 	res = make_chspace(s, sepa, res);
 	return (res);
 }
