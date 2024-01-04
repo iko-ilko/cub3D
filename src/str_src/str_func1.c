@@ -64,3 +64,22 @@ int	ft_strcmp(char *s1, char *s2)
 	}
 	return (*s1 - *s2);
 }
+
+char	*my_strdup(char *s1)
+{
+	char	*res;
+	int		len;
+	int		i;
+
+	if (s1 == NULL)
+		return (NULL);
+	len = ft_strlen(s1);
+	res = malloc(sizeof(char) * (len + 1));
+	if (res == 0)
+		exit_error(MALLOC_FAILED, NULL);
+	i = -1;
+	while (++i < len)
+		res[i] = s1[i];
+	res[i] = 0;
+	return (res);
+}

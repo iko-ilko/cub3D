@@ -1,12 +1,16 @@
-CC = cc -g3
+CC = cc -g3 -fsanitize=address
 # -Wall -Wextra -Werror
 SRCS = ./src/main.c \
 		./src/preprocess.c \
 		./src/utils.c \
 		./src/str_src/str_func1.c \
 		./src/str_src/split.c \
-		./src/get_next_line_func/get_next_line.c\
-		./src/get_next_line_func/get_next_line_utils.c
+		./src/get_next_line_func/get_next_line.c \
+		./src/get_next_line_func/get_next_line_utils.c \
+		\
+		\
+		\
+		./test_code.c
 
 NAME = cub3D
 INCLUDE = -I./include

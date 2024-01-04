@@ -6,8 +6,8 @@
       "type": "lldb",
       "request": "launch",
       "args": [],
-      "cwd": "/Users/ilko/Desktop/cub3D/src",
-      "program": "/Users/ilko/Desktop/cub3D/src/build/Debug/outDebug"
+      "cwd": "/Users/ilko/Desktop/cub3D",
+      "program": "/Users/ilko/Desktop/cub3D/build/Debug/outDebug"
     }
   ]
 }

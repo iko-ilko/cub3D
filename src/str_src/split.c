@@ -57,7 +57,7 @@ static char	**make_chspace(char *s, char *separators, char **res)
 			res[wd_idx] = malloc(sizeof(char) * (ch_len + 1));
 			if (res[wd_idx] == NULL)
 				my_free_exit(res, wd_idx - 1);
-			ft_strlcpy(res[wd_idx++], s, ch_len + 1);
+			my_strlcpy(res[wd_idx++], s, ch_len + 1);
 			s += ch_len;
 			continue ;
 		}

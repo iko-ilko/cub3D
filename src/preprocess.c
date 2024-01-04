@@ -2,20 +2,19 @@
 #include "../include/get_next_line.h"
 
 
-void	init_pre_data(t_pre_data *data, t_map_info *map_info)
+void	init_pre_data(t_pre_data *data, t_map_info *map_info, char **arv)
 {
-	data->y_max = 0;
-	data->x_max = 0;
-	// data->cub_file = NULL;
+	data->cub_file_name = NULL;
 	data->north_arv = NULL;
 	data->south_arv = NULL;
 	data->west_arv = NULL;
 	data->east_arv = NULL;
-	data->floor_color = 0;
-	data->ceiling_color = 0;
-	data->cub_file_fd = -1;
-	data->map = NULL;
+	data->floor_color_arv = NULL;
+	data->ceiling_color_arv = NULL;
+	data->map_to_check = NULL;
 	data->map_info = map_info;
+	map_info->y_max = 0;
+	map_info->x_max = 0;
 	map_info->north = NULL;///////////사실상 값 바로 넣으니 초기화 안해도됨
 	map_info->south = NULL;
 	map_info->west = NULL;
@@ -59,7 +58,7 @@ int	get_map_info(t_pre_data *data, char *line)
 {
 	char	**arv;
 
-	if (line[0] == '\0')
+	if (line[0] == '\n')
 		return (-1);
 	arv = ft_split(line, " ");
 	if (arv[0] == NULL || arv[1] == NULL || arv[2] != NULL)//arv[0]은 공백으로만 이루어진 line인 경우.
@@ -72,6 +71,10 @@ int	get_map_info(t_pre_data *data, char *line)
 		data->west_arv = arv;
 	else if (ft_strcmp("EA", arv[0]) == 0 && data->east_arv == NULL)
 		data->east_arv = arv;
+	else if (ft_strcmp("F", arv[0]) == 0 && data->floor_color_arv == NULL)
+		data->floor_color_arv = arv;
+	else if (ft_strcmp("C", arv[0]) == 0 && data->ceiling_color_arv == NULL)
+		data->ceiling_color_arv = arv;
 	else
 		exit_error(MAP_INFO_LINE_ERROR, line);
 	return (0);
@@ -101,49 +104,83 @@ void	check_arv(t_pre_data *data, int arc, char **arv)
 	}
 	if (arv[1][idx - 5] == '/')
 		exit_error(FILE_NAME_ERROR, arv[1]);
-	data->cub_file_fd = open(arv[1], O_RDONLY);
-	if (data->cub_file_fd == -1)
-		exit_error(OPEN_ERROR, arv[1]);
+	data->cub_file_name = my_strdup(arv[1]);
 	// data->cub_file = parse_file_to_strings(arv[1]);
 }
+void	make_map_space(t_pre_data *data, int offset)
+{
+	int		fd;
+	int		map_line_cnt;
+	char	*line;
 
-void	get_map(t_pre_data *data, t_map_info *map_info, char *line)
+	fd = open(data->cub_file_name, O_RDONLY);
+	if (fd == -1)
+		exit_error(OPEN_ERROR, data->cub_file_name);
+	map_line_cnt = 0;
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (line == NULL)
+			break ;
+		if (offset <= 0)
+			map_line_cnt++;
+		single_free(&line);
+		offset--;
+	}
+	data->map_info->map = malloc(sizeof(char *) * (map_line_cnt + 1));
+	data->map_info->map[map_line_cnt] = NULL;
+	close(fd);
+}
+
+//ㅅㅓㅁ ㅁㅐㅂ ㄸㅒ무ㄴ에 빈 줄도 허용. 벽벽으으로  ㅈ둘러 쌓이지않은 문제가 있는 맵은 어차피 그 다음 맵 체크 단계에서 걸러진다.
+void	get_map(t_pre_data *data, t_map_info *map_info, char *line, int offset)
 {
 	//시작 빈 줄 먼저 쳐내고 empty line error
 	//다시 반복문으로 line 받아와서 맵을 map_info->map 에 원본 받아오고 data의 y_max, x_max값도 넣고
 	//data->map은 위의 내용 토대로 사방에 빈공간 추가하고 맵 체크하기.
-	여기하기
+	if (line[0] == '\n' && map_info->y_max == 0)
+		return ;
+	if (map_info->y_max == 0)
+		make_map_space(data, offset);
+	map_info->map[map_info->y_max++] = my_strdup(line);
+	if (map_info->x_max < ft_strlen(line))
+		map_info->x_max = ft_strlen(line);
 }
 void	parse_cub_file(t_pre_data *data)
 {
 	int		cnt;
+	int		offset;
 	char	*line;
+	int		fd;
 
+	fd = open(data->cub_file_name, O_RDONLY);
+	if (fd == -1)
+		exit_error(OPEN_ERROR, data->cub_file_name);
 	cnt = 0;
+	offset = 0;
 	while (1)
 	{
-		
-		line = get_next_line(data->cub_file_fd);
+		line = get_next_line(fd);
 		if (line == NULL)
 			break ;
 		if (cnt == 6)
-		{
-			get_map(data, data->map_info, line);//break ? 
-			break ;
-		}
+			get_map(data, data->map_info, line, offset);//break ? 
 		else if (get_map_info(data, line) != -1)
 			cnt++;
 		single_free(&line);
+		offset++;
 	}
-	close(data->cub_file_fd);
+	close(fd);
 	// return (ft_split(one_line, ""));
 }
 
 void	preprocess(t_pre_data *data, t_map_info *map_info, int arc, char **arv)
 {
-	init_pre_data(data, map_info);
-	check_arv(&data, arc, arv);//need to check
+	init_pre_data(data, map_info, arv);
+	check_arv(data, arc, arv);//need to check
 	parse_cub_file(data);
+	map_info_print(map_info);//delete
+
 
 	// load_xmp_texture();
 	// convert_rgb();

@@ -21,23 +21,23 @@
 
 typedef struct s_pre_data
 {
-	// char	**cub_file;
-	int					y_max;
-	int					x_max;
+	char				*cub_file_name;
 	char				**north_arv;//char ** 로 담았다가 아래서 주자
 	char				**south_arv;
 	char				**west_arv;
 	char				**east_arv;
-	int					floor_color;//int ? uns int?
-	int					ceiling_color;
-	int					cub_file_fd;
-	char				**map;
+	char				**floor_color_arv;//int ? uns int?
+	char				**ceiling_color_arv;//놈이 문제라면 이름 줄이기
+	// int					cub_file_fd;
+	char				**map_to_check;
 	struct s_map_info	*map_info;
 }	t_pre_data;
 
 typedef struct s_map_info
 {
-	char	**map;
+	int					y_max;
+	int					x_max;
+	char	**map;//메모리 최적화가 필요하다면 빈 줄, 공백 없앤 맵을 보내줄 수 있음.
 	void	*north;
 	void	*south;
 	void	*west;
@@ -46,12 +46,16 @@ typedef struct s_map_info
 	int		ceiling_color;
 }	t_map_info;
 
+/* test_code.c *///delete
+void	map_info_print(t_map_info *map_info);
+
 /* preprocess.c */
 void	preprocess(t_pre_data *data, t_map_info *map_info, int arc, char **arv);
-void	init_pre_data(t_pre_data *data, t_map_info *map_info);
+void	init_pre_data(t_pre_data *data, t_map_info *map_info, char **arv);
 void	parse_cub_file(t_pre_data *data);//process_map_file.c
 int		get_map_info(t_pre_data *data, char *line);//process_map_file.c
-void	get_map(t_pre_data *data, t_map_info *map_info, char *line);//process_map_file.c
+void	make_map_space(t_pre_data *data, int offset);//process_map_file.c
+void	get_map(t_pre_data *data, t_map_info *map_info, char *line, int offset);//process_map_file.c
 void	check_arv(t_pre_data *data, int arc, char **arv);
 // void	check_map_info(t_pre_data *data);
 // char	**parse_file_to_strings(char *file);
@@ -67,10 +71,12 @@ void	free_double(char ***p);
 
 
 /* str_func.c */
-int		ft_strlen(char *s);
-char	*ft_strjoin(char *s1, char *s2);
+int		ft_strlen(char *s);//my_ 이름 바꾸기
+char	*ft_strjoin(char *s1, char *s2);//my_ 이름 바꾸기
 int		my_strlcpy(char *dst, char *src, int dstsize);
-int		ft_strcmp(char *s1, char *s2);
+int		ft_strcmp(char *s1, char *s2);//my_ 이름 바꾸기
+char	*my_strdup(char *s1);
+
 
 /* split.c */
 char	**ft_split(char *s, char *sepa);
