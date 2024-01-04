@@ -5,6 +5,8 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <unistd.h>
+# include "mlx.h"
+
 
 # define MANY_ARG "too many argument"
 # define FEW_ARG "too few argument"
@@ -42,6 +44,8 @@ typedef struct s_map_info
 	void	*south;
 	void	*west;
 	void	*east;
+	void	*mlx;
+	void	*win;
 	int		floor_color;
 	int		ceiling_color;
 }	t_map_info;
@@ -51,17 +55,20 @@ void	map_info_print(t_map_info *map_info);
 
 /* preprocess.c */
 void	preprocess(t_pre_data *data, t_map_info *map_info, int arc, char **arv);
-void	init_pre_data(t_pre_data *data, t_map_info *map_info, char **arv);
-void	parse_cub_file(t_pre_data *data);//process_map_file.c
-int		get_map_info(t_pre_data *data, char *line);//process_map_file.c
-void	make_map_space(t_pre_data *data, int offset);//process_map_file.c
-void	get_map(t_pre_data *data, t_map_info *map_info, char *line, int offset);//process_map_file.c
+void	init_pre_struct(t_pre_data *data, t_map_info *map_info, char **arv);
 void	check_arv(t_pre_data *data, int arc, char **arv);
 // void	check_map_info(t_pre_data *data);
 // char	**parse_file_to_strings(char *file);
 // char	**get_map(t_pre_data *data, char *file);
 
+/* ./src/parse_map.c */
+void	parse_cub_file(t_pre_data *data);
+int		get_map_info(t_pre_data *data, char *line);
+void	make_map_space(t_pre_data *data, int offset);
+void	get_map(t_pre_data *data, t_map_info *map_info, char *line, int offset);
 
+/* convert_map_data.c */
+void	load_xpm_texture(t_pre_data *data, t_map_info *map_info);
 
 /* util.c */
 void	exit_error(char *str, char *reason);

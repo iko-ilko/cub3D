@@ -2,6 +2,8 @@ CC = cc -g3 -fsanitize=address
 # -Wall -Wextra -Werror
 SRCS = ./src/main.c \
 		./src/preprocess.c \
+		./src/parse_map.c \
+		./src/convert_map_data.c \
 		./src/utils.c \
 		./src/str_src/str_func1.c \
 		./src/str_src/split.c \
