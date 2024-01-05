@@ -6,6 +6,7 @@ SRCS = ./src/main.c \
 		./src/convert_map_data.c \
 		./src/utils.c \
 		./src/str_src/str_func1.c \
+		./src/str_src/str_func2.c \
 		./src/str_src/split.c \
 		./src/get_next_line_func/get_next_line.c \
 		./src/get_next_line_func/get_next_line_utils.c \

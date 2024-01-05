@@ -5,6 +5,8 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <unistd.h>
+# include <errno.h>
+# include <string.h>
 # include "mlx.h"
 
 
@@ -14,7 +16,9 @@
 # define EMPTY_FILE "empty file"
 # define MALLOC_FAILED "malloc_failed"
 # define FILE_NAME_ERROR "file name error"
-# define MAP_INFO_LINE_ERROR "map_info_error"
+# define MAP_INFO_LINE_ERROR "map info error"
+# define RGB_VALUE_ERROR "invaild rgb value"
+# define RGB_COUNT_ERROR "invaild rgb count"
 // # define DUPLICATE_ELEMANT "duplicate elements"
 
 # define MAP_SIZE_ERROR 3
@@ -68,7 +72,11 @@ void	make_map_space(t_pre_data *data, int offset);
 void	get_map(t_pre_data *data, t_map_info *map_info, char *line, int offset);
 
 /* convert_map_data.c */
+void	sanitize_filename(t_pre_data *data);
 void	load_xpm_texture(t_pre_data *data, t_map_info *map_info);
+int		convert_rgb_int(char **rgb_str);
+void	convert_rgb(t_pre_data *data, t_map_info *map_info);
+
 
 /* util.c */
 void	exit_error(char *str, char *reason);
@@ -77,12 +85,15 @@ void	free_double(char ***p);
 
 
 
-/* str_func.c */
+/* str_func1.c */
 int		ft_strlen(char *s);//my_ 이름 바꾸기
 char	*ft_strjoin(char *s1, char *s2);//my_ 이름 바꾸기
 int		my_strlcpy(char *dst, char *src, int dstsize);
 int		ft_strcmp(char *s1, char *s2);//my_ 이름 바꾸기
 char	*my_strdup(char *s1);
+
+/* str_func2.c */
+int		my_atoi(char *str);
 
 
 /* split.c */

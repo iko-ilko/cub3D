@@ -67,11 +67,11 @@ void	preprocess(t_pre_data *data, t_map_info *map_info, int arc, char **arv)
 	window_init(map_info);
 	check_arv(data, arc, arv);//need to check
 	parse_cub_file(data);
-	// load_xmp_texture(data, map_info);
+	load_xpm_texture(data, map_info);
+	convert_rgb(data, map_info);
 									map_info_print(map_info);//delete
 
 
-	// convert_rgb();
 	// check_map();//여기서 map_info->map = data->map;
 	// free_pre_data();//map_info 와 map은 free XXXXX
 

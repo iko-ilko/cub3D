@@ -9,6 +9,8 @@ void	map_info_print(t_map_info *map_info)
 	printf("south texture pointer: %p\n", map_info->south);
 	printf("west texture pointer: %p\n", map_info->west);
 	printf("east texture pointer: %p\n", map_info->east);
+	printf("ceiling RED: %d GREEN: %d BLUE: %d\n", map_info->ceiling_color / 256 / 256 % 256, map_info->ceiling_color / 256 % 256, map_info->ceiling_color % 256);
+	printf("floor RED: %d GREEN: %d BLUE: %d\n", map_info->floor_color / 256 / 256 % 256, map_info->floor_color / 256 % 256, map_info->floor_color % 256);
 	int i;
 	for (i = 0; map != NULL && map[i] != NULL; i++)
 		printf("%s", map[i]);
