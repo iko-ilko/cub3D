@@ -19,11 +19,21 @@
 # define MAP_INFO_LINE_ERROR "map info error"
 # define RGB_VALUE_ERROR "invaild rgb value"
 # define RGB_COUNT_ERROR "invaild rgb count"
+# define INVAILD_LETTER "invalid map letter"
 // # define DUPLICATE_ELEMANT "duplicate elements"
 
 # define MAP_SIZE_ERROR 3
 # define MAP_ERROR 5
 # define MLX_ERROR 6
+
+# define Y 0
+# define X 1
+
+# define SANG 0 //UP
+# define HA 1 //DOWN
+# define JOA 2 //LEFT
+# define WOO 3 //RIGHT
+
 
 typedef struct s_pre_data
 {
@@ -35,7 +45,7 @@ typedef struct s_pre_data
 	char				**floor_color_arv;//int ? uns int?
 	char				**ceiling_color_arv;//놈이 문제라면 이름 줄이기
 	// int					cub_file_fd;
-	char				**map_to_check;
+	// char				**remap;
 	struct s_map_info	*map_info;
 }	t_pre_data;
 
@@ -66,6 +76,7 @@ void	check_arv(t_pre_data *data, int arc, char **arv);
 // char	**get_map(t_pre_data *data, char *file);
 
 /* ./src/parse_map.c */
+void	check_last_line_ln(char ***info_map, int y_max);
 void	parse_cub_file(t_pre_data *data);
 int		get_map_info(t_pre_data *data, char *line);
 void	make_map_space(t_pre_data *data, int offset);
@@ -76,6 +87,11 @@ void	sanitize_filename(t_pre_data *data);
 void	load_xpm_texture(t_pre_data *data, t_map_info *map_info);
 int		convert_rgb_int(char **rgb_str);
 void	convert_rgb(t_pre_data *data, t_map_info *map_info);
+
+/* check_map.c */
+// void	remake_map(t_pre_data *data, t_map_info *map_info,char **map);
+void	check_map(char **map, int y_max, int x_max);
+
 
 
 /* util.c */
@@ -94,6 +110,7 @@ char	*my_strdup(char *s1);
 
 /* str_func2.c */
 int		my_atoi(char *str);
+char	*ft_strcpy(char *dest, char *src);
 
 
 /* split.c */

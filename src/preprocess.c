@@ -11,7 +11,7 @@ void	init_pre_struct(t_pre_data *data, t_map_info *map_info, char **arv)
 	data->east_arv = NULL;
 	data->floor_color_arv = NULL;
 	data->ceiling_color_arv = NULL;
-	data->map_to_check = NULL;
+	// data->remap = NULL;
 	data->map_info = map_info;
 	map_info->y_max = 0;
 	map_info->x_max = 0;
@@ -34,9 +34,9 @@ void	check_arv(t_pre_data *data, int arc, char **arv)
 	int	idx;
 
 	if (arc == 1)
-		exit_error(MANY_ARG, NULL);
-	if (arc > 2)
 		exit_error(FEW_ARG, NULL);
+	if (arc > 2)
+		exit_error(MANY_ARG, NULL);
 	i = 1;
 	if (ft_strlen(arv[1]) < 5)
 		exit_error(FILE_NAME_ERROR, arv[1]);
@@ -58,7 +58,7 @@ void	check_arv(t_pre_data *data, int arc, char **arv)
 void	window_init(t_map_info *map_info)
 {
 	map_info->mlx = mlx_init();
-	map_info->win = mlx_new_window(map_info->mlx, 500, 1000, "cub3D_test");
+	map_info->win = mlx_new_window(map_info->mlx, 1000, 500, "cub3D_test");
 }
 
 void	preprocess(t_pre_data *data, t_map_info *map_info, int arc, char **arv)
@@ -69,11 +69,13 @@ void	preprocess(t_pre_data *data, t_map_info *map_info, int arc, char **arv)
 	parse_cub_file(data);
 	load_xpm_texture(data, map_info);
 	convert_rgb(data, map_info);
+	check_map(map_info->map, map_info->y_max, map_info->x_max);여기 수정해야함, gnl 말록 함수 바꿔
+	printf("???????????????????????????????????????????\n");
+	
 									map_info_print(map_info);//delete
 
 
-	// check_map();//여기서 map_info->map = data->map;
-	// free_pre_data();//map_info 와 map은 free XXXXX
+	// free_pre_data();//map_info  free XXXXX
 
 	// check_map_info(data);//check "NO" "SO" . . . . || "F" "C"
 	// check_map_data();//ㄱㅗㅇ배ㄱ split하고 체크해봐도 될듯? 섬맵 살릴 수 ..아니다 그럼 벽 검사가 불가능해진다.. 각각 체크 해 봐야 할듯

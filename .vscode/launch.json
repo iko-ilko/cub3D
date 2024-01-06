@@ -1,13 +1,19 @@
 {
   "version": "0.2.0",
   "configurations": [
+	// {
+	// 	"type": "lldb",
+	// 	"request": "attach",
+	// 	"name": "Attach",
+	// 	"program": "/Users/ilko/Desktop/cub3D"
+	// },
     {
       "name": "C/C++ Runner: Debug Session",
       "type": "lldb",
       "request": "launch",
-      "args": [],
+      "args": ["./map/test_map.cub", "1"],
       "cwd": "/Users/ilko/Desktop/cub3D",
-      "program": "/Users/ilko/Desktop/cub3D/build/Debug/outDebug"
+      "program": "/Users/ilko/Desktop/cub3D"
     }
   ]
 }

@@ -6,7 +6,7 @@
 /*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 20:58:34 by ilko              #+#    #+#             */
-/*   Updated: 2023/12/31 23:47:38 by ilko             ###   ########.fr       */
+/*   Updated: 2024/01/06 21:40:30 by ilko             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,15 @@
 
 typedef struct s_back_list
 {
-	char	*str;
-	int		len;
+	char				*str;
+	int					len;
+	int					fd;
+	struct s_back_list	*next;
 }	t_list;
 
 char	*get_next_line(int fd);
-char	*ft_strndup_gnl(const char *s1, int len);
-void	*if_error_gnl(t_list *backup);
+void	*if_error_gnl(t_list **backup, t_list **cur_back);
+char	*my_strndup_gnl(const char *s1, int len);
+t_list	*check_fd_list(t_list **backup, int fd);
 
 #endif

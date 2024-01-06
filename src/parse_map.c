@@ -62,9 +62,38 @@ void	get_map(t_pre_data *data, t_map_info *map_info, char *line, int offset)
 		return ;
 	if (map_info->y_max == 0)
 		make_map_space(data, offset);
+	// printf("y_max: %d line: %s", map_info->y_max, line);
 	map_info->map[map_info->y_max++] = my_strdup(line);
 	if (map_info->x_max < ft_strlen(line))
 		map_info->x_max = ft_strlen(line);
+}
+
+void	check_last_line_ln(char ***info_map, int y_max)
+{
+	int		i;
+	char	**map;
+	char	*temp;
+	int		len;
+
+	map = *info_map;
+	i = 0;
+	while (map[i])
+	{
+		len = (ft_strlen(map[i]));
+		i++;
+		if (map[i] == NULL && map[i - 1][len] == '\0')
+		{
+			temp = malloc(sizeof(char) * len + 2);
+			if (temp == NULL)
+				exit_error(MALLOC_FAILED, NULL);
+			ft_strcpy(temp, map[i - 1]);
+			temp[len] = '\n';
+			temp[len + 1] = '\0';
+			single_free(&map[i]);
+			map[i - 1] = temp;
+			break ;
+		}
+	}
 }
 
 void	parse_cub_file(t_pre_data *data)
@@ -79,6 +108,19 @@ void	parse_cub_file(t_pre_data *data)
 		exit_error(OPEN_ERROR, data->cub_file_name);
 	cnt = 0;
 	offset = 0;
+	// while (1)
+	// {
+	// 	line = get_next_line(fd);
+	// 	if (line == NULL)
+	// 		break ;
+	// 	printf("line:%s", line);
+	// 	// if (cnt == 6){printf("line:%s", line);
+	// 	// 	get_map(data, data->map_info, line, offset);}
+	// 	// else if (get_map_info(data, line) != -1)
+	// 	// 	cnt++;
+	// 	single_free(&line);
+	// }
+	// exit (1);
 	while (1)
 	{
 		line = get_next_line(fd);
@@ -92,4 +134,11 @@ void	parse_cub_file(t_pre_data *data)
 		offset++;
 	}
 	close(fd);
+	// printf("========================1doen ======\n");
+	// for (int k = 0; data->map_info->map[k]; k++)
+	// 	printf("%s", data->map_info->map[k]);
+	printf("========================1doen ======\n");
+	check_last_line_ln(&data->map_info->map, data->map_info->y_max);//need to check
+		for (int k = 0; data->map_info->map[k]; k++)
+		printf("%s", data->map_info->map[k]);
 }
