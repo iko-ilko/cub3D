@@ -45,7 +45,7 @@ typedef struct s_pre_data
 	char				**floor_color_arv;//int ? uns int?
 	char				**ceiling_color_arv;//놈이 문제라면 이름 줄이기
 	// int					cub_file_fd;
-	// char				**remap;
+	char				**remap;
 	struct s_map_info	*map_info;
 }	t_pre_data;
 
@@ -89,7 +89,7 @@ int		convert_rgb_int(char **rgb_str);
 void	convert_rgb(t_pre_data *data, t_map_info *map_info);
 
 /* check_map.c */
-// void	remake_map(t_pre_data *data, t_map_info *map_info,char **map);
+void	remake_map(t_pre_data *data, t_map_info *map_info,char **map);
 void	check_map(char **map, int y_max, int x_max);
 
 

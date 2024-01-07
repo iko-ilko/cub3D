@@ -11,7 +11,7 @@ void	init_pre_struct(t_pre_data *data, t_map_info *map_info, char **arv)
 	data->east_arv = NULL;
 	data->floor_color_arv = NULL;
 	data->ceiling_color_arv = NULL;
-	// data->remap = NULL;
+	data->remap = NULL;
 	data->map_info = map_info;
 	map_info->y_max = 0;
 	map_info->x_max = 0;
@@ -69,8 +69,9 @@ void	preprocess(t_pre_data *data, t_map_info *map_info, int arc, char **arv)
 	parse_cub_file(data);
 	load_xpm_texture(data, map_info);
 	convert_rgb(data, map_info);
-	check_map(map_info->map, map_info->y_max, map_info->x_max);여기 수정해야함, gnl 말록 함수 바꿔
-	printf("???????????????????????????????????????????\n");
+	remake_map(data, map_info, map_info->map);
+
+	check_map(map_info->map, map_info->y_max, map_info->x_max);
 	
 									map_info_print(map_info);//delete
 

@@ -134,11 +134,4 @@ void	parse_cub_file(t_pre_data *data)
 		offset++;
 	}
 	close(fd);
-	// printf("========================1doen ======\n");
-	// for (int k = 0; data->map_info->map[k]; k++)
-	// 	printf("%s", data->map_info->map[k]);
-	printf("========================1doen ======\n");
-	check_last_line_ln(&data->map_info->map, data->map_info->y_max);//need to check
-		for (int k = 0; data->map_info->map[k]; k++)
-		printf("%s", data->map_info->map[k]);
 }
