@@ -4,7 +4,7 @@ void	exit_error(char *str, char *reason)
 {
 	printf("Error\n");
 	if (reason != NULL)
-		printf("%s: %s\n", str, reason);
+		printf("%s: %s", str, reason);// ㄱㅐ해ㅇ이 필필요요한  상상황  있있는는지  체체크크
 	else
 		printf("%s\n", str);
 	exit(1);
@@ -18,7 +18,7 @@ void	single_free(char **p)//ㅍㅣㄹ요시 void *
 	*p = NULL;
 }
 
-void	free_double(char ***p)
+void	double_free(char ***p)
 {
 	int	i;
 

@@ -1,11 +1,7 @@
-NO textures/Pac-Man/Ghosts/K/ghost_right1.xpm
-NO textures/Pac-Man/Ghosts/K/ghost_right2.xpm
-SO textures/Pac-Man/Ghosts/R/ghost_right1.xpm
-SO textures/Pac-Man/Ghosts/R/ghost_right2.xpm
-EA textures/Pac-Man/Ghosts/G/ghost_right1.xpm
-EA textures/Pac-Man/Ghosts/G/ghost_right2.xpm
-WE textures/Pac-Man/Ghosts/B/ghost_right1.xpm
-WE textures/Pac-Man/Ghosts/B/ghost_right2.xpm
+NO ./texture/north_wall.xpm
+SO ./texture/south_wall.xpm
+WE ./texture/west_wall.xpm
+EA ./texture/east_wall.xpm
 
 F 0,0,0
 C 0,0,0

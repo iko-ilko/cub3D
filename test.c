@@ -1,10 +1,10 @@
 #include <stdio.h>
-char	**ft_split(char *s, char *sepa);
+char	**my_split(char *s, char *sepa);
 
 int main()
 {
 	
-	char **temp = ft_split(NULL, ", .a");
+	char **temp = my_split(NULL, ", .a");
 	if (temp == NULL)
 		printf("NULL\n");
 

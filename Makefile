@@ -3,7 +3,7 @@ CC = cc -g3 -fsanitize=address
 SRCS = ./src/main.c \
 		./src/preprocess.c \
 		./src/parse_map.c \
-		./src/convert_map_data.c \
+		./src/convert_map_info.c \
 		./src/check_map.c \
 		./src/utils.c \
 		./src/str_src/str_func1.c \

@@ -1,6 +1,6 @@
 #include "../../include/cub3d.h"
 
-int	ft_strlen(char *s)
+int	my_strlen(char *s)
 {
 	int	len;
 
@@ -12,13 +12,13 @@ int	ft_strlen(char *s)
 	return (len);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*my_strjoin(char *s1, char *s2)
 {
 	int		i;
 	int		all_len;
 	char	*res;
 
-	all_len = ft_strlen(s1) + ft_strlen(s2);
+	all_len = my_strlen(s1) + my_strlen(s2);
 	res = malloc(sizeof(char) * (all_len + 1));
 	if (res == 0)
 		exit_error("malloc failed", NULL);
@@ -53,7 +53,8 @@ int	my_strlcpy(char *dst, char *src, int dstsize)
 	dst[i] = '\0';
 	return (src_len);
 }
-int	ft_strcmp(char *s1, char *s2)
+
+int	my_strcmp(char *s1, char *s2)
 {
 	while (*s1 || *s2)
 	{
@@ -73,7 +74,7 @@ char	*my_strdup(char *s1)
 
 	if (s1 == NULL)
 		return (NULL);
-	len = ft_strlen(s1);
+	len = my_strlen(s1);
 	res = malloc(sizeof(char) * (len + 1));
 	if (res == 0)
 		exit_error(MALLOC_FAILED, NULL);

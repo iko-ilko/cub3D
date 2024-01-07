@@ -1,31 +1,7 @@
-NO textures/Pac-Man/Ghosts/Panic/ghost_panic1a.xpm
-NO textures/Pac-Man/Ghosts/Panic/ghost_panic1b.xpm
-NO textures/Pac-Man/Ghosts/Panic/ghost_panic2a.xpm
-NO textures/Pac-Man/Ghosts/Panic/ghost_panic2b.xpm
-SO textures/Pac-Man/pac_open_right.xpm
-SO textures/Pac-Man/pac_semi_right.xpm
-SO textures/Pac-Man/pac_closed.xpm
-SO textures/Pac-Man/pac_semi_right.xpm
-EA textures/Pac-Man/Dying/pacman_dying1.xpm
-EA textures/Pac-Man/Dying/pacman_dying2.xpm
-EA textures/Pac-Man/Dying/pacman_dying3.xpm
-EA textures/Pac-Man/Dying/pacman_dying4.xpm
-EA textures/Pac-Man/Dying/pacman_dying5.xpm
-EA textures/Pac-Man/Dying/pacman_dying6.xpm
-EA textures/Pac-Man/Dying/pacman_dying7.xpm
-EA textures/Pac-Man/Dying/pacman_dying8.xpm
-EA textures/Pac-Man/Dying/pacman_dying9.xpm
-EA textures/Pac-Man/Dying/pacman_dying10.xpm
-EA textures/black.xpm
-EA textures/Pac-Man/Dying/pacman_woosh.xpm
-EA textures/black.xpm
-EA textures/black.xpm
-EA textures/Pac-Man/Dying/pacman_woosh.xpm
-EA textures/black.xpm
-WE textures/Pac-Man/pac_open_left.xpm
-WE textures/Pac-Man/pac_semi_left.xpm
-WE textures/Pac-Man/pac_closed.xpm
-WE textures/Pac-Man/pac_semi_left.xpm
+NO ./texture/north_wall.xpm
+SO ./texture/south_wall.xpm
+WE ./texture/west_wall.xpm
+EA ./texture/east_wall.xpm
 
 
 F 0,0,0

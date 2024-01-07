@@ -9,10 +9,11 @@ void	init_pre_struct(t_pre_data *data, t_map_info *map_info, char **arv)
 	data->south_arv = NULL;
 	data->west_arv = NULL;
 	data->east_arv = NULL;
-	data->floor_color_arv = NULL;
-	data->ceiling_color_arv = NULL;
+	data->floor_arv = NULL;
+	data->ceiling_arv = NULL;
 	data->remap = NULL;
 	data->map_info = map_info;
+	map_info->map = NULL;
 	map_info->y_max = 0;
 	map_info->x_max = 0;
 	map_info->north = NULL;///////////사실상 값 바로 넣으니 초기화 안해도됨
@@ -38,7 +39,7 @@ void	check_arv(t_pre_data *data, int arc, char **arv)
 	if (arc > 2)
 		exit_error(MANY_ARG, NULL);
 	i = 1;
-	if (ft_strlen(arv[1]) < 5)
+	if (my_strlen(arv[1]) < 5)
 		exit_error(FILE_NAME_ERROR, arv[1]);
 	while (i < arc)
 	{
@@ -53,12 +54,22 @@ void	check_arv(t_pre_data *data, int arc, char **arv)
 	if (arv[1][idx - 5] == '/')
 		exit_error(FILE_NAME_ERROR, arv[1]);
 	data->cub_file_name = my_strdup(arv[1]);
-	// data->cub_file = parse_file_to_strings(arv[1]);
 }
 void	window_init(t_map_info *map_info)
 {
 	map_info->mlx = mlx_init();
 	map_info->win = mlx_new_window(map_info->mlx, 1000, 500, "cub3D_test");
+}
+void	clear_pre_data(t_pre_data *data)
+{
+	single_free(&data->cub_file_name);
+	double_free(&data->north_arv);
+	double_free(&data->south_arv);
+	double_free(&data->west_arv);
+	double_free(&data->east_arv);
+	double_free(&data->floor_arv);
+	double_free(&data->ceiling_arv);
+	double_free(&data->remap);
 }
 
 void	preprocess(t_pre_data *data, t_map_info *map_info, int arc, char **arv)
@@ -67,22 +78,13 @@ void	preprocess(t_pre_data *data, t_map_info *map_info, int arc, char **arv)
 	window_init(map_info);
 	check_arv(data, arc, arv);//need to check
 	parse_cub_file(data);
+	check_last_line_ln(&map_info->map, map_info->y_max);
 	load_xpm_texture(data, map_info);
 	convert_rgb(data, map_info);
 	remake_map(data, map_info, map_info->map);
+	check_map(data->remap, map_info->y_max, map_info->x_max);
+	clear_pre_data(data);
 
-	check_map(map_info->map, map_info->y_max, map_info->x_max);
-	
-									map_info_print(map_info);//delete
+	map_info_print(map_info);//delete
 
-
-	// free_pre_data();//map_info  free XXXXX
-
-	// check_map_info(data);//check "NO" "SO" . . . . || "F" "C"
-	// check_map_data();//ㄱㅗㅇ배ㄱ split하고 체크해봐도 될듯? 섬맵 살릴 수 ..아니다 그럼 벽 검사가 불가능해진다.. 각각 체크 해 봐야 할듯
-			//check_map_data()ㄴㅡㄴ ㄷㅗㅇ영형님의 말씀대로 맵 데이터 구역을 벽으로 감싼다음 dfs로 player를 만나는지 체크하면 벽에 구멍났는지 체크 가능, player위치에서 dfs다시 돌리며 다른 문자 체크.
-			//ㄴ-> 사방에 라인 추가하고 0으로 채우고 dfs-> 플레이어 만나면(4개의 문자) 벽이 감싸져있는게 아니므로 에러.
-	// data->map = get_map(data, arv[1]);//need to change (not so_long ..)
-	// for (int i = 0; data->map[i]; i++)
-	// 	printf("%s", data->map[i]);
 }

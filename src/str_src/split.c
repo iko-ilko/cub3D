@@ -67,7 +67,7 @@ static char	**make_chspace(char *s, char *separators, char **res)
 	return (res);
 }
 
-char	**ft_split(char *s, char *sepa)
+char	**my_split(char *s, char *sepa)
 {
 	char	**res;
 	int		wdcnt;

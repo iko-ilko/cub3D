@@ -1,6 +1,6 @@
 #include "../../include/cub3d.h"
 
-int	my_atoi(char *str)
+int	my_atoi_cub(char *str)
 {
 	int	result;
 	int	sign;
@@ -12,11 +12,15 @@ int	my_atoi(char *str)
 		sign = 44 - *str++;
 	result = 0;
 	while (*str >= '0' && *str <= '9')
+	{
 		result = result * 10 + *(str++) - '0';
+		if (result / 1000 > 0)
+			exit_error(RGB_VALUE_ERROR, str);
+	}
 	return (result * sign);
 }
 
-char	*ft_strcpy(char *dest, char *src)
+char	*my_strcpy(char *dest, char *src)
 {
 	int	i;
 

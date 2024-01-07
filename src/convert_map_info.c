@@ -45,7 +45,7 @@ void	load_xpm_texture(t_pre_data *data, t_map_info *map)
 		exit_error(strerror(errno), "east texture");
 }
 
-int		convert_rgb_int(char **rgb_str)
+int	convert_rgb_int(char **rgb_str, char *line)
 {
 	int	i;
 	int	res;
@@ -55,14 +55,16 @@ int		convert_rgb_int(char **rgb_str)
 	res = 0;
 	while (rgb_str[i] != NULL)
 	{
-		temp = my_atoi(rgb_str[i]);
+		if (rgb_str[i][0] == '\n')
+			exit_error(RGB_VALUE_ERROR, line);
+		temp = my_atoi_cub(rgb_str[i]);
 		if (temp < 0 || temp > 255)
-			exit_error(RGB_VALUE_ERROR, NULL);
+			exit_error(RGB_VALUE_ERROR, line);
 		res = res * 256 + temp;
 		i++;
 	}
 	if (i != 3)
-		exit_error(RGB_COUNT_ERROR, NULL);
+		exit_error(RGB_COUNT_ERROR, line);
 	return (res);
 }
 
@@ -70,12 +72,11 @@ void	convert_rgb(t_pre_data *data, t_map_info *map_info)
 {
 	char	**rgb_str;
 
-	rgb_str = ft_split(data->ceiling_color_arv[1], ",");
-	map_info->ceiling_color = convert_rgb_int(rgb_str);
-	free_double(&rgb_str);
+	rgb_str = my_split(data->ceiling_arv[1], ",");
+	map_info->ceiling_color = convert_rgb_int(rgb_str, data->ceiling_arv[1]);
+	double_free(&rgb_str);
 
-	rgb_str = ft_split(data->floor_color_arv[1], ",");
-	map_info->floor_color = convert_rgb_int(rgb_str);
-	free_double(&rgb_str);
-
+	rgb_str = my_split(data->floor_arv[1], ",");
+	map_info->floor_color = convert_rgb_int(rgb_str, data->floor_arv[1]);
+	double_free(&rgb_str);
 }
