@@ -11,10 +11,6 @@ SRCS = ./src/main.c \
 		./src/str_src/split.c \
 		./src/get_next_line_func/get_next_line.c \
 		./src/get_next_line_func/get_next_line_utils.c \
-		\
-		\
-		\
-		./test_code.c
 
 NAME = cub3D
 INCLUDE = -I./include

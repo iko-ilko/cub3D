@@ -22,7 +22,6 @@
 # define INVAILD_LETTER "invalid map letter"
 # define BREACHED_MAP "breached map"
 # define MANY_PLAYER_LETTER "many player letter"
-// # define DUPLICATE_ELEMANT "duplicate elements"
 
 # define MAP_SIZE_ERROR 3
 # define MAP_ERROR 5
@@ -69,8 +68,6 @@ typedef struct s_map_info
 }	t_map_info;
 
 
-/* test_code.c *///delete//delete//delete//delete//delete
-void	map_info_print(t_map_info *map_info);
 
 /* preprocess.c */
 void	preprocess(t_pre_data *data, t_map_info *map_info, int arc, char **arv);
@@ -110,10 +107,10 @@ void	double_free(char ***p);
 
 
 /* str_func1.c */
-int		my_strlen(char *s);//my_ 이름 바꾸기
-char	*my_strjoin(char *s1, char *s2);//my_ 이름 바꾸기
+int		my_strlen(char *s);
+char	*my_strjoin(char *s1, char *s2);
 int		my_strlcpy(char *dst, char *src, int dstsize);
-int		my_strcmp(char *s1, char *s2);//my_ 이름 바꾸기
+int		my_strcmp(char *s1, char *s2);
 char	*my_strdup(char *s1);
 
 /* str_func2.c */

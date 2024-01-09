@@ -28,19 +28,20 @@ void	load_xpm_texture(t_pre_data *data, t_map_info *info, t_image image[4])
 	int	h;
 
 	sanitize_filename(data);
-	image[NORTH].img = mlx_xpm_file_to_image(info->mlx, data->north_arv[1], &image[NORTH].width, &image[NORTH].height);
+	image[NORTH].img = mlx_xpm_file_to_image(info->mlx, data->north_arv[1], \
+		&image[NORTH].width, &image[NORTH].height);
 	if (image[NORTH].img == NULL)
 		exit_error(strerror(errno), "north texture");
-
-	image[SOUTH].img = mlx_xpm_file_to_image(info->mlx, data->south_arv[1], &image[SOUTH].width, &image[SOUTH].height);
+	image[SOUTH].img = mlx_xpm_file_to_image(info->mlx, data->south_arv[1], \
+		&image[SOUTH].width, &image[SOUTH].height);
 	if (image[SOUTH].img == NULL)
 		exit_error(strerror(errno), "south texture");
-
-	image[WEST].img = mlx_xpm_file_to_image(info->mlx, data->west_arv[1], &image[WEST].width, &image[WEST].height);
+	image[WEST].img = mlx_xpm_file_to_image(info->mlx, data->west_arv[1], \
+		&image[WEST].width, &image[WEST].height);
 	if (image[WEST].img == NULL)
 		exit_error(strerror(errno), "west texture");
-
-	image[EAST].img = mlx_xpm_file_to_image(info->mlx, data->east_arv[1], &image[EAST].width, &image[EAST].height);
+	image[EAST].img = mlx_xpm_file_to_image(info->mlx, data->east_arv[1], \
+		&image[EAST].width, &image[EAST].height);
 	if (image[EAST].img == NULL)
 		exit_error(strerror(errno), "east texture");
 }
