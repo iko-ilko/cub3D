@@ -69,7 +69,7 @@ void	preprocess(t_pre_data *data, t_map_info *map_info, int arc, char **arv)
 	check_arv(data, arc, arv);
 	parse_cub_file(data);
 	check_last_line_ln(&map_info->map, map_info->y_max);
-	load_xpm_texture(data, map_info, &map_info->image);
+	load_xpm_texture(data, map_info, map_info->image);
 	convert_rgb(data, map_info);
 	remake_map(data, map_info, map_info->map);
 	check_map(data->remap, map_info->y_max, map_info->x_max);
