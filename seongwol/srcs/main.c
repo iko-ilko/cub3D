@@ -12,29 +12,10 @@
 
 #include "../includes/execute.h"
 
-t_player	get_player_data(char map[10][])
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (i < 9)
-	{
-		while (j < 0)
-		{
-			if (/*동서남북*/)
-				retrurn (/*동서남북*/);
-			j++:
-		}
-		i++;
-	}
-}
-
 int main(int ac, char **av)
 {
 	t_data	img;
-	t_player player;
+	t_vector player;
 
 	 char	map[10][10] = {
 	 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -54,9 +35,10 @@ int main(int ac, char **av)
 	img.mlx_win = mlx_new_window(img.mlx, WIN_HOR, WIN_VER, "cub3d");
 	img.img = mlx_new_image(img.mlx, WIN_HOR, WIN_VER);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
-	player = get_player_data(map);
-//	make_plane_vector(map, player);
-//	make_
+	/* 플레이어의 좌표를 받아오고, 바라보는 시야 벡터와 함께 리턴한다. */
+	/* 시야 벡터를 바탕으로 플레인 벡터를 만들어서, 들고있는다. */
+	/* while 문 */
+	/* */
 	mlx_put_image_to_window(img.mlx, img.mlx_win, img.img, 0, 0);
 	mlx_hook(img.mlx_win, 2, 0, ft_key_action, &img);
 	mlx_loop(img.mlx);
