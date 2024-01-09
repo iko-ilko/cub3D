@@ -39,13 +39,13 @@ void	check_route(char **map, int idx[2], int max[2], int flag)
 		return ;
 	if (map[idx[Y]][idx[X]] == ' ')
 		exit_error(BREACHED_MAP, map[idx[Y]]);
-	if (flag == SANG && idx[Y]--)
+	if (flag == NORTH && idx[Y]--)
 		check_route(map, idx, max, flag);
-	else if (flag == HA && idx[Y]++)
+	else if (flag == SOUTH && idx[Y]++)
 		check_route(map, idx, max, flag);
-	else if (flag == JOA && idx[X]--)
+	else if (flag == WEST && idx[X]--)
 		check_route(map, idx, max, flag);
-	else if (flag == WOO && idx[X]++)
+	else if (flag == EAST && idx[X]++)
 		check_route(map, idx, max, flag);
 }
 
@@ -55,16 +55,16 @@ void	check_vaild_route(char **map, int idx[2], int max[2])
 
 	i[Y] = idx[Y];
 	i[X] = idx[X];
-	check_route(map, i, max, SANG);
+	check_route(map, i, max, NORTH);
 	i[Y] = idx[Y];
 	i[X] = idx[X];
-	check_route(map, i, max, HA);
+	check_route(map, i, max, SOUTH);
 	i[Y] = idx[Y];
 	i[X] = idx[X];
-	check_route(map, i, max, JOA);
+	check_route(map, i, max, WEST);
 	i[Y] = idx[Y];
 	i[X] = idx[X];
-	check_route(map, i, max, WOO);
+	check_route(map, i, max, EAST);
 }
 
 void	check_vaild_letter(char c, char *line, int *player_cnt)

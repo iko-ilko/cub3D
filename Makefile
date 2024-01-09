@@ -1,4 +1,4 @@
-CC = cc -g3 -fsanitize=address
+CC = cc -g3
 # -Wall -Wextra -Werror
 SRCS = ./src/main.c \
 		./src/preprocess.c \
@@ -19,6 +19,10 @@ SRCS = ./src/main.c \
 NAME = cub3D
 INCLUDE = -I./include
 OBJS = $(SRCS:.c=.o)
+
+ifneq "$(findstring d, $(MAKECMDGOALS))" ""
+	CFLAGS += -g3 -fsanitize=address
+endif
 
 # BONUS_SRCS =
 # BONUS_NAME = so_long_bonus
@@ -49,5 +53,6 @@ fclean: clean
 	rm -rf $(NAME) $(BONUS_NAME)
 
 re: fclean all
-#debug
-# d:
+
+# debug
+d: fclean all

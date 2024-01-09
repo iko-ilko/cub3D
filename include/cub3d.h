@@ -31,11 +31,10 @@
 # define Y 0
 # define X 1
 
-# define SANG 0 //UP
-# define HA 1 //DOWN
-# define JOA 2 //LEFT
-# define WOO 3 //RIGHT
-
+# define NORTH 0 //UP
+# define SOUTH 1 //DOWN
+# define WEST 2 //LEFT
+# define EAST 3 //RIGHT
 
 typedef struct s_pre_data
 {
@@ -50,20 +49,25 @@ typedef struct s_pre_data
 	struct s_map_info	*map_info;
 }	t_pre_data;
 
+typedef struct s_image
+{
+	void	*img;
+	int		width;
+	int		height;
+}	t_image;
+
 typedef struct s_map_info
 {
 	int					y_max;
 	int					x_max;
 	char				**map;
-	void				*north;
-	void				*south;
-	void				*west;
-	void				*east;
 	void				*mlx;
 	void				*win;
 	int					floor_color;
 	int					ceiling_color;
+	struct s_image		image[4];
 }	t_map_info;
+
 
 /* test_code.c *///delete//delete//delete//delete//delete
 void	map_info_print(t_map_info *map_info);
@@ -85,7 +89,7 @@ void	get_map(t_pre_data *data, t_map_info *map_info, char *line, int offset);
 
 /* convert_map_data.c */
 void	sanitize_filename(t_pre_data *data);
-void	load_xpm_texture(t_pre_data *data, t_map_info *map_info);
+void	load_xpm_texture(t_pre_data *data, t_map_info *info, t_image img[4]);
 int		convert_rgb_int(char **rgb_str, char *line);
 void	convert_rgb(t_pre_data *data, t_map_info *map_info);
 

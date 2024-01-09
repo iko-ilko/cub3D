@@ -16,10 +16,6 @@ void	init_pre_struct(t_pre_data *data, t_map_info *map_info, char **arv)
 	map_info->map = NULL;
 	map_info->y_max = 0;
 	map_info->x_max = 0;
-	map_info->north = NULL;///////////사실상 값 바로 넣으니 초기화 안해도됨
-	map_info->south = NULL;
-	map_info->west = NULL;
-	map_info->east = NULL;
 	map_info->floor_color = -1;
 	map_info->ceiling_color = -1;//////////
 }
@@ -79,7 +75,7 @@ void	preprocess(t_pre_data *data, t_map_info *map_info, int arc, char **arv)
 	check_arv(data, arc, arv);//need to check
 	parse_cub_file(data);
 	check_last_line_ln(&map_info->map, map_info->y_max);
-	load_xpm_texture(data, map_info);
+	load_xpm_texture(data, map_info, &map_info->image);
 	convert_rgb(data, map_info);
 	remake_map(data, map_info, map_info->map);
 	check_map(data->remap, map_info->y_max, map_info->x_max);
