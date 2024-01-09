@@ -18,7 +18,7 @@
 # include <stdlib.h>
 # include <errno.h>
 # include <math.h>
-# include <mlx.h> // 원한다면 수정
+# include <mlx.h> /* 지금 내장 mlx 로 진행하고 있으므로 필요할 시 변경해야함. */
 # define TRUE 1
 # define FALSE 0
 # define PLUS 1
@@ -31,6 +31,7 @@
 
 typedef int bool;
 
+/* ray 벡터 구조체는 함수 내에서 이걸로 만들어서 쓰고 버리면 될듯. */
 typedef struct s_vector
 {
 	double	x;
@@ -38,19 +39,15 @@ typedef struct s_vector
 	double	z;
 }	t_vector;
 
-typedef struct s_coordinate
-{
-	double	x;
-	double	y;
-}	t_coordinate;
-
+/* 이미지의 주소와 가로 세로 길이값이 중요하다.*/
 typedef struct s_image
 {
 	void	*img;
-	int		x;
-	int		y;
+	int		width;
+	int		height;
 }	t_image;
 
+/* 지금 더 필요한 것. 플레인 벡터 구조체, 시야 벡터 구조체 */
 typedef struct s_data
 {
 	void	*img;
@@ -62,13 +59,13 @@ typedef struct s_data
 	void	*mlx_win;
 }	t_data;
 
-typedef struct s_player
-{
-	struct s_vector	vec;
-	struct s_coordinate	coor;
-}	t_player;
-
+/* utils.c */
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int		mlx_image_find_color(t_image *img, int x, int y);
 int		ft_key_action(int key, t_data *img);
+
+/* vector.c */
+t_vector    vector_calculate(t_vector v1, t_vector v2, int sign);
+t_vector    vector_normalizing(t_vector vector);
+double  	vector_gradient(t_vector vector);
 #endif
