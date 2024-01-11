@@ -3,14 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seongwol <seongwol@student.42seoul.>       +#+  +:+       +#+        */
+/*   By: seongwol <seongwol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:39:21 by seongwol          #+#    #+#             */
-/*   Updated: 2024/01/08 21:31:15 by seongwol         ###   ########.fr       */
+/*   Updated: 2024/01/11 23:11:40 by seongwol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/execute.h"
+
+/**
+ * 광선이 동 서 남 북 중 어느 벽에 부딧혔는지 파악하는 함수.
+ * 벡터는 plane - player 형식으로 계산되며, player에서 plane쪽으로 향하게 된다.
+ * 방향 알려주...
+*/
+int	wall_collision_direction(t_vector plane, t_vector player)
+{
+	double	dx;
+	double	dy;
+	double	magnitude;
+
+	if(a.x - b.x == 0)
+		dx = 0.00000000001;
+	else
+		dx = plane.x - player.x;
+	dy = plane.y = player.y;
+	magnitude = dy / dx;
+	if (magnitude >= 1)
+		return (NORTH);
+	else if (magnitude >= 0 && magnitude < 1)
+		return (WEST);
+	else if (magnitude < -1)
+		return (SOUTH);
+	else
+		return (EAST);
+}
 
 /* img의 특정 좌표에 점을 찍기 위해 만드는 커스텀 함수. */
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
