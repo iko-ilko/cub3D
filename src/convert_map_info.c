@@ -22,7 +22,7 @@ void	sanitize_filename(t_pre_data *data)
 			data->east_arv[1][i] = '\0';
 }
 
-void	load_xpm_texture(t_pre_data *data, t_map_info *info, t_image image[4])
+void	load_xpm_texture(t_pre_data *data, t_data *info, t_image image[4])
 {
 	int	w;
 	int	h;
@@ -69,7 +69,7 @@ int	convert_rgb_int(char **rgb_str, char *line)
 	return (res);
 }
 
-void	convert_rgb(t_pre_data *data, t_map_info *map_info)
+void	convert_rgb(t_pre_data *data, t_data *map_info)
 {
 	char	**rgb_str;
 
