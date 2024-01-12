@@ -6,7 +6,7 @@
 /*   By: seongwol <seongwol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:32:05 by seongwol          #+#    #+#             */
-/*   Updated: 2024/01/12 21:19:11 by seongwol         ###   ########.fr       */
+/*   Updated: 2024/01/12 21:21:17 by seongwol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct s_data
 	char				*addr;
 	int					bits_per_pixel;
 	int					line_length;
+	int					endian;
 	void				*mlx;
 	void				*mlx_win;
 	unsigned int		floor_color;
