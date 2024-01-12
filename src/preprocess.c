@@ -2,24 +2,22 @@
 #include "../include/get_next_line.h"
 
 
-void	init_pre_struct(t_pre_data *data, t_map_info *map_info, char **arv)
+void	init_pre_struct(t_pre_data *pre, t_data *data, char **arv)
 {
-	data->cub_file_name = NULL;
-	data->north_arv = NULL;
-	data->south_arv = NULL;
-	data->west_arv = NULL;
-	data->east_arv = NULL;
-	data->floor_arv = NULL;
-	data->ceiling_arv = NULL;
-	data->remap = NULL;
-	data->map_info = map_info;
-	map_info->map = NULL;
-	map_info->y_max = 0;
-	map_info->x_max = 0;
-	map_info->floor_color = -1;
-	map_info->ceiling_color = -1;
+	pre->cub_file_name = NULL;
+	pre->north_arv = NULL;
+	pre->south_arv = NULL;
+	pre->west_arv = NULL;
+	pre->east_arv = NULL;
+	pre->floor_arv = NULL;
+	pre->ceiling_arv = NULL;
+	pre->remap = NULL;
+	pre->data = data;
+	data->map = NULL;
+	data->y_max = 0;
+	data->x_max = 0;
 }
-void	check_arv(t_pre_data *data, int arc, char **arv)
+void	check_arv(t_pre_data *pre, int arc, char **arv)
 {
 	int	i;
 	int	idx;
@@ -43,35 +41,32 @@ void	check_arv(t_pre_data *data, int arc, char **arv)
 	}
 	if (arv[1][idx - 5] == '/')
 		exit_error(FILE_NAME_ERROR, arv[1]);
-	data->cub_file_name = my_strdup(arv[1]);
-}
-void	window_init(t_map_info *map_info)
-{
-	map_info->mlx = mlx_init();
-	map_info->win = mlx_new_window(map_info->mlx, 1000, 500, "cub3D_test");
-}
-void	clear_pre_data(t_pre_data *data)
-{
-	single_free(&data->cub_file_name);
-	double_free(&data->north_arv);
-	double_free(&data->south_arv);
-	double_free(&data->west_arv);
-	double_free(&data->east_arv);
-	double_free(&data->floor_arv);
-	double_free(&data->ceiling_arv);
-	double_free(&data->remap);
+	pre->cub_file_name = my_strdup(arv[1]);
 }
 
-void	preprocess(t_pre_data *data, t_map_info *map_info, int arc, char **arv)
+void	clear_pre_data(t_pre_data *pre)
 {
-	init_pre_struct(data, map_info, arv);
-	window_init(map_info);
-	check_arv(data, arc, arv);
-	parse_cub_file(data);
-	check_last_line_ln(&map_info->map, map_info->y_max);
-	load_xpm_texture(data, map_info, map_info->image);
-	convert_rgb(data, map_info);
-	remake_map(data, map_info, map_info->map);
-	check_map(data->remap, map_info->y_max, map_info->x_max);
-	clear_pre_data(data);
+	single_free(&pre->cub_file_name);
+	double_free(&pre->north_arv);
+	double_free(&pre->south_arv);
+	double_free(&pre->west_arv);
+	double_free(&pre->east_arv);
+	double_free(&pre->floor_arv);
+	double_free(&pre->ceiling_arv);
+	double_free(&pre->remap);
+}
+
+void	preprocess(t_data *data, int arc, char **arv)
+{
+	t_pre_data	pre;
+
+	init_pre_struct(&pre, data, arv);
+	check_arv(&pre, arc, arv);
+	parse_cub_file(&pre);
+	check_last_line_ln(&data->map, data->y_max);
+	load_xpm_texture(&pre, data, data->image);
+	convert_rgb(&pre, data);
+	remake_map(&pre, data, data->map);
+	check_map(pre.remap, data->y_max, data->x_max);
+	clear_pre_data(&pre);
 }

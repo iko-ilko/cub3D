@@ -11,13 +11,19 @@ SRCS = ./src/main.c \
 		./src/str_src/split.c \
 		./src/get_next_line_func/get_next_line.c \
 		./src/get_next_line_func/get_next_line_utils.c \
+		./src/draw/utils.c \
+		./src/draw/vector.c \
+		# ./src/draw/rotate.c \
+		# ./src/draw/bresenham.c \
 
+LIBFT = libft.a
+LIBFTDIR = ./libft
 NAME = cub3D
 INCLUDE = -I./include
 OBJS = $(SRCS:.c=.o)
 
 ifneq "$(findstring d, $(MAKECMDGOALS))" ""
-	CFLAGS += -g3 -fsanitize=address
+	CFLAGS += -fsanitize=address
 endif
 
 # BONUS_SRCS =
@@ -31,8 +37,9 @@ all: $(NAME)
 bonus: $(BONUS_NAME)
 
 $(NAME): $(OBJS)
+	make -C ${LIBFTDIR}
 	make -C ./mlx 
-	$(CC) $(OBJS) $(INCLUDE) $(MLXLIB) -o $(NAME)
+	$(CC) $(OBJS) $(INCLUDE) $(MLXLIB) -o $(NAME) ${LIBFTDIR}/${LIBFT}
 
 # $(BONUS_NAME): $(BONUS_OBJS)
 # 	make -C ./mlx 
@@ -44,9 +51,11 @@ $(NAME): $(OBJS)
 clean:
 	make clean -C ./mlx
 	rm -rf $(OBJS) $(BONUS_OBJS)
+	rm -f ${LIBFTDIR}/*.o
 
 fclean: clean
 	rm -rf $(NAME) $(BONUS_NAME)
+	rm -f ${LIBFTDIR}/${LIBFT}
 
 re: fclean all
 

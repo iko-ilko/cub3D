@@ -1,33 +1,33 @@
 #include "../include/cub3d.h"
 //플레이어가 없는 구역에 벽으로 둘러쌓인 공백이 있다면 .. 벽으로 둘러쌓여는 있으니 괜찮다고 할 수는 있지만 그런 논리는 플레이어 구역에 공백이 있어도 된다는 말.
 
-void	remake_map(t_pre_data *data, t_map_info *map_info, char **map)
+void	remake_map(t_pre_data *pre, t_data *data, char **map)
 {
 	int	i;
 	int	j;
 
-	data->remap = malloc(sizeof(char *) * (map_info->y_max + 3));//y_max의 2줄 + 1(NULL)
+	pre->remap = malloc(sizeof(char *) * (data->y_max + 3));//y_max의 2줄 + 1(NULL)
 	i = -1;
-	while (++i < map_info->y_max + 2)
+	while (++i < data->y_max + 2)
 	{
-		data->remap[i] = malloc(sizeof(char) * (map_info->x_max + 2));//개행이 항상 있으니 x는 + 2
+		pre->remap[i] = malloc(sizeof(char) * (data->x_max + 2));//개행이 항상 있으니 x는 + 2
 		j = -1;
-		while (++j < map_info->x_max + 1)
+		while (++j < data->x_max + 1)
 		{
 			if (i == 0 || j == 0 || \
-				i == map_info->y_max + 1 || j == map_info->x_max + 1)
-				data->remap[i][j] = ' ';//나중에 공백으로 바꿔야함.///////////////
+				i == data->y_max + 1 || j == data->x_max + 1)
+				pre->remap[i][j] = ' ';//나중에 공백으로 바꿔야함.///////////////
 			else if (j > my_strlen(map[i - 1]))
-				data->remap[i][j] = ' ';
+				pre->remap[i][j] = ' ';
 			else if (map[i - 1][j - 1] == '\n' || map[i - 1][j - 1] == ' ')
-				data->remap[i][j] = ' ';
+				pre->remap[i][j] = ' ';
 			else
-				data->remap[i][j] = map[i - 1][j - 1];
+				pre->remap[i][j] = map[i - 1][j - 1];
 		}
-		data->remap[i][j] = '\0';
+		pre->remap[i][j] = '\0';
 	}
-	data->remap[i] = NULL;
-	map_info->x_max--;
+	pre->remap[i] = NULL;
+	data->x_max--;
 }
 
 void	check_route(char **map, int idx[2], int max[2], int flag)
