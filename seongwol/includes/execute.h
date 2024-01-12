@@ -6,7 +6,7 @@
 /*   By: seongwol <seongwol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:32:05 by seongwol          #+#    #+#             */
-/*   Updated: 2024/01/11 23:11:36 by seongwol         ###   ########.fr       */
+/*   Updated: 2024/01/12 20:17:21 by seongwol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@ typedef struct s_image
 	int		height;
 }	t_image;
 
-/* 지금 더 필요한 것. 플레인 벡터 구조체, 시야 벡터 구조체 */
-
 typedef struct s_data
 {
 	int					y_max;
@@ -76,6 +74,7 @@ typedef struct s_data
 	char				*addr;
 	int					bits_per_pixel;
 	int					line_length;
+	int					endian;
 	void				*mlx;
 	void				*mlx_win;
 	unsigned int		floor_color;

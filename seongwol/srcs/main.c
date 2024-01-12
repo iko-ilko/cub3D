@@ -6,7 +6,7 @@
 /*   By: seongwol <seongwol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:49:20 by seongwol          #+#    #+#             */
-/*   Updated: 2024/01/11 23:11:46 by seongwol         ###   ########.fr       */
+/*   Updated: 2024/01/12 20:03:21 by seongwol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,11 @@ t_point	get_point_data(t_data data)
 		}
 		i++;
 	}
-	res.player.x = j * 10 * IMG_HOR + IMG_HOR * 5;
-	res.player.y = i * 10 * IMG_VER + IMG_VER * 5;
+	res.player.x = j * IMG_HOR + IMG_HOR / 2;
+	res.player.y = i * IMG_VER + IMG_VER / 2;
 	res.player.z = 0;
-	point.sight = get_player_sight(data.map[i][j]);
-	point.plane = get_plane_vector(data.map[i][j]);
+	res.sight = get_player_sight(data.map[i][j]);
+	res.plane = get_plane_vector(data.map[i][j]);
 	return (res);
 }
 

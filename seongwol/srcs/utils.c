@@ -6,28 +6,37 @@
 /*   By: seongwol <seongwol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:39:21 by seongwol          #+#    #+#             */
-/*   Updated: 2024/01/12 16:23:58 by seongwol         ###   ########.fr       */
+/*   Updated: 2024/01/12 20:10:26 by seongwol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/execute.h"
 
 /**
+ * 두 점(벡터) 사이의 거리를 계산하는 함수.
+*/
+double	get_point_distance(t_vector a, t_vector b)
+{
+	return (sqrt(pow(a.x - b.x, 2)) + pow(a.y - b.y, 2));
+}
+
+/**
  * 해당 포인트가 벽인지 나타내는 함수. 브레젠험 알고리즘에서 이용할 예정.
 */
 int	is_wall_hit(char **map, int x, int y)
 {
-	if (x / (10 * IMG_HOR) == 0)
-		return (TRUE);
-	else if (y / (10 * IMG_VER) == 0)
-		return (TRUE);
-	else
+	if (x % IMG_HOR != 0 && x % IMG_HOR != IMG_HOR - 1 &&\
+		y % IMG_VER != 0 && y % IMG_VER != IMG_VER - 1)
 		return (FALSE);
+	else if (map[y / IMG_VER][x / IMG_HOR] != 1)
+		return (FALSE);
+	return (TRUE);
 }
 
 /**
  * 광선이 동 서 남 북 중 어느 벽에 부딧혔는지 파악하는 함수.
  * 벡터는 plane - player 형식으로 계산되며, player에서 plane쪽으로 향하게 된다.
+ * 인자 바꿔야 함
 */
 int	wall_collision_direction(t_vector plane, t_vector player)
 {
@@ -51,12 +60,14 @@ int	wall_collision_direction(t_vector plane, t_vector player)
 		return (EAST);
 }
 
-/* img의 특정 좌표에 점을 찍기 위해 만드는 커스텀 함수. */
+/**
+ * img의 특정 좌표에 점을 찍기 위해 만드는 커스텀 함수.  
+*/
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
 	char	*dst;
 
-	if (x < 0 || y < 0 || x >= data->x_max || y >= data->y_max)
+	if (x < 0 || y < 0 || x >= data->x_max - 1 || y >= data->y_max - 1)
 		return ;
 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
 	*(unsigned int*)dst = color;
