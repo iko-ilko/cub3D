@@ -6,11 +6,16 @@
 /*   By: seongwol <seongwol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:39:21 by seongwol          #+#    #+#             */
-/*   Updated: 2024/01/11 23:11:40 by seongwol         ###   ########.fr       */
+/*   Updated: 2024/01/12 14:45:35 by seongwol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/execute.h"
+
+int	is_wall_hit(char **map, int x, int y)
+{
+	if (map[x / 10 * IMG_HOR
+}
 
 /**
  * 광선이 동 서 남 북 중 어느 벽에 부딧혔는지 파악하는 함수.
