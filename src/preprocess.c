@@ -2,7 +2,7 @@
 #include "../include/get_next_line.h"
 
 
-void	init_pre_struct(t_pre_data *data, t_map_info *map_info, char **arv)
+void	init_pre_struct(t_pre_data *data, t_data *map_info, char **arv)
 {
 	data->cub_file_name = NULL;
 	data->north_arv = NULL;
@@ -45,7 +45,7 @@ void	check_arv(t_pre_data *data, int arc, char **arv)
 		exit_error(FILE_NAME_ERROR, arv[1]);
 	data->cub_file_name = my_strdup(arv[1]);
 }
-void	window_init(t_map_info *map_info)
+void	window_init(t_data *map_info)
 {
 	map_info->mlx = mlx_init();
 	map_info->win = mlx_new_window(map_info->mlx, 1000, 500, "cub3D_test");
@@ -62,16 +62,18 @@ void	clear_pre_data(t_pre_data *data)
 	double_free(&data->remap);
 }
 
-void	preprocess(t_pre_data *data, t_map_info *map_info, int arc, char **arv)
+void	preprocess(t_data *map_info, int arc, char **arv)
 {
-	init_pre_struct(data, map_info, arv);
+	t_pre_data	data;
+
+	init_pre_struct(&data, map_info, arv);
 	window_init(map_info);
-	check_arv(data, arc, arv);
-	parse_cub_file(data);
+	check_arv(&data, arc, arv);
+	parse_cub_file(&data);
 	check_last_line_ln(&map_info->map, map_info->y_max);
-	load_xpm_texture(data, map_info, map_info->image);
-	convert_rgb(data, map_info);
-	remake_map(data, map_info, map_info->map);
-	check_map(data->remap, map_info->y_max, map_info->x_max);
-	clear_pre_data(data);
+	load_xpm_texture(&data, map_info, map_info->image);
+	convert_rgb(&data, map_info);
+	remake_map(&data, map_info, map_info->map);
+	check_map(data.remap, map_info->y_max, map_info->x_max);
+	clear_pre_data(&data);
 }

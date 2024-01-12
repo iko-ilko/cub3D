@@ -1,7 +1,7 @@
 #include "../include/cub3d.h"
 //플레이어가 없는 구역에 벽으로 둘러쌓인 공백이 있다면 .. 벽으로 둘러쌓여는 있으니 괜찮다고 할 수는 있지만 그런 논리는 플레이어 구역에 공백이 있어도 된다는 말.
 
-void	remake_map(t_pre_data *data, t_map_info *map_info, char **map)
+void	remake_map(t_pre_data *data, t_data *map_info, char **map)
 {
 	int	i;
 	int	j;

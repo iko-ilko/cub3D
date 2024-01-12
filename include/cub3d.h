@@ -45,7 +45,7 @@ typedef struct s_pre_data
 	char				**floor_arv;//int ? uns int?
 	char				**ceiling_arv;//놈이 문제라면 이름 줄이기
 	char				**remap;
-	struct s_map_info	*map_info;
+	struct s_data		*map_info;
 }	t_pre_data;
 
 typedef struct s_image
@@ -55,7 +55,7 @@ typedef struct s_image
 	int		height;
 }	t_image;
 
-typedef struct s_map_info
+typedef struct s_data
 {
 	int					y_max;
 	int					x_max;
@@ -65,15 +65,15 @@ typedef struct s_map_info
 	int					floor_color;
 	int					ceiling_color;
 	struct s_image		image[4];
-}	t_map_info;
+}	t_data;
 
 
 
 /* preprocess.c */
-void	preprocess(t_pre_data *data, t_map_info *map_info, int arc, char **arv);
-void	init_pre_struct(t_pre_data *data, t_map_info *map_info, char **arv);
+void	preprocess(t_data *map_info, int arc, char **arv);
+void	init_pre_struct(t_pre_data *data, t_data *map_info, char **arv);
 void	check_arv(t_pre_data *data, int arc, char **arv);
-void	window_init(t_map_info *map_info);
+void	window_init(t_data *map_info);
 void	clear_pre_data(t_pre_data *data);
 
 
@@ -82,16 +82,16 @@ void	check_last_line_ln(char ***info_map, int y_max);
 void	parse_cub_file(t_pre_data *data);
 int		get_map_info(t_pre_data *data, char *line);
 void	make_map_space(t_pre_data *data, int offset);
-void	get_map(t_pre_data *data, t_map_info *map_info, char *line, int offset);
+void	get_map(t_pre_data *data, t_data *map_info, char *line, int offset);
 
 /* convert_map_data.c */
 void	sanitize_filename(t_pre_data *data);
-void	load_xpm_texture(t_pre_data *data, t_map_info *info, t_image img[4]);
+void	load_xpm_texture(t_pre_data *data, t_data *info, t_image img[4]);
 int		convert_rgb_int(char **rgb_str, char *line);
-void	convert_rgb(t_pre_data *data, t_map_info *map_info);
+void	convert_rgb(t_pre_data *data, t_data *map_info);
 
 /* check_map.c */
-void	remake_map(t_pre_data *data, t_map_info *map_info, char **map);
+void	remake_map(t_pre_data *data, t_data *map_info, char **map);
 void	check_route(char **map, int idx[2], int max[2], int flag);
 void	check_vaild_route(char **map, int idx[2], int max[2]);
 void	check_vaild_letter(char c, char *line, int *player_cnt);

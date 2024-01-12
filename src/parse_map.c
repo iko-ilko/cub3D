@@ -53,7 +53,7 @@ void	make_map_space(t_pre_data *data, int offset)
 }
 
 //ㅅㅓㅁ ㅁㅐㅂ ㄸㅒ무ㄴ에 빈 줄도 허용. 벽벽으으로  ㅈ둘러 쌓이지않은 문제가 있는 맵은 어차피 그 다음 맵 체크 단계에서 걸러진다.
-void	get_map(t_pre_data *data, t_map_info *map_info, char *line, int offset)
+void	get_map(t_pre_data *data, t_data *map_info, char *line, int offset)
 {
 
 	if (line[0] == '\n' && map_info->y_max == 0)

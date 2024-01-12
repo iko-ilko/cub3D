@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seongwol <seongwol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:32:05 by seongwol          #+#    #+#             */
-/*   Updated: 2024/01/11 23:11:36 by seongwol         ###   ########.fr       */
+/*   Updated: 2024/01/12 17:59:54 by ilko             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_pre_data
 	char				**floor_arv;//int ? uns int?
 	char				**ceiling_arv;//놈이 문제라면 이름 줄이기
 	char				**remap;
-	struct s_map_info	*map_info;
+	struct s_data	*map_info;
 }	t_pre_data;
 
 /* ray 벡터 구조체는 함수 내에서 이걸로 만들어서 쓰고 버리면 될듯. */
