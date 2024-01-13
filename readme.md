@@ -6,7 +6,7 @@ cub3D
 ### 1. get_relative_color 함수
 
 ```C
-int  get_relative_color(t_image *image, double total, double current, int direction)
+int  get_relative_color(t_image *image[4], double total, double current, int direction)
 ```
 
 * 개요
@@ -15,7 +15,6 @@ int  get_relative_color(t_image *image, double total, double current, int direct
 * 1-1. 인자 정리.
 
   * image : image[4] 의 주소. 이미지 포인터와 이미지 heigh 가 필요.
-  * target_height : 이미지를 mapping 하고자 하는 실제 벽의 총 길이.
   * total : 실제 벽의 높이.
   * current : 벽의 바닥의 높이값을 0, 꼭대기를 total - 1 이라고 할  때, 현재 픽셀의 높이.
   * direction : 동 서 남 북 중 어떤 방향의 벽이 필요한 지 판별을 위한 인자. 각 숫자는 매크로로 정의되어있다.
