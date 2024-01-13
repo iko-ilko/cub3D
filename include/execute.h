@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: seongwol <seongwol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:32:05 by seongwol          #+#    #+#             */
-/*   Updated: 2024/01/12 21:22:54 by ilko             ###   ########.fr       */
+/*   Updated: 2024/01/13 20:03:02 by seongwol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdlib.h>
 # include <errno.h>
 # include <math.h>
-# include <mlx.h> /* 지금 내장 mlx 로 진행하고 있으므로 필요할 시 변경해야함. */
+# include "mlx/mlx.h"
 
 # define TRUE 1
 # define FALSE 0

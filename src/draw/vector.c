@@ -1,6 +1,31 @@
 #include "../../include/execute.h"
 
-/*벡터의 기울기를 반환, 기울기가 무한일 때는 아주 작은 숫자로 대체해서 에러를 피함.*/
+/**
+ * degree 스케일의 각도값을 radian 으로 변경하는 함수.
+*/
+double  deg_to_rad(double deg)
+{
+    return (deg * 2 * M_PI / 360);   
+}
+
+/**
+ * 벡터를 각도만큼 회전하는 함수.
+ * vector : vector
+ * angle : radian scale 의 각도 parameter. 반시계 방향이 (+) 이지만, mlx 스케일에서 시계방향.
+ * 만약 각도가 deg 스케일이면 deg_to_rad 를 이용해서 변환하자.
+*/
+t_vector    vector_rotate(t_vector vec, double angle)
+{
+    t_vector    res;
+
+    res.x = cos(vec.x) - sin(vec.y);
+    res.y = sin(vec.x) + cos(vec.y);
+    res.z = 0;
+    return (res);
+//    return ((t_vector){cos(vec.x) - sin(vec.y), sin(vec.x) + cos(vec.y), 0});
+}
+
+/* 벡터의 기울기를 반환, 기울기가 무한일 때는 아주 작은 숫자로 대체해서 에러를 피함. */
 double  vector_gradient(t_vector vector)
 {
     if (vector.x == 0)
