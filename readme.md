@@ -14,7 +14,7 @@ int  get_relative_color(t_image *image[4], double total, double current, int dir
 
 * 1-1. 인자 정리.
 
-  * image : image[4] 의 주소. 이미지 포인터와 이미지 heigh 가 필요.
+  * image : image[4] 의 주소. 이미지 포인터와 이미지 height 가 필요.
   * total : 실제 벽의 높이.
   * current : 벽의 바닥의 높이값을 0, 꼭대기를 total - 1 이라고 할  때, 현재 픽셀의 높이.
   * direction : 동 서 남 북 중 어떤 방향의 벽이 필요한 지 판별을 위한 인자. 각 숫자는 매크로로 정의되어있다.
