@@ -3,7 +3,9 @@ cub3D
 
 # 요청 함수 정리.
 1. get_relative_color 함수. 
-    int  get_relative_color(t_data *data, double target_height, double pixel_height, int direction)
+
+	int  get_relative_color(t_data *data, double target_height, double pixel_height, int direction)
+
 내가 그리고자 하는 벽의 총 길이와, 내가 찍고자 하는 픽셀의 높이와 방위값을 넣어주면 data 에서 뽑아오는 이미지의 총 길이와 비례식을 세워서
 해당 벽의 색을 반환하는 함수.
 
