@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seongwol <seongwol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:32:05 by seongwol          #+#    #+#             */
-/*   Updated: 2024/01/13 20:03:02 by seongwol         ###   ########.fr       */
+/*   Updated: 2024/01/14 23:07:08 by ilko             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdlib.h>
 # include <errno.h>
 # include <math.h>
-# include "mlx/mlx.h"
+# include "../mlx/mlx.h"
 
 # define TRUE 1
 # define FALSE 0
@@ -35,6 +35,8 @@
 # define SOUTH 1 //DOWN
 # define WEST 2 //LEFT
 # define EAST 3 //RIGHT
+
+typedef struct s_point	t_point;
 
 /* ray 벡터 구조체는 함수 내에서 이걸로 만들어서 쓰고 버리면 될듯. */
 typedef struct s_vector
@@ -66,7 +68,7 @@ typedef struct s_data
 	void				*mlx_win;
 	unsigned int		floor_color;
 	unsigned int		ceiling_color;
-	struct s_image		image[4];
+	t_image				image[4];
 }	t_data;
 
 typedef struct s_point

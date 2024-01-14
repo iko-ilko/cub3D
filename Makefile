@@ -37,8 +37,8 @@ all: $(NAME)
 bonus: $(BONUS_NAME)
 
 $(NAME): $(OBJS)
-	make -C ${LIBFTDIR}
-	make -C ./mlx 
+	make -j -C ${LIBFTDIR}
+	make -j -C ./mlx 
 	$(CC) $(OBJS) $(INCLUDE) $(MLXLIB) -o $(NAME) ${LIBFTDIR}/${LIBFT}
 
 # $(BONUS_NAME): $(BONUS_OBJS)
