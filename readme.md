@@ -29,3 +29,5 @@ int  get_relative_color(t_image *image[4], double total, double current, int dir
 - data 구조체 안에 img 포인터를 이름 바꾸는것 제안.
   - 다른 이미지 구조체랑 이름이 겹칠 수도 있다.
   - mlx(이미지) 포인터를 mlx_win에 올리는 것 처럼 텍스쳐 이미지도 같은 방식으로 컬러 값 뽑아오기 때문에 필요한 변수가 같아서 한 구조체로 통일 가능, 고로 img 가 아닌 last나 final 같은 최종 이미지 느낌의 변수명이 좋을 것 같아요.
+- 위 제안 컴펌 될 시, my_mlx_pixel_put(t_data *data, int x, int y, int color) -> my_mlx_pixel_put(t_image *img, int x, int y, int color) 로 변경 제안
+  - mlx의 image를 여러개 찍어야 할 수 있으니(미니맵 등) 범용성 있게 다른 이미지도 사용 할 수 있게 됩니다.
