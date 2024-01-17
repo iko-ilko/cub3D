@@ -6,7 +6,7 @@
 /*   By: seongwol <seongwol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:39:21 by seongwol          #+#    #+#             */
-/*   Updated: 2024/01/13 20:04:34 by seongwol         ###   ########.fr       */
+/*   Updated: 2024/01/16 21:33:43 by seongwol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ double	get_point_distance(t_vector a, t_vector b)
 
 /**
  * 해당 포인트가 벽인지 나타내는 함수. 브레젠험 알고리즘에서 이용할 예정.
+ * 안쓸거같음.
 */
 int	is_wall_hit(char **map, int x, int y)
 {
@@ -91,4 +92,9 @@ int	ft_key_action(int key, t_data *img)
 		exit(0);
 	}
 	return (SUCCESS);
+}
+
+double	ft_abs(double i)
+{
+	return ((i * (i >= 0) + -i * (i < 0)));
 }

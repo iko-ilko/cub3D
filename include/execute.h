@@ -6,7 +6,7 @@
 /*   By: seongwol <seongwol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:32:05 by seongwol          #+#    #+#             */
-/*   Updated: 2024/01/13 20:03:02 by seongwol         ###   ########.fr       */
+/*   Updated: 2024/01/16 15:54:27 by seongwol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define PLUS 1
 # define MINUS 2
 # define CROSS 3
+# define MULTI 4
 # define SUCCESS 0
 # define FOV 66
 # define WIN_HOR 500
@@ -84,5 +85,9 @@ int		ft_key_action(int key, t_data *img);
 /* vector.c */
 t_vector    vector_calculate(t_vector v1, t_vector v2, int sign);
 t_vector    vector_normalizing(t_vector vector);
-double  	vector_gradient(t_vector vector);
+double		vector_gradient(t_vector vector);
+double		deg_to_rad(double deg);
+t_vector	vector_rotate(t_vector vec, double angle);
+double		vector_gradient(t_vector vector);
+t_vector    vector_multiple(t_vector vector, double scale);
 #endif
