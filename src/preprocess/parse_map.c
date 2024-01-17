@@ -1,6 +1,5 @@
 #include "../include/cub3d.h"
 #include "../include/get_next_line.h"
-
 //빈 줄이 아니면 서브젝트에 따라 엄격한 규칙을 따름. 각 요소의 유형은 공백으로 구분 가능.
 int	get_map_info(t_pre_data *pre, char *line)
 {

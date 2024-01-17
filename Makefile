@@ -1,18 +1,22 @@
 CC = cc -g3
 # -Wall -Wextra -Werror
 SRCS = ./src/main.c \
-		./src/preprocess.c \
-		./src/parse_map.c \
-		./src/convert_map_info.c \
-		./src/check_map.c \
-		./src/utils.c \
+		./src/preprocess/preprocess.c \
+		./src/preprocess/parse_map.c \
+		./src/preprocess/convert_map_info.c \
+		./src/preprocess/check_map.c \
+		./src/preprocess/utils.c \
 		./src/str_src/str_func1.c \
 		./src/str_src/str_func2.c \
 		./src/str_src/split.c \
 		./src/get_next_line_func/get_next_line.c \
 		./src/get_next_line_func/get_next_line_utils.c \
+		./src/minimap/minimap.c \
+		./src/key_event.c \
 		./src/draw/utils.c \
 		./src/draw/vector.c \
+		./src/draw/dda.c \
+		./src/draw/plot_line.c \
 		# ./src/draw/rotate.c \
 		# ./src/draw/bresenham.c \
 
@@ -23,7 +27,7 @@ INCLUDE = -I./include
 OBJS = $(SRCS:.c=.o)
 
 ifneq "$(findstring d, $(MAKECMDGOALS))" ""
-	CFLAGS += -fsanitize=address
+	CC += -fsanitize=address
 endif
 
 # BONUS_SRCS =
@@ -37,8 +41,8 @@ all: $(NAME)
 bonus: $(BONUS_NAME)
 
 $(NAME): $(OBJS)
-	make -C ${LIBFTDIR}
-	make -C ./mlx 
+	make -j -C ${LIBFTDIR}
+	make -j -C ./mlx 
 	$(CC) $(OBJS) $(INCLUDE) $(MLXLIB) -o $(NAME) ${LIBFTDIR}/${LIBFT}
 
 # $(BONUS_NAME): $(BONUS_OBJS)
@@ -60,4 +64,4 @@ fclean: clean
 re: fclean all
 
 # debug
-d: fclean all
+d:	fclean all

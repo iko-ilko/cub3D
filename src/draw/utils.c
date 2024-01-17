@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seongwol <seongwol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:39:21 by seongwol          #+#    #+#             */
-/*   Updated: 2024/01/16 21:33:43 by seongwol         ###   ########.fr       */
+/*   Updated: 2024/01/18 03:20:23 by ilko             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,14 @@ int	wall_collision_direction(t_vector plane, t_vector player)
 
 /**
  * img의 특정 좌표에 점을 찍기 위해 만드는 커스텀 함수.  
-*/
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+*////////////////////////////t_data * -> t_image *
+void	my_mlx_pixel_put(t_image *img, int x, int y, int color)
 {
 	char	*dst;
 
 	if (x < 0 || y < 0 || x >= WIN_HOR - 1 || y >= WIN_VER - 1)
 		return ;
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
 	*(unsigned int*)dst = color;
 }
 

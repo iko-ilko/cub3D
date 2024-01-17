@@ -1,6 +1,6 @@
 #include "../../include/cub3d.h"
 
-void	get_distance(t_point point, t_vector *dist, t_vector ray)
+void	get_dist(t_point point, t_vector *dist, t_vector ray)
 {
 	if (ray.x == 0)
 		dist->x = 1000000000;
