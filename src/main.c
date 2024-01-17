@@ -6,7 +6,7 @@
 /*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:49:20 by seongwol          #+#    #+#             */
-/*   Updated: 2024/01/18 03:53:04 by ilko             ###   ########.fr       */
+/*   Updated: 2024/01/18 03:56:18 by ilko             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,10 @@ void	change_nsea_p(t_data *data)
 		while (j < x_max)
 		{
 			if (ft_strchr("NSEW", data->map[i][j]))
+			{
+				data->sight = data->map[i][j];
 				data->map[i][j] = 'P';
+			}
 			j++;
 		}
 		i++;

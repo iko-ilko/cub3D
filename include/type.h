@@ -41,6 +41,7 @@ typedef struct s_data
 	unsigned int		ceiling_color;
 	t_image				image[4];
 
+	char	sight;
 	t_image	palette;
 	t_image	minimap;
 	int		move_p[4];
