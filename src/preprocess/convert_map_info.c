@@ -24,9 +24,6 @@ void	sanitize_filename(t_pre_data *pre)
 
 void	load_xpm_texture(t_pre_data *pre, t_data *data, t_image image[4])
 {
-	int	w;
-	int	h;
-
 	sanitize_filename(pre);
 	image[NORTH].img = mlx_xpm_file_to_image(data->mlx, pre->north_arv[1], \
 		&image[NORTH].width, &image[NORTH].height);
@@ -44,6 +41,10 @@ void	load_xpm_texture(t_pre_data *pre, t_data *data, t_image image[4])
 		&image[EAST].width, &image[EAST].height);
 	if (image[EAST].img == NULL)
 		exit_error(strerror(errno), "east texture");
+		image[NORTH].addr = mlx_get_data_addr(image[NORTH].img, &image[NORTH].bits_per_pixel, &image[NORTH].line_length, &image[NORTH].endian);
+		image[SOUTH].addr = mlx_get_data_addr(image[SOUTH].img, &image[SOUTH].bits_per_pixel, &image[SOUTH].line_length, &image[SOUTH].endian);
+		image[WEST].addr = mlx_get_data_addr(image[WEST].img, &image[WEST].bits_per_pixel, &image[WEST].line_length, &image[WEST].endian);
+		image[EAST].addr = mlx_get_data_addr(image[EAST].img, &image[EAST].bits_per_pixel, &image[EAST].line_length, &image[EAST].endian);
 }
 
 int	convert_rgb_int(char **rgb_str, char *line)

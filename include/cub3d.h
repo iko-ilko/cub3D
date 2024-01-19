@@ -9,7 +9,10 @@
 # include <string.h>
 # include "mlx.h"
 # include "execute.h"
+# include "minimap.h"
 # include "../libft/libft.h"
+# include "type.h"
+
 
 
 # define MANY_ARG "too many argument"
@@ -25,10 +28,6 @@
 # define BREACHED_MAP "breached map"
 # define MANY_PLAYER_LETTER "many player letter"
 
-# define MAP_SIZE_ERROR 3
-# define MAP_ERROR 5
-# define MLX_ERROR 6
-
 # define Y 0
 # define X 1
 
@@ -37,18 +36,7 @@
 # define WEST 2 //LEFT
 # define EAST 3 //RIGHT
 
-typedef struct s_pre_data
-{
-	char				*cub_file_name;
-	char				**north_arv;
-	char				**south_arv;
-	char				**west_arv;
-	char				**east_arv;
-	char				**floor_arv;
-	char				**ceiling_arv;
-	char				**remap;
-	struct s_data		*data;
-}	t_pre_data;
+typedef struct s_image		t_image;
 
 /* preprocess.c */
 void	preprocess(t_data *data, int arc, char **arv);

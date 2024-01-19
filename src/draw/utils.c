@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seongwol <seongwol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:39:21 by seongwol          #+#    #+#             */
-/*   Updated: 2024/01/13 20:04:34 by seongwol         ###   ########.fr       */
+/*   Updated: 2024/01/18 03:20:23 by ilko             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ double	get_point_distance(t_vector a, t_vector b)
 
 /**
  * 해당 포인트가 벽인지 나타내는 함수. 브레젠험 알고리즘에서 이용할 예정.
+ * 안쓸거같음.
 */
 int	is_wall_hit(char **map, int x, int y)
 {
@@ -62,14 +63,14 @@ int	wall_collision_direction(t_vector plane, t_vector player)
 
 /**
  * img의 특정 좌표에 점을 찍기 위해 만드는 커스텀 함수.  
-*/
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+*////////////////////////////t_data * -> t_image *
+void	my_mlx_pixel_put(t_image *img, int x, int y, int color)
 {
 	char	*dst;
 
 	if (x < 0 || y < 0 || x >= WIN_HOR - 1 || y >= WIN_VER - 1)
 		return ;
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
 	*(unsigned int*)dst = color;
 }
 
@@ -91,4 +92,9 @@ int	ft_key_action(int key, t_data *img)
 		exit(0);
 	}
 	return (SUCCESS);
+}
+
+double	ft_abs(double i)
+{
+	return ((i * (i >= 0) + -i * (i < 0)));
 }

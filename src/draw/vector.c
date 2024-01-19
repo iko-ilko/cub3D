@@ -46,6 +46,14 @@ t_vector    vector_normalizing(t_vector vector)
     return (ret);
 }
 
+/**
+ * 벡터에 스케일을 곱해주는 함수.
+*/
+t_vector    vector_multiple(t_vector vector, double scale)
+{
+    return ((t_vector){vector.x * scale, vector.y * scale, vector.z * scale});
+}
+
 /*벡터의 덧셈, 뺄셈, 외적을 관리해주는 함수*/
 t_vector    vector_calculate(t_vector v1, t_vector v2, int sign)
 {
