@@ -1,4 +1,3 @@
-
 #ifndef TYPE_H
 # define TYPE_H
 
@@ -18,7 +17,6 @@ typedef struct s_vector
 {
 	double	x;
 	double	y;
-	double	z;
 }	t_vector;
 
 typedef struct s_point
@@ -39,12 +37,9 @@ typedef struct s_data
 	unsigned int		floor_color;
 	unsigned int		ceiling_color;
 	t_image				image[4];
-
-	char	sight;
-	t_image	palette;
-	t_image	minimap;
-	int		move_p[4];
-	t_point	point;
+	t_image				palette;
+	t_image				minimap;
+	t_point				point;
 }	t_data;
 
 typedef struct s_pre_data

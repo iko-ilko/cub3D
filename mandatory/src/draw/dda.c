@@ -65,7 +65,7 @@ int	ft_dda(t_data *data, t_vector *dist, t_vector *side, t_vector ray)
 	return (side_wall);
 }
 
-double	get_wall_hight(t_data *data, t_point point, t_vector ray)
+double	get_wall_height(t_data *data, t_point point, t_vector ray)
 {
 	t_vector	dist;
 	t_vector	side;
