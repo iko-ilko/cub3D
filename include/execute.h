@@ -6,7 +6,7 @@
 /*   By: seongwol <seongwol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:32:05 by seongwol          #+#    #+#             */
-/*   Updated: 2024/01/18 20:55:48 by seongwol         ###   ########.fr       */
+/*   Updated: 2024/01/19 13:58:24 by seongwol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <errno.h>
 # include <math.h>
 # include "../mlx/mlx.h"
-# include "cub3d.h"
 
 # define TRUE 1
 # define FALSE 0
@@ -33,11 +32,9 @@
 # define WIN_VER 500
 # define IMG_HOR 64 /* 이미지 사이즈 일단 이렇게 해서 진행. */
 # define IMG_VER 64 /* 이미지 사이즈 일단 이렇게 해서 진행. */
-
 # define KEY_PRESS 2//-----
 # define KEY_RELEASE 3
 # define EXIT_BUTTON_PRESS 17
-
 # define ESC 53
 # define UP 126
 # define W 13
@@ -48,7 +45,6 @@
 # define LEFT 123
 # define A 0
 # define SPACE 49//-----
-
 
 typedef struct s_point		t_point;
 typedef struct s_image		t_image;
