@@ -13,8 +13,6 @@
 # include "../libft/libft.h"
 # include "type.h"
 
-
-
 # define MANY_ARG "too many argument"
 # define FEW_ARG "too few argument"
 # define OPEN_ERROR "open error"
@@ -35,8 +33,6 @@
 # define SOUTH 1 //DOWN
 # define WEST 2 //LEFT
 # define EAST 3 //RIGHT
-
-typedef struct s_image		t_image;
 
 /* preprocess.c */
 void	preprocess(t_data *data, int arc, char **arv);
@@ -65,14 +61,10 @@ void	check_vaild_route(char **map, int idx[2], int max[2]);
 void	check_vaild_letter(char c, char *line, int *player_cnt);
 void	check_map(char **map, int y_max, int x_max);
 
-
-
 /* util.c */
 void	exit_error(char *str, char *reason);
 void	single_free(char **p);
 void	double_free(char ***p);
-
-
 
 /* str_func1.c */
 int		my_strlen(char *s);
@@ -85,10 +77,7 @@ char	*my_strdup(char *s1);
 int		my_atoi_cub(char *str);
 char	*my_strcpy(char *dest, char *src);
 
-
 /* split.c */
 char	**my_split(char *s, char *sepa);
-
-
 
 #endif

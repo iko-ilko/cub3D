@@ -6,7 +6,7 @@
 /*   By: seongwol <seongwol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:32:05 by seongwol          #+#    #+#             */
-/*   Updated: 2024/01/19 13:58:24 by seongwol         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:10:15 by seongwol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <errno.h>
 # include <math.h>
 # include "../mlx/mlx.h"
+# include "type.h"
 
 # define TRUE 1
 # define FALSE 0
@@ -45,11 +46,6 @@
 # define LEFT 123
 # define A 0
 # define SPACE 49//-----
-
-typedef struct s_point		t_point;
-typedef struct s_image		t_image;
-typedef struct s_data		t_data;
-typedef struct s_vector		t_vector;
 
 /* utils.c */
 void	my_mlx_pixel_put(t_image *img, int x, int y, int color);
