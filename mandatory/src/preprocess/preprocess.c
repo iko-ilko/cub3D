@@ -13,10 +13,6 @@ void	init_pre_struct(t_pre_data *pre, t_data *data, char **arv)
 	pre->ceiling_arv = NULL;
 	pre->remap = NULL;
 	pre->data = data;
-	data->move_p[NORTH] = 0;
-	data->move_p[SOUTH] = 0;
-	data->move_p[WEST] = 0; 
-	data->move_p[EAST] = 0;
 	data->map = NULL;
 	data->y_max = 0;
 	data->x_max = 0;

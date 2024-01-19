@@ -20,7 +20,6 @@ t_vector    vector_rotate(t_vector vec, double angle)
 
     res.x = cos(vec.x) - sin(vec.y);
     res.y = sin(vec.x) + cos(vec.y);
-    res.z = 0;
     return (res);
 //    return ((t_vector){cos(vec.x) - sin(vec.y), sin(vec.x) + cos(vec.y), 0});
 }
@@ -33,7 +32,7 @@ double  vector_gradient(t_vector vector)
     return (vector.y / vector.x);
 }
 
-/*벡터를 크기가 1인 단위 벡터로 변환.*/
+/* 벡터를 크기가 1인 단위 벡터로 변환. */
 t_vector    vector_normalizing(t_vector vector)
 {
     int         scale;
@@ -51,10 +50,10 @@ t_vector    vector_normalizing(t_vector vector)
 */
 t_vector    vector_multiple(t_vector vector, double scale)
 {
-    return ((t_vector){vector.x * scale, vector.y * scale, vector.z * scale});
+    return ((t_vector){vector.x * scale, vector.y * scale});
 }
 
-/*벡터의 덧셈, 뺄셈, 외적을 관리해주는 함수*/
+/* 벡터의 덧셈, 뺄셈, 외적을 관리해주는 함수 */
 t_vector    vector_calculate(t_vector v1, t_vector v2, int sign)
 {
     t_vector res;
@@ -63,19 +62,11 @@ t_vector    vector_calculate(t_vector v1, t_vector v2, int sign)
     {
         res.x = v1.x + v2.x;
         res.y = v1.y + v2.y;
-        res.z = v1.z + v2.z;
     }
     else if (sign == MINUS)
     {
         res.x = v1.x - v2.x;
         res.y = v1.y - v2.y;
-        res.z = v1.z - v2.z;
-    }
-    else if (sign == CROSS)
-    {
-        res.x = (v1.y * v2.z) - (v1.z * v2.y);
-        res.y = (v1.x * v2.z) - (v1.z * v2.x);
-        res.z = (v1.x * v2.y) - (v1.y * v2.z);
     }
     return (res);
 }

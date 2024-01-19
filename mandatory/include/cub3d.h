@@ -9,7 +9,6 @@
 # include <string.h>
 # include "mlx.h"
 # include "execute.h"
-# include "minimap.h"
 # include "../libft/libft.h"
 # include "type.h"
 

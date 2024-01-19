@@ -6,7 +6,7 @@
 /*   By: seongwol <seongwol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:32:05 by seongwol          #+#    #+#             */
-/*   Updated: 2024/01/19 16:10:15 by seongwol         ###   ########.fr       */
+/*   Updated: 2024/01/19 19:36:38 by seongwol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,15 +68,9 @@ void	get_side(t_point point, t_vector *side, t_vector dist, t_vector ray);
 void	set_step(t_vector sight, int *step_x, int *step_y);
 int		ft_dda(t_data *data, t_vector *dist, t_vector *side, t_vector ray);
 void	ray_casting(t_data *data);
-double	get_wall_hight(t_data *data, t_point point, t_vector ray);
+double	get_wall_height(t_data *data, t_point point, t_vector ray);
 
 /* plot_line */
 void    plot_line(t_data *data, int x, int height);
 
-
-/* key_event */
-int		press_key(int key, t_data *data);
-int		release_key(int key, t_data *data);
-int		check_wall(t_data *data, char **map, double p_x, double p_y);
-void	check_move(t_data *data);
 #endif

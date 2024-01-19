@@ -11,14 +11,10 @@ SRCS = ./src/main.c \
 		./src/str_src/split.c \
 		./src/get_next_line_func/get_next_line.c \
 		./src/get_next_line_func/get_next_line_utils.c \
-		./src/minimap/minimap.c \
-		./src/key_event.c \
 		./src/draw/utils.c \
 		./src/draw/vector.c \
 		./src/draw/dda.c \
-		./src/draw/plot_line.c \
-		# ./src/draw/rotate.c \
-		# ./src/draw/bresenham.c \
+		./src/draw/plot_line.c 
 
 LIBFT = libft.a
 LIBFTDIR = ./libft
