@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: seongwol <seongwol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:32:05 by seongwol          #+#    #+#             */
-/*   Updated: 2024/01/18 03:20:28 by ilko             ###   ########.fr       */
+/*   Updated: 2024/01/18 20:55:48 by seongwol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define MULTI 4//??
 # define SUCCESS 0
 # define FOV 66
-# define WIN_HOR 1000
+# define WIN_HOR 500
 # define WIN_VER 500
 # define IMG_HOR 64 /* 이미지 사이즈 일단 이렇게 해서 진행. */
 # define IMG_VER 64 /* 이미지 사이즈 일단 이렇게 해서 진행. */
@@ -74,7 +74,9 @@ t_vector    vector_multiple(t_vector vector, double scale);
 void	get_dist(t_point point, t_vector *dist, t_vector ray);
 void	get_side(t_point point, t_vector *side, t_vector dist, t_vector ray);
 void	set_step(t_vector sight, int *step_x, int *step_y);
-int		ft_dda(t_data *data, t_point point, t_vector dist, t_vector *side, t_vector ray);
+int		ft_dda(t_data *data, t_vector *dist, t_vector *side, t_vector ray);
+void	ray_casting(t_data *data);
+double	get_wall_hight(t_data *data, t_point point, t_vector ray);
 
 /* plot_line */
 void    plot_line(t_data *data, int x, int height);

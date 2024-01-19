@@ -21,7 +21,6 @@ typedef struct s_vector
 	double	z;
 }	t_vector;
 
-
 typedef struct s_point
 {
 	t_vector	player;

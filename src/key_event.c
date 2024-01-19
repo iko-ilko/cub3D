@@ -16,6 +16,7 @@ int	press_key(int key, t_data *data)
 		mlx_destroy_window(data->mlx, data->mlx_win);
 		exit(0);
 	}
+	ray_casting(data);
 	return (0);
 }
 

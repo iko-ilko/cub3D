@@ -5,19 +5,20 @@ void    plot_line(t_data *data, int x, int height)
     int y;
 
     y = 0;
-    while (y < 2 / height)
+    while (y < (WIN_VER  - height) / 2)
     {
-        my_mlx_pixel_put(&data->palette, x, y, 0x000000/*천장 색깔*/);
+        my_mlx_pixel_put(&data->palette, x, y, 0x00ff00/*천장 색깔*/);
         y++;
     }
-    // while (y >= 2 / height && y < IMG_VER - 2 / height)
-    // {
-    //     my_mlx_pixel_put(&data->palette, x, y, /*pick_wall_color*/);
-    //     y++;
-    // }
-    while (y <= IMG_VER)
+    while (y >= (WIN_VER  - height) / 2 && y < (WIN_VER + height) / 2)
     {
-        my_mlx_pixel_put(&data->palette, x, y, 0xfffffff/*바닥 색깔*/);
+        my_mlx_pixel_put(&data->palette, x, y, 0xff00ff/*pick_wall_color*/);
         y++;
     }
+    while (y <= WIN_VER)
+    {
+        my_mlx_pixel_put(&data->palette, x, y, 0x0000ff/*바닥 색깔*/);
+        y++;
+    }
+    mlx_put_image_to_window(data->mlx, data->mlx_win, data->palette.img, 0, 0);
 }
