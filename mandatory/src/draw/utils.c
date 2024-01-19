@@ -6,7 +6,7 @@
 /*   By: seongwol <seongwol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:39:21 by seongwol          #+#    #+#             */
-/*   Updated: 2024/01/19 19:33:40 by seongwol         ###   ########.fr       */
+/*   Updated: 2024/01/19 22:50:33 by seongwol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,17 @@ int	mlx_image_find_color(t_image *img, int x, int y) //ilko help!!!!!!!!!!
 }
 
 /* 키를 입력할 때 발동하는 액션을 관리하는 함수 */
-int	ft_key_action(int key, t_data *img)
+int	ft_key_action(int key, t_data *data)
 {
 	if (key == 53)
 	{
-		mlx_destroy_window(img->mlx, img->mlx_win);
+		mlx_destroy_window(data->mlx, data->mlx_win);
 		exit(0);
+	}
+	if (key == UP || key == DOWN || key == LEFT || key == RIGHT)
+	{
+		player_move(data, key);
+		ray_casting(data);
 	}
 	return (SUCCESS);
 }

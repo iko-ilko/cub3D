@@ -45,10 +45,14 @@ int	ft_dda(t_data *data, t_vector *dist, t_vector *side, t_vector ray)
 	int	side_wall;
 
 	set_step(data->point.sight, &step_x, &step_y);
+    printf("%s, %d\n", __FILE__, __LINE__);
 	map_x = (int)data->point.player.x;
+    printf("%s, %d\n", __FILE__, __LINE__);
 	map_y = (int)data->point.player.y;
-	while (data->map[map_y][map_x] != '1')
+    printf("%s, %d\n", __FILE__, __LINE__);
+	while (map_x < data->x_max && map_y < data->y_max && data->map[map_y][map_x] != '1')
 	{
+    printf("%s, %d\n", __FILE__, __LINE__);
 		if (side->x < side->y)
 		{
 			side->x += dist->x;
@@ -62,6 +66,7 @@ int	ft_dda(t_data *data, t_vector *dist, t_vector *side, t_vector ray)
 			side_wall = 1;
 		}
 	}
+    printf("%s, %d\n", __FILE__, __LINE__);
 	return (side_wall);
 }
 
@@ -79,5 +84,6 @@ double	get_wall_height(t_data *data, t_point point, t_vector ray)
 		wall_dist = side.x - dist.x;
 	else
 		wall_dist = side.y - dist.y;
+    printf("%s, %d\n", __FILE__, __LINE__);
 	return (2 * WIN_VER / wall_dist);
 }
