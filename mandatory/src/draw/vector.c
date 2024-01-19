@@ -18,10 +18,9 @@ t_vector    vector_rotate(t_vector vec, double angle)
 {
     t_vector    res;
 
-    res.x = cos(vec.x) - sin(vec.y);
-    res.y = sin(vec.x) + cos(vec.y);
+    res.x = vec.x * cos(-angle) - vec.y * sin(-angle);
+    res.y = vec.x * sin(-angle) + vec.y * cos(-angle);
     return (res);
-//    return ((t_vector){cos(vec.x) - sin(vec.y), sin(vec.x) + cos(vec.y), 0});
 }
 
 /* 벡터의 기울기를 반환, 기울기가 무한일 때는 아주 작은 숫자로 대체해서 에러를 피함. */

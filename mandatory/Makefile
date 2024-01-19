@@ -14,7 +14,8 @@ SRCS = ./src/main.c \
 		./src/draw/utils.c \
 		./src/draw/vector.c \
 		./src/draw/dda.c \
-		./src/draw/plot_line.c 
+		./src/draw/plot_line.c \
+		./src/key_action.c
 
 LIBFT = libft.a
 LIBFTDIR = ./libft

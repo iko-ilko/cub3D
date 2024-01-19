@@ -6,7 +6,7 @@
 /*   By: seongwol <seongwol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:32:05 by seongwol          #+#    #+#             */
-/*   Updated: 2024/01/19 19:36:38 by seongwol         ###   ########.fr       */
+/*   Updated: 2024/01/19 22:37:46 by seongwol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,9 @@ void	my_mlx_pixel_put(t_image *img, int x, int y, int color);
 int		mlx_image_find_color(t_image *img, int x, int y);
 int		ft_key_action(int key, t_data *img);
 double	ft_abs(double i);
+
+/* key_actionn.c */
+void    player_move(t_data *data, int key);
 
 /* vector.c */
 t_vector    vector_calculate(t_vector v1, t_vector v2, int sign);
