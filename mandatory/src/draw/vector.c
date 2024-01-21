@@ -34,10 +34,10 @@ double  vector_gradient(t_vector vector)
 /* 벡터를 크기가 1인 단위 벡터로 변환. */
 t_vector    vector_normalizing(t_vector vector)
 {
-    int         scale;
+    double         scale;
     t_vector    ret;
 
-    scale = sqrt(pow(vector.x, 2) + pow(vector.y, 2));
+    scale = sqrt((pow(vector.x, 2) + pow(vector.y, 2)));
     ret.x = vector.x / scale;
     ret.y = vector.y / scale;
 
