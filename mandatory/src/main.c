@@ -6,7 +6,7 @@
 /*   By: seongwol <seongwol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:49:20 by seongwol          #+#    #+#             */
-/*   Updated: 2024/01/19 22:52:07 by seongwol         ###   ########.fr       */
+/*   Updated: 2024/01/21 18:51:53 by seongwol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ t_point	get_point_data(t_data *data)
 
 void	ray_casting(t_data *data)
 {
-	printf("casting start\n\n\n");
 	t_vector	ray;
 	int			x;
 	double		camera_x;
