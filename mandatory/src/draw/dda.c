@@ -65,19 +65,17 @@ int	ft_dda(t_data *data, t_vector *dist, t_vector *side, t_vector ray)
 	return (side_wall);
 }
 
-double	get_wall_height(t_data *data, t_point point, t_vector ray)
+t_dda	get_wall_height(t_data *data, t_point point, t_vector ray)
 {
-	t_vector	dist;
-	t_vector	side;
-	int			side_wall;
-	double		wall_dist;
+	t_dda		dda;
 
-	get_dist(point, &dist, ray);
-	get_side(point, &side, dist, ray);
-	side_wall = ft_dda(data, &dist, &side, ray);
-	if (side_wall == 0)
-		wall_dist = side.x - dist.x;
+	get_dist(point, &dda.dist, ray);
+	get_side(point, &dda.side, dda.dist, ray);
+	dda.side_wall = ft_dda(data, &dda.dist, &dda.side, ray);
+	if (dda.side_wall == 0)
+		dda.wall_dist = dda.side.x - dda.dist.x;
 	else
-		wall_dist = side.y - dist.y;
-	return (2 * WIN_VER / wall_dist);
+		dda.wall_dist = dda.side.y - dda.dist.y;
+	dda.height = 3 * WIN_VER / dda.wall_dist;
+	return (dda);
 }

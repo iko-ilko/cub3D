@@ -17,6 +17,7 @@ void	init_pre_struct(t_pre_data *pre, t_data *data, char **arv)
 	data->y_max = 0;
 	data->x_max = 0;
 }
+
 void	check_arv(t_pre_data *pre, int arc, char **arv)
 {
 	int	i;
