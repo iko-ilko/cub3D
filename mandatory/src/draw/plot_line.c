@@ -1,16 +1,16 @@
 #include "../../include/cub3d.h"
 
-void    plot_line(t_data *data, int x, int height)
+void    plot_line(t_data *data, int x, t_dda *dda)
 {
     int y;
 
     y = 0;
-    while (y < (WIN_VER  - height) / 2)
+    while (y < (WIN_VER  - dda->height) / 2)
     {
         my_mlx_pixel_put(&data->palette, x, y, 0x00ff00/*천장 색깔*/);
         y++;
     }
-    while (y >= (WIN_VER  - height) / 2 && y < (WIN_VER + height) / 2)
+    while (y >= (WIN_VER  - dda->height) / 2 && y < (WIN_VER + dda->height) / 2)
     {
         my_mlx_pixel_put(&data->palette, x, y, 0xff00ff/*pick_wall_color*/);
         y++;

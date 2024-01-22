@@ -55,4 +55,12 @@ typedef struct s_pre_data
 	struct s_data		*data;
 }	t_pre_data;
 
+typedef struct s_dda
+{
+	t_vector	dist;
+	t_vector	side;
+	int			side_wall;
+	double		wall_dist;
+	int			height;
+}	t_dda;
 #endif

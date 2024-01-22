@@ -6,7 +6,7 @@
 /*   By: seongwol <seongwol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:49:20 by seongwol          #+#    #+#             */
-/*   Updated: 2024/01/21 18:51:53 by seongwol         ###   ########.fr       */
+/*   Updated: 2024/01/22 17:55:26 by seongwol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	ray_casting(t_data *data)
 	t_vector	ray;
 	int			x;
 	double		camera_x;
-	int			height;
+	t_dda		dda;
 
 	camera_x = 0;
 	x = 0;
@@ -80,8 +80,8 @@ void	ray_casting(t_data *data)
 		camera_x = ((2 * (double)x / WIN_HOR) - 1);
 		ray = vector_calculate(data->point.sight,\
 			vector_multiple(data->point.plane, camera_x), PLUS);
-		height = get_wall_height(data, data->point, ray);
-		plot_line(data, x, height);
+		dda = get_wall_height(data, data->point, ray);
+		plot_line(data, x, &dda);
 		x++;
 	}
 }
@@ -92,8 +92,6 @@ unsigned int	img_pick_color(t_image *img, int x, int y)
 	unsigned int	*dst;
 
 	point = (unsigned int *)(img->addr + img->line_length * y + img->bits_per_pixel / 8 * x);
-
-	// dst = (unsigned int *)img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
 	return (*point);
 }
 

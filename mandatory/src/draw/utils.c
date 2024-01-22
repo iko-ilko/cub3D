@@ -6,7 +6,7 @@
 /*   By: seongwol <seongwol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:39:21 by seongwol          #+#    #+#             */
-/*   Updated: 2024/01/21 17:30:13 by seongwol         ###   ########.fr       */
+/*   Updated: 2024/01/22 18:09:40 by seongwol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ int	mlx_image_find_color(t_image *img, int x, int y) //ilko help!!!!!!!!!!
 {
 	unsigned int	*res;
 
-	res = (unsigned int *)img->img + (y * img->width) + x;
+	res = (unsigned int *)img->addr;
+	res = res + y * img->line_length + x * (img->bits_per_pixel / 8);
 	return (*res);
 }
 
