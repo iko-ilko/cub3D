@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   str_func2.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/24 10:06:53 by ilko              #+#    #+#             */
+/*   Updated: 2024/01/24 11:22:36 by ilko             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/cub3d.h"
 
 int	my_atoi_cub(char *str)
@@ -11,8 +23,10 @@ int	my_atoi_cub(char *str)
 	if (*str == '-' || *str == '+')
 		sign = 44 - *str++;
 	result = 0;
-	while (*str >= '0' && *str <= '9')
+	while (*str != '\0' && *str != '\n')
 	{
+		if (*str < '0' || *str > '9')
+			exit_error(RGB_VALUE_ERROR, str);
 		result = result * 10 + *(str++) - '0';
 		if (result / 1000 > 0)
 			exit_error(RGB_VALUE_ERROR, str);
