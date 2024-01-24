@@ -1,16 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/24 11:29:03 by ilko              #+#    #+#             */
+/*   Updated: 2024/01/24 11:29:39 by ilko             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/cub3d.h"
 
 void	exit_error(char *str, char *reason)
 {
 	printf("Error\n");
 	if (reason != NULL)
-		printf("%s: %s", str, reason);// ㄱㅐ해ㅇ이 필필요요한  상상황  있있는는지  체체크크
+		printf("%s: %s", str, reason);
 	else
 		printf("%s\n", str);
 	exit(1);
 }
 
-void	single_free(char **p)//ㅍㅣㄹ요시 void *
+void	single_free(char **p)
 {
 	if (*p == NULL)
 		return ;

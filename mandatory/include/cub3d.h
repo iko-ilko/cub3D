@@ -35,13 +35,13 @@
 
 /* preprocess.c */
 void	preprocess(t_data *data, int arc, char **arv);
-void	init_pre_struct(t_pre_data *pre, t_data *data, char **arv);
+void	init_pre_struct(t_pre_data *pre, t_data *data);
 void	check_arv(t_pre_data *pre, int arc, char **arv);
 void	clear_pre_data(t_pre_data *pre);
 
 
 /* parse_map.c */
-void	check_last_line_ln(char ***info_map, int y_max);
+void	check_last_line_ln(char ***info_map);
 void	parse_cub_file(t_pre_data *pre);
 int		get_map_info(t_pre_data *pre, char *line);
 void	make_map_space(t_pre_data *pre, int offset);

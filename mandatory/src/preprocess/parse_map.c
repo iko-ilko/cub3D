@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_map.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/24 11:28:23 by ilko              #+#    #+#             */
+/*   Updated: 2024/01/24 11:28:42 by ilko             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/cub3d.h"
 #include "../include/get_next_line.h"
-//빈 줄이 아니면 서브젝트에 따라 엄격한 규칙을 따름. 각 요소의 유형은 공백으로 구분 가능.
+
 int	get_map_info(t_pre_data *pre, char *line)
 {
 	char	**arv;
@@ -8,7 +20,7 @@ int	get_map_info(t_pre_data *pre, char *line)
 	if (line[0] == '\n')
 		return (-1);
 	arv = my_split(line, " ");
-	if (arv[0] == NULL || arv[1] == NULL || arv[2] != NULL)//arv[0]은 공백으로만 이루어진 line인 경우.
+	if (arv[0] == NULL || arv[1] == NULL || arv[2] != NULL)
 		exit_error(MAP_INFO_LINE_ERROR, line);
 	if (my_strcmp("NO", arv[0]) == 0 && pre->north_arv == NULL)
 		pre->north_arv = arv;
@@ -52,7 +64,6 @@ void	make_map_space(t_pre_data *pre, int offset)
 	close(fd);
 }
 
-//ㅅㅓㅁ ㅁㅐㅂ ㄸㅒ무ㄴ에 빈 줄도 허용. 벽벽으으로  ㅈ둘러 쌓이지않은 문제가 있는 맵은 어차피 그 다음 맵 체크 단계에서 걸러진다.
 void	get_map(t_pre_data *pre, t_data *data, char *line, int offset)
 {
 	if (line[0] == '\n' && data->y_max == 0)
@@ -64,7 +75,7 @@ void	get_map(t_pre_data *pre, t_data *data, char *line, int offset)
 		data->x_max = my_strlen(line);
 }
 
-void	check_last_line_ln(char ***info_map, int y_max)
+void	check_last_line_ln(char ***info_map)
 {
 	int		i;
 	char	**map;
