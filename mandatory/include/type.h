@@ -57,10 +57,19 @@ typedef struct s_pre_data
 
 typedef struct s_dda
 {
+	t_vector	ray;
 	t_vector	dist;
 	t_vector	side;
 	int			side_wall;
 	double		wall_dist;
 	int			height;
 }	t_dda;
+
+typedef struct s_texture
+{
+	int	tex_x;
+	int	tex_y;
+	int	type;
+	int	color;
+}	t_texture;
 #endif
