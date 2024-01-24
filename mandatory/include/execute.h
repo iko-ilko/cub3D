@@ -6,7 +6,7 @@
 /*   By: seongwol <seongwol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:32:05 by seongwol          #+#    #+#             */
-/*   Updated: 2024/01/22 17:55:19 by seongwol         ###   ########.fr       */
+/*   Updated: 2024/01/23 22:01:29 by seongwol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,13 @@ void	get_dist(t_point point, t_vector *dist, t_vector ray);
 void	get_side(t_point point, t_vector *side, t_vector dist, t_vector ray);
 void	set_step(t_vector sight, int *step_x, int *step_y);
 int		ft_dda(t_data *data, t_vector *dist, t_vector *side, t_vector ray);
-void	ray_casting(t_data *data);
+int 	ray_casting(t_data *data);
 t_dda	get_wall_height(t_data *data, t_point point, t_vector ray);
+int 	get_color(t_image *texture, int pixel_x, int pixel_y);
+
+int	get_texture_x(t_dda *dda, t_data *data);
+int	get_texture_y(t_dda *dda, int y);
+int set_type(t_dda *dda);
 
 /* plot_line */
 void    plot_line(t_data *data, int x, t_dda *dda);

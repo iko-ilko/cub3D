@@ -6,7 +6,7 @@
 /*   By: seongwol <seongwol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:49:20 by seongwol          #+#    #+#             */
-/*   Updated: 2024/01/22 17:55:26 by seongwol         ###   ########.fr       */
+/*   Updated: 2024/01/24 14:03:40 by seongwol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,24 +66,24 @@ t_point	get_point_data(t_data *data)
 	return (res);
 }
 
-void	ray_casting(t_data *data)
+int	ray_casting(t_data *data)
 {
-	t_vector	ray;
+	t_dda		dda;
 	int			x;
 	double		camera_x;
-	t_dda		dda;
 
 	camera_x = 0;
 	x = 0;
 	while (x < WIN_HOR)
 	{
 		camera_x = ((2 * (double)x / WIN_HOR) - 1);
-		ray = vector_calculate(data->point.sight,\
+		dda.ray = vector_calculate(data->point.sight,\
 			vector_multiple(data->point.plane, camera_x), PLUS);
-		dda = get_wall_height(data, data->point, ray);
+		dda = get_wall_height(data, data->point, dda.ray);
 		plot_line(data, x, &dda);
 		x++;
 	}
+	return (1);
 }
 
 unsigned int	img_pick_color(t_image *img, int x, int y)
@@ -106,7 +106,7 @@ int main(int argc, char **argv)
 	data.palette.addr = mlx_get_data_addr(data.palette.img, &data.palette.bits_per_pixel, \
 						&data.palette.line_length, &data.palette.endian);
 	data.point = get_point_data(&data);
-	ray_casting(&data);
+	mlx_loop_hook(data.mlx, ray_casting, &data);
 	mlx_hook(data.mlx_win, KEY_PRESS, 0, ft_key_action, &data);
 	mlx_loop(data.mlx);
 }
