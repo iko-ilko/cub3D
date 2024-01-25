@@ -79,14 +79,7 @@ typedef struct s_ray
 	int		draw_end;
 	int		position;;
 	int		tex_x;
-	int		y_start;
+	int		tex_y;
+	int		color;
 }	t_ray;
-
-typedef struct s_texture
-{
-	int	tex_x;
-	int	tex_y;
-	int	type;
-	int	color;
-}	t_texture;
 #endif

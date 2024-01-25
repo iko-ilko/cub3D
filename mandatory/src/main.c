@@ -6,7 +6,7 @@
 /*   By: seongwol <seongwol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:49:20 by seongwol          #+#    #+#             */
-/*   Updated: 2024/01/25 16:05:46 by seongwol         ###   ########.fr       */
+/*   Updated: 2024/01/25 18:34:16 by seongwol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ t_point	get_point_data(t_data *data)
 	res.pos.y = i + 0.5;
 	res.dir = get_player_sight(data->map[i][j]);
 	res.plane = get_plane_vector(data->map[i][j]);
+	data->map[i][j] = '0';
 	return (res);
 }
 
@@ -136,7 +137,7 @@ void	calculate_line_height(t_ray *ray, t_data *data, t_point *point)
 		ray->wall_dist = (ray->sidedist_x - ray->deltadist_x);
 	else
 		ray->wall_dist = (ray->sidedist_y - ray->deltadist_y);
-	ray->line_height = (int)((double)WIN_VER / ray->wall_dist);
+	ray->line_height = (int)((double)WIN_VER / ray->wall_dist * 3);
 	ray->draw_start = -(ray->line_height) / 2 + WIN_VER / 2;
 	if (ray->draw_start < 0)
 		ray->draw_start = 0;
@@ -168,17 +169,24 @@ int	get_texture_index(t_data *data, t_ray *ray)
 	}
 }
 
-int	find_texture_xy(t_data *data, t_ray *ray)
+void	find_texture_x(t_data *data, t_ray *ray)
 {
-	double	step;
-	
 	ray->tex_x = (int)(ray->wall_x * IMG_HOR);
 	if ((ray->side == 0 && ray->dir_x < 0)
 		|| (ray->side == 1 && ray->dir_y > 0))
 		ray->tex_x = IMG_HOR - ray->tex_x - 1;
-	step = 1.0 * IMG_VER / ray->line_height;
-	ray->y_start = (ray->draw_start - IMG_VER / 2
-			+ ray->line_height / 2) * step;
+}
+
+void	find_texture_y(t_data *data, t_ray *ray, int y)
+{
+	ray->tex_y = (y - ray->draw_start) * IMG_VER / (ray->draw_end - ray->draw_start);
+}
+
+void	put_texture_color(t_data *data, t_ray *ray, int x, int y)
+{
+	find_texture_y(data, ray, y);
+	ray->color = get_color(&data->image[ray->position], ray->tex_x, ray->tex_y);
+	my_mlx_pixel_put(&data->palette, x, y, ray->color);
 }
 
 void	plot_line(t_data *data, int x, t_ray *ray)
@@ -187,14 +195,14 @@ void	plot_line(t_data *data, int x, t_ray *ray)
 
 	y = -1;
 	while (++y < ray->draw_start)
-		my_mlx_pixel_put(&data->palette.img, x, y, 0x0000ff);
+		my_mlx_pixel_put(&data->palette, x, y, 0x0000ff);
 	while (y >= ray->draw_start && y < ray->draw_end)
 	{
-		my_mlx_pixel_put(&data->palette.img, x, y, 0xffffff);
+		put_texture_color(data, ray, x, y);
 		y++;
 	}
 	while (y < WIN_VER)
-		my_mlx_pixel_put(&data->palette.img, x, y++, 0x00ff00);
+		my_mlx_pixel_put(&data->palette, x, y++, 0x00ff00);
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->palette.img, 0, 0);
 }
 
@@ -211,7 +219,7 @@ int	ray_casting(t_data *data)
 		perform_dda(data, &ray);
 		calculate_line_height(&ray, data, &data->point);
 		ray.position = get_texture_index(data, &ray);
-		ray.tex_x = find_texture_xy(data, &ray);
+		find_texture_x(data, &ray);
 		plot_line(data, x, &ray);
 		x++;
 	}
@@ -229,7 +237,6 @@ int main(int argc, char **argv)
 	data.palette.addr = mlx_get_data_addr(data.palette.img, &data.palette.bits_per_pixel, \
 						&data.palette.line_length, &data.palette.endian);
 	data.point = get_point_data(&data);
-	// ray_casting(&data);
 	mlx_loop_hook(data.mlx, ray_casting, &data);
 	mlx_hook(data.mlx_win, KEY_PRESS, 0, ft_key_action, &data);
 	mlx_loop(data.mlx);
