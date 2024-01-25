@@ -35,13 +35,11 @@ int	ft_key_action(int key, t_data *data)
 	if (key == UP || key == DOWN || key == LEFT || key == RIGHT)
 	{
 		player_move(data, key);
-		ray_casting(data);
 	}
     if (key == A || key == D)
     {
         data->point.dir = vector_rotate(data->point.dir, (-0.2 * (key == A) + 0.2 * (key == D)));
         data->point.plane = vector_rotate(data->point.plane, (-0.2 * (key == A) + 0.2 * (key == D)));
-        ray_casting(data);
     }
 	return (SUCCESS);
 }
