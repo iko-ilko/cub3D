@@ -6,7 +6,7 @@
 /*   By: seongwol <seongwol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:49:20 by seongwol          #+#    #+#             */
-/*   Updated: 2024/01/24 14:03:40 by seongwol         ###   ########.fr       */
+/*   Updated: 2024/01/25 14:30:40 by seongwol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,40 +59,160 @@ t_point	get_point_data(t_data *data)
 			break ;
 		i++;
 	}
-	res.player.x = j + 0.5;
-	res.player.y = i + 0.5;
-	res.sight = get_player_sight(data->map[i][j]);
+	res.pos.x = j + 0.5;
+	res.pos.y = i + 0.5;
+	res.dir = get_player_sight(data->map[i][j]);
 	res.plane = get_plane_vector(data->map[i][j]);
 	return (res);
 }
 
+void	init_ray(t_data *data, t_ray *ray, int x)
+{
+	ray->camera_x = 2 * x / (double)WIN_HOR - 1;
+	ray->dir_x = data->point.dir.x + data->point.plane.x * ray->camera_x;
+	ray->dir_y = data->point.dir.y + data->point.plane.y * ray->camera_x;
+	ray->map_x = (int)data->point.pos.x;
+	ray->map_y = (int)data->point.pos.y;
+	ray->deltadist_x = fabs(1 / ray->dir_x);
+	ray->deltadist_y = fabs(1 / ray->dir_y);
+}
+
+void	set_dda(t_data *data, t_ray *ray)
+{
+	if (ray->dir_x < 0)
+	{
+		ray->step_x = -1;
+		ray->sidedist_x = (data->point.pos.x - ray->map_x) * ray->deltadist_x;
+	}
+	else
+	{
+		ray->step_x = 1;
+		ray->sidedist_x = (ray->map_x + 1.0 - data->point.pos.x) * ray->deltadist_x;
+	}
+	if (ray->dir_y < 0)
+	{
+		ray->step_y = -1;
+		ray->sidedist_y = (data->point.pos.y - ray->map_y) * ray->deltadist_y;
+	}
+	else
+	{
+		ray->step_y = 1;
+		ray->sidedist_y = (ray->map_y + 1.0 - data->point.pos.y) * ray->deltadist_y;
+	}
+}
+
+void	perform_dda(t_data *data, t_ray *ray)
+{
+	int	hit;
+
+	hit = 0;
+	while (hit == 0)
+	{
+		if (ray->sidedist_x < ray->sidedist_y)
+		{
+			ray->sidedist_x += ray->deltadist_x;
+			ray->map_x += ray->step_x;
+			ray->side = 0;
+		}
+		else
+		{
+			ray->sidedist_y += ray->deltadist_y;
+			ray->map_y += ray->step_y;
+			ray->side = 1;
+		}
+		if (ray->map_y < 0.25
+			|| ray->map_x < 0.25
+			|| ray->map_y > data->x_max - 0.25
+			|| ray->map_x > data->y_max - 1.25)
+			break ;
+		else if (data->map[ray->map_y][ray->map_x] > '0')
+			hit = 1;
+	}
+}
+
+void	calculate_line_height(t_ray *ray, t_data *data, t_point *point)
+{
+	if (ray->side == 0)
+		ray->wall_dist = (ray->sidedist_x - ray->deltadist_x);
+	else
+		ray->wall_dist = (ray->sidedist_y - ray->deltadist_y);
+	ray->line_height = (int)((double)WIN_VER / ray->wall_dist);
+	ray->draw_start = -(ray->line_height) / 2 + WIN_VER / 2;
+	if (ray->draw_start < 0)
+		ray->draw_start = 0;
+	ray->draw_end = ray->line_height / 2 + WIN_VER / 2;
+	if (ray->draw_end >= WIN_VER)
+		ray->draw_end = WIN_VER - 1;
+	if (ray->side == 0)
+		ray->wall_x = point->pos.y + ray->wall_dist * ray->dir_y;
+	else
+		ray->wall_x = point->pos.x + ray->wall_dist * ray->dir_x;
+	ray->wall_x -= floor(ray->wall_x);
+}
+
+int	get_texture_index(t_data *data, t_ray *ray)
+{
+	if (ray->side == 0)
+	{
+		if (ray->dir_x < 0)
+			return ((int)WEST);
+		else
+			return ((int)EAST);
+	}
+	else
+	{
+		if (ray->dir_y > 0)
+			return ((int)SOUTH);
+		else
+			return ((int)NORTH);
+	}
+}
+
+int	find_texture_xy(t_data *data, t_ray *ray)
+{
+	double	step;
+	
+	ray->tex_x = (int)(ray->wall_x * IMG_HOR);
+	if ((ray->side == 0 && ray->dir_x < 0)
+		|| (ray->side == 1 && ray->dir_y > 0))
+		ray->tex_x = IMG_HOR - ray->tex_x - 1;
+	step = 1.0 * IMG_VER / ray->line_height;
+	ray->y_start = (ray->draw_start - IMG_VER / 2
+			+ ray->line_height / 2) * step;
+}
+
+void	plot_line(t_data *data, int x, t_ray *ray)
+{
+	int	y;
+
+	y = -1;
+	printf("draw_start = %d, draw_end = %d\n", ray->draw_start, ray->draw_end);
+	while (++y < ray->draw_end)
+		my_mlx_pixel_put(&data->palette, x, y, 0x0000ff);
+	while (++y >= ray->draw_end && y < ray->draw_start)
+		my_mlx_pixel_put(&data->palette, x, y, 0xffffff);
+	while (++y >= ray->draw_start && y < WIN_VER)
+		my_mlx_pixel_put(&data->palette, x, y, 0x00ff00);
+	mlx_put_image_to_window(data->mlx, data->mlx_win, &data->palette.img, 0, 0);
+}
+
 int	ray_casting(t_data *data)
 {
-	t_dda		dda;
-	int			x;
-	double		camera_x;
+	t_ray	ray;
+	int		x;
 
-	camera_x = 0;
 	x = 0;
 	while (x < WIN_HOR)
 	{
-		camera_x = ((2 * (double)x / WIN_HOR) - 1);
-		dda.ray = vector_calculate(data->point.sight,\
-			vector_multiple(data->point.plane, camera_x), PLUS);
-		dda = get_wall_height(data, data->point, dda.ray);
-		plot_line(data, x, &dda);
+		init_ray(data, &ray, x);
+		set_dda(data, &ray);
+		calculate_line_height(&ray, data, &data->point);
+		ray.position = get_texture_index(data, &ray);
+		ray.tex_x = find_texture_xy(data, &ray);
+		plot_line(data, x, &ray);
 		x++;
 	}
-	return (1);
-}
-
-unsigned int	img_pick_color(t_image *img, int x, int y)
-{
-	unsigned int	*point;
-	unsigned int	*dst;
-
-	point = (unsigned int *)(img->addr + img->line_length * y + img->bits_per_pixel / 8 * x);
-	return (*point);
+	return (0);
 }
 
 int main(int argc, char **argv)
@@ -106,7 +226,8 @@ int main(int argc, char **argv)
 	data.palette.addr = mlx_get_data_addr(data.palette.img, &data.palette.bits_per_pixel, \
 						&data.palette.line_length, &data.palette.endian);
 	data.point = get_point_data(&data);
-	mlx_loop_hook(data.mlx, ray_casting, &data);
+	ray_casting(&data);
+	// mlx_loop_hook(data.mlx, ray_casting, &data);
 	mlx_hook(data.mlx_win, KEY_PRESS, 0, ft_key_action, &data);
 	mlx_loop(data.mlx);
 }
