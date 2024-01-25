@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   type.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/25 19:21:39 by ilko              #+#    #+#             */
+/*   Updated: 2024/01/25 19:21:53 by ilko             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef TYPE_H
 # define TYPE_H
@@ -18,14 +29,16 @@ typedef struct s_vector
 {
 	double	x;
 	double	y;
-	double	z;
 }	t_vector;
 
 typedef struct s_point
 {
-	t_vector	player;
-	t_vector	sight;
+	t_vector	pos;
+	t_vector	dir;
 	t_vector	plane;
+	int			is_move;
+	int			is_rotate;
+	t_vector	move;
 }	t_point;
 
 typedef struct s_data
@@ -39,12 +52,9 @@ typedef struct s_data
 	unsigned int		floor_color;
 	unsigned int		ceiling_color;
 	t_image				image[4];
-
-	char	sight;
-	t_image	palette;
-	t_image	minimap;
-	int		move_p[4];
-	t_point	point;
+	t_image				palette;
+	t_image				minimap;
+	t_point				point;
 }	t_data;
 
 typedef struct s_pre_data
@@ -60,4 +70,28 @@ typedef struct s_pre_data
 	struct s_data		*data;
 }	t_pre_data;
 
+typedef struct s_ray
+{
+	double	camera_x;
+	double	dir_x;
+	double	dir_y;
+	int		map_x;
+	int		map_y;
+	int		step_x;
+	int		step_y;
+	double	sidedist_x;
+	double	sidedist_y;
+	double	deltadist_x;
+	double	deltadist_y;
+	double	wall_dist;
+	double	wall_x;
+	int		side;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+	int		position;
+	int		tex_x;
+	int		tex_y;
+	int		color;
+}	t_ray;
 #endif

@@ -1,8 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   preprocess.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/24 11:28:52 by ilko              #+#    #+#             */
+/*   Updated: 2024/01/24 11:28:58 by ilko             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/cub3d.h"
 #include "../include/get_next_line.h"
 
-
-void	init_pre_struct(t_pre_data *pre, t_data *data, char **arv)
+void	init_pre_struct(t_pre_data *pre, t_data *data)
 {
 	pre->cub_file_name = NULL;
 	pre->north_arv = NULL;
@@ -13,14 +24,11 @@ void	init_pre_struct(t_pre_data *pre, t_data *data, char **arv)
 	pre->ceiling_arv = NULL;
 	pre->remap = NULL;
 	pre->data = data;
-	data->move_p[NORTH] = 0;
-	data->move_p[SOUTH] = 0;
-	data->move_p[WEST] = 0; 
-	data->move_p[EAST] = 0;
 	data->map = NULL;
 	data->y_max = 0;
 	data->x_max = 0;
 }
+
 void	check_arv(t_pre_data *pre, int arc, char **arv)
 {
 	int	i;
@@ -64,10 +72,10 @@ void	preprocess(t_data *data, int arc, char **arv)
 {
 	t_pre_data	pre;
 
-	init_pre_struct(&pre, data, arv);
+	init_pre_struct(&pre, data);
 	check_arv(&pre, arc, arv);
 	parse_cub_file(&pre);
-	check_last_line_ln(&data->map, data->y_max);
+	check_last_line_ln(&data->map);
 	load_xpm_texture(&pre, data, data->image);
 	convert_rgb(&pre, data);
 	remake_map(&pre, data, data->map);

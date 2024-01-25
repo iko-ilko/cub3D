@@ -1,5 +1,4 @@
-CC = cc 
-# -g3 -Wall -Wextra -Werror
+CC = cc  -g3 -Wall -Wextra -Werror
 SRCS = ./src/main.c \
 		./src/preprocess/preprocess.c \
 		./src/preprocess/parse_map.c \
@@ -12,9 +11,11 @@ SRCS = ./src/main.c \
 		./src/get_next_line_func/get_next_line.c \
 		./src/get_next_line_func/get_next_line_utils.c \
 		./src/draw/utils.c \
+		./src/draw/utils2.c \
 		./src/draw/vector.c \
-		./src/draw/dda.c \
-		./src/key_action.c
+		./src/draw/ray_casting.c \
+		./src/key_action.c \
+		./src/draw/get_texture_color.c
 
 LIBFT = libft.a
 LIBFTDIR = ./libft

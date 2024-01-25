@@ -19,8 +19,8 @@ void	draw_player(t_data *data, char **map, t_image *minimap, double start[2])
 	int	i;
 	int	j;
 
-	p_pos[Y] = (int)((data->point.player.y - start[Y]) * (double)MULTIPLE);
-	p_pos[X] = (int)((data->point.player.x - start[X]) * (double)MULTIPLE);
+	p_pos[Y] = (int)((data->point.pos.y - start[Y]) * (double)MULTIPLE);
+	p_pos[X] = (int)((data->point.pos.x - start[X]) * (double)MULTIPLE);
 	i = -1;
 	while (++i < MULTIPLE)
 	{
@@ -37,7 +37,7 @@ void	draw_minimap(t_data *data, char **map, t_image *minimap)
 	int		i;
 	int		j;
 
-	start_minimap(data, start, data->point.player);
+	start_minimap(data, start, data->point.pos);
 	i = -1;
 	while (++i < BLOCK_MAX * MULTIPLE)
 	{

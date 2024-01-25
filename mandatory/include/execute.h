@@ -6,7 +6,7 @@
 /*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:32:05 by seongwol          #+#    #+#             */
-/*   Updated: 2024/01/25 20:38:42 by ilko             ###   ########.fr       */
+/*   Updated: 2024/01/26 04:48:41 by ilko             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,19 @@ t_vector	vector_rotate(t_vector vec, double angle);
 double		vector_gradient(t_vector vector);
 t_vector	vector_multiple(t_vector vector, double scale);
 
-/* dda.c */
-void		get_dist(t_point point, t_vector *dist, t_vector ray);
-void		get_side(t_point point, t_vector *side, t_vector dist, t_vector ray);
-void		set_step(t_vector sight, int *step_x, int *step_y);
-int			ft_dda(t_data *data, t_vector *dist, t_vector *side, t_vector ray);
+/* ray_casting.c */
+void		set_dda(t_data *data, t_ray *ray);
+void		perform_dda(t_data *data, t_ray *ray);
+void		init_ray(t_data *data, t_ray *ray, int x);
+void		calculate_line_height(t_ray *ray, t_point *point);
+void		plot_line(t_data *data, int x, t_ray *ray);
+
 int			ray_casting(t_data *data);
 int			get_color(t_image *texture, int pixel_x, int pixel_y);
+
+/* get_texture_color.c */
+int			get_texture_index(t_ray *ray);
+void		find_texture_x(t_ray *ray);
+void		put_texture_color(t_data *data, t_ray *ray, int x, int y);
+
 #endif
