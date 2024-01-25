@@ -41,5 +41,7 @@ int	ft_key_action(int key, t_data *data)
         data->point.dir = vector_rotate(data->point.dir, (-0.2 * (key == A) + 0.2 * (key == D)));
         data->point.plane = vector_rotate(data->point.plane, (-0.2 * (key == A) + 0.2 * (key == D)));
     }
+    mlx_clear_window(data->mlx, data->mlx_win);
+    ray_casting(data);
 	return (SUCCESS);
 }
