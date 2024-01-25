@@ -21,9 +21,12 @@ typedef struct s_vector
 
 typedef struct s_point
 {
-	t_vector	player;
-	t_vector	sight;
+	t_vector	pos;
+	t_vector	dir;
 	t_vector	plane;
+	int			is_move;
+	int			is_rotate;
+	t_vector	move;
 }	t_point;
 
 typedef struct s_data
@@ -55,15 +58,29 @@ typedef struct s_pre_data
 	struct s_data		*data;
 }	t_pre_data;
 
-typedef struct s_dda
+typedef struct s_ray
 {
-	t_vector	ray;
-	t_vector	dist;
-	t_vector	side;
-	int			side_wall;
-	double		wall_dist;
-	int			height;
-}	t_dda;
+	double	camera_x;
+	double	dir_x;
+	double	dir_y;
+	int		map_x;
+	int		map_y;
+	int		step_x;
+	int		step_y;
+	double	sidedist_x;
+	double	sidedist_y;
+	double	deltadist_x;
+	double	deltadist_y;
+	double	wall_dist;
+	double	wall_x;
+	int		side;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+	int		position;;
+	int		tex_x;
+	int		y_start;
+}	t_ray;
 
 typedef struct s_texture
 {
