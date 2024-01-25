@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/25 19:21:28 by ilko              #+#    #+#             */
+/*   Updated: 2024/01/25 19:22:28 by ilko             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -38,7 +50,6 @@ void	preprocess(t_data *data, int arc, char **arv);
 void	init_pre_struct(t_pre_data *pre, t_data *data);
 void	check_arv(t_pre_data *pre, int arc, char **arv);
 void	clear_pre_data(t_pre_data *pre);
-
 
 /* parse_map.c */
 void	check_last_line_ln(char ***info_map);

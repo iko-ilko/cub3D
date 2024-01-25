@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seongwol <seongwol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:49:20 by seongwol          #+#    #+#             */
-/*   Updated: 2024/01/25 19:09:32 by seongwol         ###   ########.fr       */
+/*   Updated: 2024/01/25 20:17:23 by ilko             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,26 @@
 t_vector	get_plane_vector(char c)
 {
 	if (c == 'N')
-		return ((t_vector){-0.2 * tan(deg_to_rad(FOV / 2)), 0});
+		return ((t_vector){-0.1 * tan(deg_to_rad(FOV / 2)), 0});
 	else if (c == 'S')
-		return ((t_vector){0.2 * tan(deg_to_rad(FOV / 2)), 0});
+		return ((t_vector){0.1 * tan(deg_to_rad(FOV / 2)), 0});
 	else if (c == 'E')
-		return ((t_vector){0, -0.2 * tan(deg_to_rad(FOV / 2))});
+		return ((t_vector){0, -0.1 * tan(deg_to_rad(FOV / 2))});
 	else
-		return ((t_vector){0, 0.2 * tan(deg_to_rad(FOV / 2))});
+		return ((t_vector){0, 0.1 * tan(deg_to_rad(FOV / 2))});
 }
 
 /* 플레이어의 시야의 단위벡터를 잡아주는 함수. 북쪽일 떄 -1 이라는 점이 중요하다. */
 t_vector	get_player_sight(char c)
 {
 	if (c == 'N')
-		return ((t_vector){0, -0.2});
+		return ((t_vector){0, -0.1});
 	else if (c == 'S')
-		return ((t_vector){0, 0.2});
+		return ((t_vector){0, 0.1});
 	else if (c == 'E')
-		return ((t_vector){0.2, 0});
+		return ((t_vector){0.1, 0});
 	else
-		return ((t_vector){-0.2, 0});
+		return ((t_vector){-0.1, 0});
 }
 
 /* 맵에 있는 플레이어 표시를 바탕으로 플레이어의 맵좌표, 바라보는 방향벡터, 방향과 수직으로 존재하는 plane 벡터값을 만들어준다. */
@@ -137,13 +137,9 @@ void	calculate_line_height(t_ray *ray, t_data *data, t_point *point)
 		ray->wall_dist = (ray->sidedist_x - ray->deltadist_x);
 	else
 		ray->wall_dist = (ray->sidedist_y - ray->deltadist_y);
-	ray->line_height = (int)((double)WIN_VER / ray->wall_dist * 3);
+	ray->line_height = (int)((double)WIN_VER / ray->wall_dist * 5);
 	ray->draw_start = -(ray->line_height) / 2 + WIN_VER / 2;
-	if (ray->draw_start < 0)
-		ray->draw_start = 0;
 	ray->draw_end = ray->line_height / 2 + WIN_VER / 2;
-	if (ray->draw_end >= WIN_VER)
-		ray->draw_end = WIN_VER - 1;
 	if (ray->side == 0)
 		ray->wall_x = point->pos.y + ray->wall_dist * ray->dir_y;
 	else
