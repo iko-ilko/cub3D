@@ -6,7 +6,7 @@
 /*   By: seongwol <seongwol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:49:20 by seongwol          #+#    #+#             */
-/*   Updated: 2024/01/25 14:30:40 by seongwol         ###   ########.fr       */
+/*   Updated: 2024/01/25 16:05:46 by seongwol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,14 +186,16 @@ void	plot_line(t_data *data, int x, t_ray *ray)
 	int	y;
 
 	y = -1;
-	printf("draw_start = %d, draw_end = %d\n", ray->draw_start, ray->draw_end);
-	while (++y < ray->draw_end)
-		my_mlx_pixel_put(&data->palette, x, y, 0x0000ff);
-	while (++y >= ray->draw_end && y < ray->draw_start)
-		my_mlx_pixel_put(&data->palette, x, y, 0xffffff);
-	while (++y >= ray->draw_start && y < WIN_VER)
-		my_mlx_pixel_put(&data->palette, x, y, 0x00ff00);
-	mlx_put_image_to_window(data->mlx, data->mlx_win, &data->palette.img, 0, 0);
+	while (++y < ray->draw_start)
+		my_mlx_pixel_put(&data->palette.img, x, y, 0x0000ff);
+	while (y >= ray->draw_start && y < ray->draw_end)
+	{
+		my_mlx_pixel_put(&data->palette.img, x, y, 0xffffff);
+		y++;
+	}
+	while (y < WIN_VER)
+		my_mlx_pixel_put(&data->palette.img, x, y++, 0x00ff00);
+	mlx_put_image_to_window(data->mlx, data->mlx_win, data->palette.img, 0, 0);
 }
 
 int	ray_casting(t_data *data)
@@ -206,6 +208,7 @@ int	ray_casting(t_data *data)
 	{
 		init_ray(data, &ray, x);
 		set_dda(data, &ray);
+		perform_dda(data, &ray);
 		calculate_line_height(&ray, data, &data->point);
 		ray.position = get_texture_index(data, &ray);
 		ray.tex_x = find_texture_xy(data, &ray);
@@ -226,8 +229,8 @@ int main(int argc, char **argv)
 	data.palette.addr = mlx_get_data_addr(data.palette.img, &data.palette.bits_per_pixel, \
 						&data.palette.line_length, &data.palette.endian);
 	data.point = get_point_data(&data);
-	ray_casting(&data);
-	// mlx_loop_hook(data.mlx, ray_casting, &data);
+	// ray_casting(&data);
+	mlx_loop_hook(data.mlx, ray_casting, &data);
 	mlx_hook(data.mlx_win, KEY_PRESS, 0, ft_key_action, &data);
 	mlx_loop(data.mlx);
 }
