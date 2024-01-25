@@ -6,7 +6,7 @@
 /*   By: seongwol <seongwol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:49:20 by seongwol          #+#    #+#             */
-/*   Updated: 2024/01/25 18:34:16 by seongwol         ###   ########.fr       */
+/*   Updated: 2024/01/25 19:09:32 by seongwol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,7 +203,6 @@ void	plot_line(t_data *data, int x, t_ray *ray)
 	}
 	while (y < WIN_VER)
 		my_mlx_pixel_put(&data->palette, x, y++, 0x00ff00);
-	mlx_put_image_to_window(data->mlx, data->mlx_win, data->palette.img, 0, 0);
 }
 
 int	ray_casting(t_data *data)
@@ -223,6 +222,7 @@ int	ray_casting(t_data *data)
 		plot_line(data, x, &ray);
 		x++;
 	}
+	mlx_put_image_to_window(data->mlx, data->mlx_win, data->palette.img, 0, 0);
 	return (0);
 }
 
@@ -237,6 +237,7 @@ int main(int argc, char **argv)
 	data.palette.addr = mlx_get_data_addr(data.palette.img, &data.palette.bits_per_pixel, \
 						&data.palette.line_length, &data.palette.endian);
 	data.point = get_point_data(&data);
+	ray_casting(&data);
 	mlx_loop_hook(data.mlx, ray_casting, &data);
 	mlx_hook(data.mlx_win, KEY_PRESS, 0, ft_key_action, &data);
 	mlx_loop(data.mlx);
