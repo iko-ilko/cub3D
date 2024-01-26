@@ -129,13 +129,52 @@ void	set_correted_pos_wall(t_data *data, t_vector temp, t_vector change)
 	}
 
 }
+//각 무브의 맞닿는 벽을 체크하려고 하루를 썼지만 ....그냥 반올림해서 가까운데에 벽이 있으면 그 방향이 곧 보정할 값이 되네
+//고민하던 벽과의 간격과 벽체크 한번에 될지도
+void	set_corrected_pos(t_data *data, t_vector temp, t_vector change)
+{
+	t_vector gap;
+	gap.y = data->point.pos.y - round(temp.y);
+	gap.x = data->point.pos.x - round(temp.x);
 
-// void	set_correted_pos(t_data *data, t_vector temp, t_vector change)
-// {
-// 	t_vector	gap;
-
-	
-// }
+	printf("gap x: %f gap y: %f\n", gap.x, gap.y);
+	printf("temp x: %f temp y: %f\n", temp.x, temp.y);
+	if ((gap.x > 0 && gap.x < 0.15) && data->map[(int)temp.y][(int)(temp.x - gap.x)] == '1') // 왼쪽 벽 체크
+	{
+		printf("1\n");
+		data->point.pos.x = floor(data->point.pos.x) + 0.15;
+		if (data->map[(int)(temp.y + gap.y)][(int)temp.x] == '0')
+			data->point.pos.y += change.y * 0.9;
+	}
+	else if ((gap.x < 0 && gap.x > -0.15) && data->map[(int)temp.y][(int)(temp.x - gap.x)] == '1') // 오른쪽 벽 체크
+	{
+		printf("2\n");
+		data->point.pos.x = ceil(data->point.pos.x) - 0.15;
+		if (data->map[(int)(temp.y - gap.y)][(int)temp.x] == '0'){printf("!!\n");
+			data->point.pos.y += change.y * 0.9;}
+		// else
+		// 	data->point.pos.y = ceil(data->point.pos.x) - 0.15;
+	}
+	else if ((gap.y > 0 && gap.y < 0.15) && data->map[(int)(temp.y - gap.y)][(int)temp.x] == '1') // 위쪽 벽 체크
+	{
+		printf("3\n");
+		data->point.pos.y = floor(data->point.pos.y) + 0.15;
+		if (data->map[(int)(temp.y)][(int)(temp.x + gap.x)] == '0')
+			data->point.pos.x += change.x * 0.9;
+	}
+	else if ((gap.y < 0 && gap.y > -0.15) && data->map[(int)(temp.y - gap.y)][(int)temp.x] == '1') // 아래쪽 벽 체크
+	{
+		printf("4\n");
+		data->point.pos.y = ceil(data->point.pos.y) - 0.15;
+		if (data->map[(int)temp.y][(int)(temp.x + gap.x)] == '0')
+			data->point.pos.x += change.x * 0.9;
+	}
+	else // 벽에 충돌하지 않는 경우
+	{
+		data->point.pos.x = temp.x;
+		data->point.pos.y = temp.y;
+	}
+}
 
 void	player_move(t_data *data, int key)
 {
@@ -148,16 +187,16 @@ void	player_move(t_data *data, int key)
 	change = sight_rotate(change, key);
 	change = vector_multiple(change, 0.137);//0.137
 	temp = vector_calculate(data->point.pos, change, PLUS);
-	if (data->map[(int)temp.y][(int)temp.x] == '1')
-	{// 살짝 각도틀고 앞 돌진하면 텍스쳐 너무 크게나옴. 아래 아예 값을 바꾸면 안될듯
-		set_correted_pos_wall(data, temp, change);
-	}
-	else
-	{//지금 설정할 논리가 정확하다면 위에 따로 벽이 아니라 0.137 안에 벽이 있다면 고정하고 아니면 temp...
-		// set_correted_pos(data, temp, change);
-		data->point.pos.x = temp.x;
-		data->point.pos.y = temp.y;
-	}
+	// if (data->map[(int)temp.y][(int)temp.x] == '1')
+	// {// 살짝 각도틀고 앞 돌진하면 텍스쳐 너무 크게나옴. 아래 아예 값을 바꾸면 안될듯
+		// set_correted_pos_wall(data, temp, change);
+	// }
+	// else
+	// {//지금 설정할 논리가 정확하다면 위에 따로 벽이 아니라 0.137 안에 벽이 있다면 고정하고 아니면 temp...
+		set_corrected_pos(data, temp, change);
+		// data->point.pos.x = temp.x;
+		// data->point.pos.y = temp.y;
+	// }
 }
 
 int	ft_key_action(int key, t_data *data)
