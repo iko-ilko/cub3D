@@ -6,7 +6,7 @@
 /*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 04:25:05 by ilko              #+#    #+#             */
-/*   Updated: 2024/01/26 04:47:16 by ilko             ###   ########.fr       */
+/*   Updated: 2024/01/26 11:57:47 by ilko             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	perform_dda(t_data *data, t_ray *ray)
 
 void	init_ray(t_data *data, t_ray *ray, int x)
 {
-	ray->camera_x = 2 * x / (double)WIN_HOR - 1;
+	ray->camera_x = 1 - 2 * x / (double)WIN_HOR;
 	ray->dir_x = data->point.dir.x + data->point.plane.x * ray->camera_x;
 	ray->dir_y = data->point.dir.y + data->point.plane.y * ray->camera_x;
 	ray->map_x = (int)data->point.pos.x;

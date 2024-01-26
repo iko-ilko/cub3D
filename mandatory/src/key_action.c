@@ -6,7 +6,7 @@
 /*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 20:32:26 by ilko              #+#    #+#             */
-/*   Updated: 2024/01/26 04:23:20 by ilko             ###   ########.fr       */
+/*   Updated: 2024/01/26 12:03:38 by ilko             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ t_vector	sight_rotate(t_vector change, int key)
 	else if (key == DOWN)
 		return (vector_multiple(change, -1));
 	else if (key == LEFT)
-		return (vector_rotate(change, -M_PI_2));
-	else if (key == RIGHT)
 		return (vector_rotate(change, M_PI_2));
+	else if (key == RIGHT)
+		return (vector_rotate(change, -M_PI_2));
 	return ((t_vector){0, 0});
 }
 /* 임시코드 */
@@ -93,14 +93,14 @@ int	ft_key_action(int key, t_data *data)
 	}
 	if (key == A || key == D)
 	{
-		data->point.dir = vector_rotate(data->point.dir, (-0.1 * (key == A) \
-							+ 0.1 * (key == D)));
-		data->point.plane = vector_rotate(data->point.plane, (-0.1 * (key == A) \
-							+ 0.1 * (key == D)));
+		data->point.dir = vector_rotate(data->point.dir, (0.1 * (key == A) \
+		+ -0.1 * (key == D)));
+		data->point.plane = vector_rotate(data->point.plane, (0.1 * (key == A) \
+		+ -0.1 * (key == D)));
 		mlx_clear_window(data->mlx, data->mlx_win);
 		ray_casting(data);
 	}
-	// printf("dir x: %f dir y: %f\n", data->point.dir.x, data->point.dir.y);
-	// printf("pos x: %f pos y: %f\n------\n", data->point.pos.x, data->point.pos.y);
+	printf("dir x: %f dir y: %f\n", data->point.dir.x, data->point.dir.y);
+	printf("pos x: %f pos y: %f\n------\n", data->point.pos.x, data->point.pos.y);
 	return (SUCCESS);
 }
