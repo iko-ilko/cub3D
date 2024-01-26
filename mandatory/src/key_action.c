@@ -103,6 +103,39 @@ int	check_wall(t_data *data, t_vector dir, t_vector temp, int key)
 	printf("temp x:%f temp:%f\n", temp.x, temp.y);
 	return (0);
 }
+//gap = (원래값 - 반올림한값)
+//if gap > 0 && gap < 0.1   //or if gap < 0 == gap > -0.1
+//내림값 += 0.1				//or 올림값 -= 0.1
+void	set_correted_pos_wall(t_data *data, t_vector temp, t_vector change)
+{
+	t_vector	gap;
+
+	if (data->map[(int)data->point.pos.y][(int)temp.x] == '0')
+	{
+		printf("Y\n");
+		data->point.pos.x += change.x * 0.9;//비빌 때 속도. 와 간격(도 여기서 보정 되는듯)
+		gap.y = data->point.pos.y - round(data->point.pos.y);//좌우키 다른 논리면 위에서 한번에 구하기
+		if (gap.y > 0 && gap.y < 0.137)
+			data->point.pos.y = floor(data->point.pos.y) + 0.137;
+		printf("y done\n");
+	}
+	if (data->map[(int)temp.y][(int)data->point.pos.x] == '0')
+	{
+		printf("X\n");
+		data->point.pos.y += change.y * 0.9;//비빌 때 속도. 와 간격(도 여기서 보정 되는듯)
+		gap.x = data->point.pos.x - round(data->point.pos.x);//좌우키 다른 논리면 위에서 한번에 구하기
+		if (gap.x < 0 && gap.x > 0.137)
+			data->point.pos.x = ceil(data->point.pos.x) - 0.137;
+	}
+
+}
+
+// void	set_correted_pos(t_data *data, t_vector temp, t_vector change)
+// {
+// 	t_vector	gap;
+
+	
+// }
 
 void	player_move(t_data *data, int key)
 {
@@ -115,72 +148,15 @@ void	player_move(t_data *data, int key)
 	change = sight_rotate(change, key);
 	change = vector_multiple(change, 0.137);//0.137
 	temp = vector_calculate(data->point.pos, change, PLUS);
-	// if (data->map[(int)temp.y][(int)temp.x] == '1')
-	// {//벽 미끄러짐 여기 5줄만 주석 풀고 테스트해보셔요
-	// 	change = vector_normalizing(data->point.dir);
-	// 	// if (data->map[(int)data->point.pos.y][(int)temp.x] == '0')
-	// 	// 	data->point.pos.x += change.x * 0.137;//배수 + 0.2 위치에 고정시키기
-	// 	// if (data->map[(int)temp.y][(int)data->point.pos.x] == '0')
-	// 	// 	data->point.pos.y += change.y * 0.137;
-	// 	if (data->map[(int)data->point.pos.y][(int)temp.x] == '1')
-	// 	{
-	// 		data->point.pos.x = temp.x;
-	// 		data->point.pos.y = (int)temp.y + 0.2;
-	// 	}
-	// 	if (data->map[(int)temp.y][(int)data->point.pos.x] == '1')
-	// 	{
-	// 		printf("%f\n", (int)data->point.pos.x + 0.2);
-	// 		data->point.pos.x = (int)data->point.pos.x + 0.2;
-	// 		data->point.pos.y = temp.y;
-	// 	}
-	// }
-	// if (check_wall(data, data->point.dir, temp, key) == -1)
-	// {//벽 미끄러짐 여기 5줄만 주석 풀고 테스트해보셔요
-	// 	change = vector_normalizing(data->point.dir);
-	// 	if (data->map[(int)data->point.pos.y][(int)temp.x] == '0')
-	// 	{
-	// 		if (key == RIGHT)
-	// 			data->point.pos.x -= change.x * 0.137;//이 값때문에 반대로 미끄러지는 경우 있어서 분기 나눠야할듯
-	// 		else if (key == DOWN)
-	// 			data->point.pos.x += change.x * 0.137;//이 값때문에 반대로 미끄러지는 경우 있어서 분기 나눠야할듯
-	// 		printf("??????\n");
-	// 	}
-	// 	if (data->map[(int)temp.y][(int)data->point.pos.x] == '0')
-	// 	{
-	// 		if (key == LEFT)
-	// 			data->point.pos.y -= change.y * 0.137;
-	// 		else if (key == UP)
-	// 			data->point.pos.y += change.y * 0.137;
-	// 	}
-	// }
-	int test = check_wall(data, data->point.dir, temp, key);
-	if (test == -1)
-	{//벽 미끄러짐 여기 5줄만 주석 풀고 테스트해보셔요
-		change = vector_normalizing(data->point.dir);
-		if (data->map[(int)data->point.pos.y][(int)temp.x] == '0')
-		{
-			if (key == RIGHT)
-				data->point.pos.x -= change.x * 0.137;//이 값때문에 반대로 미끄러지는 경우 있어서 분기 나눠야할듯
-			else if (key == DOWN)
-				data->point.pos.x += change.x * 0.137;//이 값때문에 반대로 미끄러지는 경우 있어서 분기 나눠야할듯
-		}
-
-	}
-	else if (test == -2)
-	{
-		change = vector_normalizing(data->point.dir);
-		if (data->map[(int)temp.y][(int)data->point.pos.x] == '0')
-		{
-			if (key == LEFT)
-				data->point.pos.y -= change.y * 0.137;
-			else if (key == UP)
-				data->point.pos.y += change.y * 0.137;
-		}
+	if (data->map[(int)temp.y][(int)temp.x] == '1')
+	{// 살짝 각도틀고 앞 돌진하면 텍스쳐 너무 크게나옴. 아래 아예 값을 바꾸면 안될듯
+		set_correted_pos_wall(data, temp, change);
 	}
 	else
-	{
-	data->point.pos.x = temp.x;
-	data->point.pos.y = temp.y;
+	{//지금 설정할 논리가 정확하다면 위에 따로 벽이 아니라 0.137 안에 벽이 있다면 고정하고 아니면 temp...
+		// set_correted_pos(data, temp, change);
+		data->point.pos.x = temp.x;
+		data->point.pos.y = temp.y;
 	}
 }
 
@@ -193,7 +169,9 @@ int	ft_key_action(int key, t_data *data)
 	}
 	if (key == UP || key == DOWN || key == LEFT || key == RIGHT)
 	{
+	printf("pre pos x: %f pre pos y: %f\n", data->point.pos.x, data->point.pos.y);
 		player_move(data, key);
+	printf("pos x: %f pos y: %f\n", data->point.pos.x, data->point.pos.y);
 		mlx_clear_window(data->mlx, data->mlx_win);
 		ray_casting(data);
 	}
