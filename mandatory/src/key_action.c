@@ -117,7 +117,6 @@ void	player_move(t_data *data, int key)
 	temp = vector_calculate(data->point.pos, change, PLUS);
 	// if (data->map[(int)temp.y][(int)temp.x] == '1')
 	// {//벽 미끄러짐 여기 5줄만 주석 풀고 테스트해보셔요
-	// 	change = vector_normalizing(data->point.dir);
 	// 	// if (data->map[(int)data->point.pos.y][(int)temp.x] == '0')
 	// 	// 	data->point.pos.x += change.x * 0.137;//배수 + 0.2 위치에 고정시키기
 	// 	// if (data->map[(int)temp.y][(int)data->point.pos.x] == '0')
@@ -136,7 +135,6 @@ void	player_move(t_data *data, int key)
 	// }
 	// if (check_wall(data, data->point.dir, temp, key) == -1)
 	// {//벽 미끄러짐 여기 5줄만 주석 풀고 테스트해보셔요
-	// 	change = vector_normalizing(data->point.dir);
 	// 	if (data->map[(int)data->point.pos.y][(int)temp.x] == '0')
 	// 	{
 	// 		if (key == RIGHT)
@@ -156,7 +154,6 @@ void	player_move(t_data *data, int key)
 	int test = check_wall(data, data->point.dir, temp, key);
 	if (test == -1)
 	{//벽 미끄러짐 여기 5줄만 주석 풀고 테스트해보셔요
-		change = vector_normalizing(data->point.dir);
 		if (data->map[(int)data->point.pos.y][(int)temp.x] == '0')
 		{
 			if (key == RIGHT)
@@ -168,7 +165,6 @@ void	player_move(t_data *data, int key)
 	}
 	else if (test == -2)
 	{
-		change = vector_normalizing(data->point.dir);
 		if (data->map[(int)temp.y][(int)data->point.pos.x] == '0')
 		{
 			if (key == LEFT)
