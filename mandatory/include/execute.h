@@ -36,16 +36,15 @@
 # define KEY_PRESS 2
 # define KEY_RELEASE 3
 # define EXIT_BUTTON_PRESS 17
-# define ESC 53
-# define UP 126
-# define W 13
-# define RIGHT 124
-# define D 2
-# define DOWN 125
-# define S 1
-# define LEFT 123
-# define A 0
-# define SPACE 49
+# define ESC 65307
+# define UP 65362
+# define W 119
+# define RIGHT 65363
+# define D 100
+# define DOWN 65364
+# define S 115
+# define LEFT 65361
+# define A 97
 
 /* utils.c */
 void		my_mlx_pixel_put(t_image *img, int x, int y, int color);

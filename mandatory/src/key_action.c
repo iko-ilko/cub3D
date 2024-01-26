@@ -60,9 +60,9 @@ void	change_dir_check_wall(t_vector *dist, int quad, int key)
 int	check_wall(t_data *data, t_vector dir, t_vector temp, int key)
 {
 	t_vector	dist;
-	t_vector	change;
+	// t_vector	change;
 
-	change = vector_normalizing(data->point.dir);
+	// change = vector_normalizing(data->point.dir);
 	dist.x = 0.137;
 	dist.y = 0.137;
 	printf("-------------x:%f    y:%f\n", dir.x, dir.y);
@@ -73,7 +73,7 @@ int	check_wall(t_data *data, t_vector dir, t_vector temp, int key)
 		change_dir_check_wall(&dist, 1, key);
 		//여기서 나누자 
 		// if (data->map[(int)(temp.y - dist.y)][(int)(temp.x - dist.x)] == '1')//이거 나눠야 할지 체크
-1사분면 오른쪽 벽면 up 키 누르면 여기 아래가 second로 가야하는데 왜 first로 가지?
+// 1사분면 오른쪽 벽면 up 키 누르면 여기 아래가 second로 가야하는데 왜 first로 가지?
 		if (data->map[(int)(data->point.pos.y + dist.y)][(int)(temp.x + dist.x)] == '1'){printf("first\n");
 			return (-1);}
 		else if (data->map[(int)(temp.y + dist.y)][(int)(data->point.pos.x + dist.x)] == '1'){printf("second\n");
@@ -185,7 +185,7 @@ void	player_move(t_data *data, int key)
 }
 
 int	ft_key_action(int key, t_data *data)
-{
+{printf("press: %d\n", key);
 	if (key == 53)
 	{
 		mlx_destroy_window(data->mlx, data->mlx_win);

@@ -98,6 +98,6 @@ int	main(int argc, char **argv)
 	data.point = get_point_data(&data);
 	ray_casting(&data);
 	mlx_loop_hook(data.mlx, ray_casting, &data);
-	mlx_hook(data.mlx_win, KEY_PRESS, 0, ft_key_action, &data);
+	mlx_hook(data.mlx_win, KEY_PRESS, 1, ft_key_action, &data);
 	mlx_loop(data.mlx);
 }

@@ -27,7 +27,8 @@ ifneq "$(findstring d, $(MAKECMDGOALS))" ""
 	CC += -fsanitize=address
 endif
 
-MLXLIB = -Lmlx -lmlx -framework OpenGL -framework Appkit
+# MLXLIB = -Lmlx -lmlx -framework OpenGL -framework Appkit
+MLXLIB =  -Imlx -Lmlx -lmlx -lm -lX11 -lXext
 
 all: $(NAME)
 
