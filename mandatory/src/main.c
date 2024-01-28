@@ -6,7 +6,7 @@
 /*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:49:20 by seongwol          #+#    #+#             */
-/*   Updated: 2024/01/26 11:53:12 by ilko             ###   ########.fr       */
+/*   Updated: 2024/01/29 02:20:40 by ilko             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int	ray_casting(t_data *data)
 		perform_dda(data, &ray);
 		calculate_line_height(&ray, &data->point);
 		ray.position = get_texture_index(&ray);
+	// printf("-------------%d %d\n", ray.map_x, ray.map_y);
 		find_texture_x(&ray);
 		plot_line(data, x, &ray);
 		x++;
@@ -97,7 +98,7 @@ int	main(int argc, char **argv)
 	&data.palet.bits_per_pixel, &data.palet.line_length, &data.palet.endian);
 	data.point = get_point_data(&data);
 	ray_casting(&data);
-	mlx_loop_hook(data.mlx, ray_casting, &data);
+	// mlx_loop_hook(data.mlx, ray_casting, &data);
 	mlx_hook(data.mlx_win, KEY_PRESS, 0, ft_key_action, &data);
 	mlx_loop(data.mlx);
 }
