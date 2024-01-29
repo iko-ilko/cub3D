@@ -6,7 +6,7 @@
 /*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 20:32:26 by ilko              #+#    #+#             */
-/*   Updated: 2024/01/29 03:08:02 by ilko             ###   ########.fr       */
+/*   Updated: 2024/01/29 21:43:25 by ilko             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,195 +24,123 @@ t_vector	sight_rotate(t_vector change, int key)
 		return (vector_rotate(change, -M_PI_2));
 	return ((t_vector){0, 0});
 }
-
-void	set_move_dda(t_vector temp, t_ray *ray)
+int	get_wall_index_x(int i, t_point point)
 {
-	if (ray->dir_x < 0)
-	{
-		ray->step_x = -1;
-		ray->sidedist_x = (temp.x - ray->map_x) * ray->deltadist_x;
-	}
+	int res;
+
+	if (i == NORTH)
+		res = (int)point.pos.x;
+	else if (i == SOUTH)
+		res = (int)point.pos.x;
+	else if (i == EAST)
+		res = (int)point.pos.x + 1;
 	else
-	{
-		ray->step_x = 1;
-		ray->sidedist_x = (ray->map_x + 1.0 - temp.x) \
-							* ray->deltadist_x;
-	}
-	if (ray->dir_y < 0)
-	{
-		ray->step_y = -1;
-		ray->sidedist_y = (temp.y - ray->map_y) \
-							* ray->deltadist_y;
-	}
+		res = (int)point.pos.x - 1;
+	return (res);
+}
+
+int	get_wall_index_y(int i, t_point point)
+{
+	int res;
+
+	if (i == NORTH)
+		res = (int)point.pos.y - 1;
+	else if (i == SOUTH)
+		res = (int)point.pos.y + 1;
+	else if (i == EAST)
+		res = (int)point.pos.y;
 	else
+		res = (int)point.pos.y;
+	return (res);
+}	
+
+int	calculate_distance(t_vector pos, int change[2], int i)
+{
+	// if (i == NORTH || i == SOUTH)
+	// {
+	// 	printf("gap y: %f\n", ft_abs(pos.y - change[Y]));
+	// 	if (ft_abs(pos.y - change[Y]) < 0.1)
+	// 		return (-1);
+	// }
+	// else if (i == EAST || i == WEST)
+	// {
+	// 	printf("gap x: %f\n", ft_abs(pos.x - change[X]));
+	// 	if (ft_abs(pos.x - change[X]) < 0.1)
+	// 		return (-1);
+	// }
+	// return (1);
+	if (i == NORTH)
 	{
-		ray->step_y = 1;
-		ray->sidedist_y = (ray->map_y + 1.0 - temp.y) \
-							* ray->deltadist_y;
+		printf("gap y: %f\n", ft_abs(pos.y - change[Y]));
+		if (ft_abs(pos.y - floor(pos.y)) < 0.137)
+			return (-1);
 	}
+	if (i == SOUTH)
+	{
+		printf("gap y: %f\n", ft_abs(pos.y - change[Y]));
+		if (ft_abs(1 - pos.y + floor(pos.y)) < 0.137)
+			return (-1);
+	}
+	if (i == EAST)
+	{
+		printf("gap x: %f\n", ft_abs(pos.x - change[X]));
+		if (ft_abs(1 - pos.x + floor(pos.x)) < 0.137)
+			return (-1);
+	}
+	if (i == WEST)
+	{
+		printf("gap x: %f\n", ft_abs(pos.x - change[X]));
+		if (ft_abs(pos.x - floor(pos.x)) < 0.137)
+			return (-1);
+	}
+	return (1);
 }
 
-void	move_perform_dda(t_ray *ray)
+void	vector_move(t_data *data, t_point *point, int move_index[4], t_vector *diff)
 {
-
-	if (ray->sidedist_x < ray->sidedist_y)
-	{
-		ray->sidedist_x += ray->deltadist_x;
-		ray->map_x += ray->step_x;
-		// ray->side = 0;
-	}
-	else
-	{
-		ray->sidedist_y += ray->deltadist_y;
-		ray->map_y += ray->step_y;
-		// ray->side = 1;
-	}
-	// ray->sidedist_x += 1;
-	// ray->sidedist_y += 1;
-}
-
-void	init_move_ray_dir(t_data *data, t_ray *ray, t_vector *dir, int key, t_vector temp)
-{
-	// int	i;
-
-	if (key == W)
-		*dir = vector_rotate(data->point.dir, deg_to_rad(0));
-	else if (key == A)
-		*dir = vector_rotate(data->point.dir, deg_to_rad(90));
-	else if (key == S)
-		*dir = vector_rotate(data->point.dir, deg_to_rad(180));
-	else if (key == D)
-		*dir = vector_rotate(data->point.dir, deg_to_rad(270));
-	ray->camera_x = 0;
-	ray->dir_x = dir->x;
-	ray->dir_y = dir->y;
-	ray->map_x = (int)temp.x;
-	ray->map_y = (int)temp.y;
-	printf("%d %d %f %f %d %d\n", (int)temp.x, (int)temp.y, temp.x, temp.y, ray->map_x, ray->map_y);
-	// ray->map_y = (int)data->point.pos.y;
-	// ray->map_y = (int)data->point.pos.y;
-	ray->deltadist_x = fabs(1 / ray->dir_x) / 10;// /10은 임임시  
-	ray->deltadist_y = fabs(1 / ray->dir_y) / 10;
-	// i = 0;
-	// for (int j = 0; j < 4; j++)
-	// 	dir[j] = vector_rotate(data->point.dir, deg_to_rad(90 * j)); 
-	// while (i < 4)
-	// {
-	// 	ray[i].camera_x = 0;
-	// 	ray[i].dir_x = dir[i].x;
-	// 	ray[i].dir_y = dir[i].y;
-	// 	ray[i].map_x = (int)data->point.pos.x;
-	// 	ray[i].map_y = (int)data->point.pos.y;
-	// 	ray[i].deltadist_x = fabs(1 / ray[i].dir_x) / 10;// /10은 임임시  
-	// 	ray[i].deltadist_y = fabs(1 / ray[i].dir_y) / 10;
-	// 	i++;
-	// }
-}
-int	check_wall(t_data *data, t_vector temp, int key)
-{
-	t_vector	dir;
-	t_ray		ray;
-	// double		min[4];
-	// int			i;
-
-	init_move_ray_dir(data, &ray, &dir, key, temp);
-	printf("ray map x:%d y:%d\n", ray.map_y, ray.map_x);
-	// i = 0;
-	printf("---------\n");
-	// if (key == W)
-	// {
-		set_move_dda(temp, &ray);
-		move_perform_dda(&ray);
-	// }
-	// else if (key == A)
-	// {
-	// 	set_move_dda(temp, &ray);
-	// 	move_peform_dda(&ray);
-	// }
-	// else if (key == S)
-	// {
-	// 	set_move_dda(temp, &ray);
-	// 	move_peform_dda(&ray);
-	// }
-	// else if (key == D)
-	// {
-	// 	set_move_dda(temp, &ray);
-	// 	move_peform_dda(&ray);
-	// }
-	printf("ray map x:%d y:%d\n", ray.map_y, ray.map_x);
-	if (data->map[ray.map_y][ray.map_x] == '1')
-		return (-1);
-	printf("---------\n");
-	// if (data->map[ray->map_y][ray->map_x] > '0')
-	// printf("min: %f\n", min[0]);
-	return (0);
-}
-void	set_corrected_pos(t_data *data, t_vector temp, t_vector change)
-{
-	t_vector gap;
-	gap.y = data->point.pos.y - round(temp.y);
-	gap.x = data->point.pos.x - round(temp.x);
-(void)change;
-	printf("gap x: %f gap y: %f\n", gap.x, gap.y);
-	printf("temp x: %f temp y: %f\n", temp.x, temp.y);
-	if ((gap.x > 0 && gap.x < 0.15) && data->map[(int)temp.y][(int)(temp.x - gap.x)] == '1') // 왼쪽 벽 체크
-	{
-		printf("1\n");
-		data->point.pos.x = floor(data->point.pos.x) + 0.15;
-	}
-	else if ((gap.x < 0 && gap.x > -0.15) && data->map[(int)temp.y][(int)(temp.x - gap.x)] == '1') // 오른쪽 벽 체크
-	{
-		printf("2\n");
-		data->point.pos.x = ceil(data->point.pos.x) - 0.15;
-	}
-	else if ((gap.y > 0 && gap.y < 0.15) && data->map[(int)(temp.y - gap.y)][(int)temp.x] == '1') // 위쪽 벽 체크
-	{
-		printf("3\n");
-		data->point.pos.y = floor(data->point.pos.y) + 0.15;
-	}
-	else if ((gap.y < 0 && gap.y > -0.15) && data->map[(int)(temp.y - gap.y)][(int)temp.x] == '1') // 아래쪽 벽 체크
-	{
-		printf("4\n");
-		data->point.pos.y = ceil(data->point.pos.y) - 0.15;
-	}
-	else // 벽에 충돌하지 않는 경우
-	{
-		data->point.pos.x = temp.x;
-		data->point.pos.y = temp.y;
-	}
-}
-void	player_move(t_data *data, int key)
-{
-	t_vector	change;
 	t_vector	temp;
 
-	temp.x = data->point.pos.x;
-	temp.y = data->point.pos.y;
-	change = vector_normalizing(data->point.dir);
-	change = sight_rotate(change, key);
-	change = vector_multiple(change, 0.137);//0.137
-	temp = vector_calculate(data->point.pos, change, PLUS);
+	if (move_index[NORTH] == 0 && diff->y < 0)
+		diff->y = 0;
+	else if (move_index[SOUTH] == 0 && diff->y >= 0)
+		diff->y = 0;
+	if (move_index[WEST] == 0 && diff->x < 0)
+		diff->x = 0;
+	else if (move_index[EAST] == 0 && diff->x >= 0)
+		diff->x = 0;
+	temp.x = data->point.pos.x +  diff->x;
+	temp.y = data->point.pos.y +  diff->y;
+	if ((int)temp.x != (int)point->pos.x && (int)temp.y != (int)point->pos.y && data->map[(int)temp.y][(int)temp.x] == '1')
+	{
+				return;
+	}
+	point->pos.x += diff->x;
+		point->pos.y += diff->y;
 
-	// if (check_wall(data, temp, key) == -1)
-	// {
-	// 	set_corrected_pos(data, temp, change);
-	// 	if (data->map[(int)data->point.pos.y][(int)temp.x] == '0')
-	// 		data->point.pos.x += change.x * 0.9;
-	// 	if (data->map[(int)temp.y][(int)data->point.pos.x] == '0')
-	// 		data->point.pos.y += change.y * 0.9;
-	// }
+}
 
-	if (data->map[(int)data->point.pos.y][(int)temp.x] == '0')
-		data->point.pos.x = temp.x;
-		// data->point.pos.x += change.x * 0.9;
-	if (data->map[(int)temp.y][(int)data->point.pos.x] == '0')
-		data->point.pos.y = temp.y;
-		// data->point.pos.y += change.y * 0.9;
-	// else
-	// {
-	// data->point.pos.x = temp.x;
-	// data->point.pos.y = temp.y;
-	// }
+void	player_move(t_data *data, int key)
+{
+	int			change[4][2];
+	int			i;
+	int			move_index[4];
+	t_vector	diff;
+
+	i = -1;
+	while (++i < 4)
+	{
+		change[i][Y] = get_wall_index_y(i, data->point);
+		change[i][X] = get_wall_index_x(i, data->point);
+		printf("map[%d] = '%c'   %d %d\n", i, data->map[change[i][Y]][change[i][X]], change[i][X], change[i][Y]);
+		if (data->map[change[i][Y]][change[i][X]] == '1' && calculate_distance(data->point.pos, change[i], i) == -1)
+			move_index[i] = 0;
+		else
+			move_index[i] = 1;
+	}
+	diff = vector_normalizing(data->point.dir);
+	diff = sight_rotate(diff, key);
+	diff = vector_multiple(diff, 0.137);
+	vector_move(data, &data->point, move_index, &diff);
 }
 
 int	ft_key_action(int key, t_data *data)
