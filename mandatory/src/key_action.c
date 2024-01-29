@@ -6,7 +6,7 @@
 /*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 20:32:26 by ilko              #+#    #+#             */
-/*   Updated: 2024/01/26 17:31:09 by ilko             ###   ########.fr       */
+/*   Updated: 2024/01/29 03:08:02 by ilko             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,128 +14,144 @@
 
 t_vector	sight_rotate(t_vector change, int key)
 {
-	if (key == UP)
+	if (key == W)
 		return (change);
-	else if (key == DOWN)
+	else if (key == S)
 		return (vector_multiple(change, -1));
-	else if (key == LEFT)
+	else if (key == A)
 		return (vector_rotate(change, M_PI_2));
-	else if (key == RIGHT)
+	else if (key == D)
 		return (vector_rotate(change, -M_PI_2));
 	return ((t_vector){0, 0});
 }
-void	change_dir_check_wall(t_vector *dist, int quad, int key)
+
+void	set_move_dda(t_vector temp, t_ray *ray)
 {
-	if (quad == 1)
+	if (ray->dir_x < 0)
 	{
-		if (key == UP)
-		{
-			dist->x *= -1;
-			dist->y *= -1;
-		}
-		else if (key == DOWN)
-			;
-		else if (key == LEFT)
-			dist->x *= -1;
-		else if (key == RIGHT)
-			dist->y *= -1;
+		ray->step_x = -1;
+		ray->sidedist_x = (temp.x - ray->map_x) * ray->deltadist_x;
 	}
-	else if (quad == 2)
+	else
 	{
-		if (key == LEFT || key == DOWN)
-			dist->x *= -1;
-		else if (key == RIGHT)
-			dist->y *= -1;
+		ray->step_x = 1;
+		ray->sidedist_x = (ray->map_x + 1.0 - temp.x) \
+							* ray->deltadist_x;
 	}
-	else if (quad == 3)
+	if (ray->dir_y < 0)
 	{
-		// if (key == RIGHT || key == DOWN)
-		// 	dist->x *= -1;
-		// else if (key == LEFT)
-		// 	dist->y *= -1;
+		ray->step_y = -1;
+		ray->sidedist_y = (temp.y - ray->map_y) \
+							* ray->deltadist_y;
+	}
+	else
+	{
+		ray->step_y = 1;
+		ray->sidedist_y = (ray->map_y + 1.0 - temp.y) \
+							* ray->deltadist_y;
 	}
 }
 
-/* 임시코드 */
-int	check_wall(t_data *data, t_vector dir, t_vector temp, int key)
+void	move_perform_dda(t_ray *ray)
 {
-	t_vector	dist;
-	// t_vector	change;
 
-	// change = vector_normalizing(data->point.dir);
-	dist.x = 0.137;
-	dist.y = 0.137;
-	printf("-------------x:%f    y:%f\n", dir.x, dir.y);
-	(void)key;
-	if (dir.x < 0 && dir.y < 0)//x:- y:-////map기준 1사분면
+	if (ray->sidedist_x < ray->sidedist_y)
 	{
-		printf("1\n");
-		change_dir_check_wall(&dist, 1, key);
-		//여기서 나누자 
-		// if (data->map[(int)(temp.y - dist.y)][(int)(temp.x - dist.x)] == '1')//이거 나눠야 할지 체크
-// 1사분면 오른쪽 벽면 up 키 누르면 여기 아래가 second로 가야하는데 왜 first로 가지?
-		if (data->map[(int)(data->point.pos.y + dist.y)][(int)(temp.x + dist.x)] == '1'){printf("first\n");
-			return (-1);}
-		else if (data->map[(int)(temp.y + dist.y)][(int)(data->point.pos.x + dist.x)] == '1'){printf("second\n");
-			return (-2);}
+		ray->sidedist_x += ray->deltadist_x;
+		ray->map_x += ray->step_x;
+		// ray->side = 0;
 	}
-	else if (dir.x >= 0 && dir.y < 0)//x:+ y:-////map기준 2사분면
+	else
 	{
-		printf("2\n");
-	// change_dir_check_wall(&dist, 2, key);
-		if (data->map[(int)(temp.y - dist.y)][(int)(temp.x + dist.x)] == '1')
-			return (-1);
+		ray->sidedist_y += ray->deltadist_y;
+		ray->map_y += ray->step_y;
+		// ray->side = 1;
 	}
-	else if (dir.x >= 0 && dir.y >= 0)//x:+ y:+////map기준 3사분면
-	{
-		printf("3\n");
-	// change_dir_check_wall(&dist, 3, key);
-		if (data->map[(int)(temp.y + dist.y)][(int)(temp.x + dist.x)] == '1')
-			return (-1);
-	}
-	else if (dir.x < 0 && dir.y > 0)//x:- y:+////map기준 4사분면
-	{
-		printf("4\n");
-	// change_dir_check_wall(&dist, 4, key);
-		if (data->map[(int)(temp.y + dist.y)][(int)(temp.x - dist.x)] == '1')
-			return (-1);
-	}
-	printf("temp x:%f temp:%f\n", temp.x, temp.y);
+	// ray->sidedist_x += 1;
+	// ray->sidedist_y += 1;
+}
+
+void	init_move_ray_dir(t_data *data, t_ray *ray, t_vector *dir, int key, t_vector temp)
+{
+	// int	i;
+
+	if (key == W)
+		*dir = vector_rotate(data->point.dir, deg_to_rad(0));
+	else if (key == A)
+		*dir = vector_rotate(data->point.dir, deg_to_rad(90));
+	else if (key == S)
+		*dir = vector_rotate(data->point.dir, deg_to_rad(180));
+	else if (key == D)
+		*dir = vector_rotate(data->point.dir, deg_to_rad(270));
+	ray->camera_x = 0;
+	ray->dir_x = dir->x;
+	ray->dir_y = dir->y;
+	ray->map_x = (int)temp.x;
+	ray->map_y = (int)temp.y;
+	printf("%d %d %f %f %d %d\n", (int)temp.x, (int)temp.y, temp.x, temp.y, ray->map_x, ray->map_y);
+	// ray->map_y = (int)data->point.pos.y;
+	// ray->map_y = (int)data->point.pos.y;
+	ray->deltadist_x = fabs(1 / ray->dir_x) / 10;// /10은 임임시  
+	ray->deltadist_y = fabs(1 / ray->dir_y) / 10;
+	// i = 0;
+	// for (int j = 0; j < 4; j++)
+	// 	dir[j] = vector_rotate(data->point.dir, deg_to_rad(90 * j)); 
+	// while (i < 4)
+	// {
+	// 	ray[i].camera_x = 0;
+	// 	ray[i].dir_x = dir[i].x;
+	// 	ray[i].dir_y = dir[i].y;
+	// 	ray[i].map_x = (int)data->point.pos.x;
+	// 	ray[i].map_y = (int)data->point.pos.y;
+	// 	ray[i].deltadist_x = fabs(1 / ray[i].dir_x) / 10;// /10은 임임시  
+	// 	ray[i].deltadist_y = fabs(1 / ray[i].dir_y) / 10;
+	// 	i++;
+	// }
+}
+int	check_wall(t_data *data, t_vector temp, int key)
+{
+	t_vector	dir;
+	t_ray		ray;
+	// double		min[4];
+	// int			i;
+
+	init_move_ray_dir(data, &ray, &dir, key, temp);
+	printf("ray map x:%d y:%d\n", ray.map_y, ray.map_x);
+	// i = 0;
+	printf("---------\n");
+	// if (key == W)
+	// {
+		set_move_dda(temp, &ray);
+		move_perform_dda(&ray);
+	// }
+	// else if (key == A)
+	// {
+	// 	set_move_dda(temp, &ray);
+	// 	move_peform_dda(&ray);
+	// }
+	// else if (key == S)
+	// {
+	// 	set_move_dda(temp, &ray);
+	// 	move_peform_dda(&ray);
+	// }
+	// else if (key == D)
+	// {
+	// 	set_move_dda(temp, &ray);
+	// 	move_peform_dda(&ray);
+	// }
+	printf("ray map x:%d y:%d\n", ray.map_y, ray.map_x);
+	if (data->map[ray.map_y][ray.map_x] == '1')
+		return (-1);
+	printf("---------\n");
+	// if (data->map[ray->map_y][ray->map_x] > '0')
+	// printf("min: %f\n", min[0]);
 	return (0);
 }
-//gap = (원래값 - 반올림한값)
-//if gap > 0 && gap < 0.1   //or if gap < 0 == gap > -0.1
-//내림값 += 0.1				//or 올림값 -= 0.1
-void	set_correted_pos_wall(t_data *data, t_vector temp, t_vector change)
-{
-	t_vector	gap;
-
-	if (data->map[(int)data->point.pos.y][(int)temp.x] == '0')
-	{
-		printf("Y\n");
-		data->point.pos.x += change.x * 0.9;//비빌 때 속도. 와 간격(도 여기서 보정 되는듯)
-		gap.y = data->point.pos.y - round(data->point.pos.y);//좌우키 다른 논리면 위에서 한번에 구하기
-		if (gap.y > 0 && gap.y < 0.137)
-			data->point.pos.y = floor(data->point.pos.y) + 0.137;
-		printf("y done\n");
-	}
-	if (data->map[(int)temp.y][(int)data->point.pos.x] == '0')
-	{
-		printf("X\n");
-		data->point.pos.y += change.y * 0.9;//비빌 때 속도. 와 간격(도 여기서 보정 되는듯)
-		gap.x = data->point.pos.x - round(data->point.pos.x);//좌우키 다른 논리면 위에서 한번에 구하기
-		if (gap.x < 0 && gap.x > 0.137)
-			data->point.pos.x = ceil(data->point.pos.x) - 0.137;
-	}
-
-}
-//각 무브의 맞닿는 벽을 체크하려고 하루를 썼지만 ....그냥 반올림해서 가까운데에 벽이 있으면 그 방향이 곧 보정할 값이 되네
-//고민하던 벽과의 간격과 벽체크 한번에 될지도
-void	set_corrected_pos(t_data *data, t_vector temp, t_vector change)
+void	set_corrected_pos(t_data *data, t_vector temp)
 {
 	t_vector gap;
-	gap.y = data->point.pos.y - round(temp.y);
-	gap.x = data->point.pos.x - round(temp.x);
+	gap.y = temp.x - round(temp.x);
+	gap.x = temp.y - round(temp.y);
 
 	printf("gap x: %f gap y: %f\n", gap.x, gap.y);
 	printf("temp x: %f temp y: %f\n", temp.x, temp.y);
@@ -143,39 +159,23 @@ void	set_corrected_pos(t_data *data, t_vector temp, t_vector change)
 	{
 		printf("1\n");
 		data->point.pos.x = floor(data->point.pos.x) + 0.15;
-		if (data->map[(int)(temp.y + gap.y)][(int)temp.x] == '0')
-			data->point.pos.y += change.y * 0.9;
 	}
-	else if ((gap.x < 0 && gap.x > -0.15) && data->map[(int)temp.y][(int)(temp.x - gap.x)] == '1') // 오른쪽 벽 체크
+	else if ((gap.x < 0 && gap.x >= -0.15)) //
 	{
 		printf("2\n");
-		data->point.pos.x = ceil(data->point.pos.x) - 0.15;
-		if (data->map[(int)(temp.y - gap.y)][(int)temp.x] == '0'){printf("!!\n");
-			data->point.pos.y += change.y * 0.9;}
-		// else
-		// 	data->point.pos.y = ceil(data->point.pos.x) - 0.15;
+		data->point.pos.y = floor(data->point.pos.y) + 0.1;
 	}
 	else if ((gap.y > 0 && gap.y < 0.15) && data->map[(int)(temp.y - gap.y)][(int)temp.x] == '1') // 위쪽 벽 체크
 	{
 		printf("3\n");
 		data->point.pos.y = floor(data->point.pos.y) + 0.15;
-		if (data->map[(int)(temp.y)][(int)(temp.x + gap.x)] == '0')
-			data->point.pos.x += change.x * 0.9;
 	}
 	else if ((gap.y < 0 && gap.y > -0.15) && data->map[(int)(temp.y - gap.y)][(int)temp.x] == '1') // 아래쪽 벽 체크
 	{
 		printf("4\n");
 		data->point.pos.y = ceil(data->point.pos.y) - 0.15;
-		if (data->map[(int)temp.y][(int)(temp.x + gap.x)] == '0')
-			data->point.pos.x += change.x * 0.9;
-	}
-	else // 벽에 충돌하지 않는 경우
-	{
-		data->point.pos.x = temp.x;
-		data->point.pos.y = temp.y;
 	}
 }
-
 void	player_move(t_data *data, int key)
 {
 	t_vector	change;
@@ -187,43 +187,58 @@ void	player_move(t_data *data, int key)
 	change = sight_rotate(change, key);
 	change = vector_multiple(change, 0.137);//0.137
 	temp = vector_calculate(data->point.pos, change, PLUS);
-	// if (data->map[(int)temp.y][(int)temp.x] == '1')
-	// {// 살짝 각도틀고 앞 돌진하면 텍스쳐 너무 크게나옴. 아래 아예 값을 바꾸면 안될듯
-		// set_correted_pos_wall(data, temp, change);
+	// if (check_wall(data, temp, key) == -1)
+	// {
+	// 	set_corrected_pos(data, temp, change);
+	// 	if (data->map[(int)data->point.pos.y][(int)temp.x] == '0')
+	// 		data->point.pos.x += change.x * 0.9;
+	// 	if (data->map[(int)temp.y][(int)data->point.pos.x] == '0')
+	// 		data->point.pos.y += change.y * 0.9;
 	// }
+
+	if (data->map[(int)data->point.pos.y][(int)temp.x] == '0')
+	{printf("?\n");
+		data->point.pos.x = temp.x;
+		if (data->map[(int)temp.y][(int)data->point.pos.x] == '1')
+			set_corrected_pos(data, temp);
+	}
+
+	if (data->map[(int)temp.y][(int)data->point.pos.x] == '0')
+	{printf("??\n");
+		data->point.pos.y = temp.y;
+		if (data->map[(int)data->point.pos.y][(int)temp.x] == '1')
+			set_corrected_pos(data, temp);
+	}
 	// else
-	// {//지금 설정할 논리가 정확하다면 위에 따로 벽이 아니라 0.137 안에 벽이 있다면 고정하고 아니면 temp...
-		set_corrected_pos(data, temp, change);
-		// data->point.pos.x = temp.x;
-		// data->point.pos.y = temp.y;
+	// {
+	// data->point.pos.x = temp.x;
+	// data->point.pos.y = temp.y;
 	// }
 }
 
 int	ft_key_action(int key, t_data *data)
-{printf("press: %d\n", key);
+{
 	if (key == 53)
 	{
 		mlx_destroy_window(data->mlx, data->mlx_win);
 		exit(0);
 	}
-	if (key == UP || key == DOWN || key == LEFT || key == RIGHT)
+	if (key == W || key == S || key == A || key == D)
 	{
-	printf("pre pos x: %f pre pos y: %f\n", data->point.pos.x, data->point.pos.y);
 		player_move(data, key);
-	printf("pos x: %f pos y: %f\n", data->point.pos.x, data->point.pos.y);
 		mlx_clear_window(data->mlx, data->mlx_win);
 		ray_casting(data);
 	}
-	if (key == A || key == D)
+	if (key == LEFT || key == RIGHT)
 	{
-		data->point.dir = vector_rotate(data->point.dir, (0.1 * (key == A) \
-		+ -0.1 * (key == D)));
-		data->point.plane = vector_rotate(data->point.plane, (0.1 * (key == A) \
-		+ -0.1 * (key == D)));
+		data->point.dir = vector_rotate(data->point.dir, (0.1 * (key == LEFT) \
+		+ -0.1 * (key == RIGHT)));
+		data->point.plane = vector_rotate(data->point.plane, (0.1 * (key == LEFT) \
+		+ -0.1 * (key == RIGHT)));
 		mlx_clear_window(data->mlx, data->mlx_win);
 		ray_casting(data);
 	}
-	// printf("dir x: %f dir y: %f\n", data->point.dir.x, data->point.dir.y);
+	printf("dir x: %f dir y: %f\n", data->point.dir.x, data->point.dir.y);
 	printf("pos x: %f pos y: %f\n------\n", data->point.pos.x, data->point.pos.y);
 	return (SUCCESS);
 }
