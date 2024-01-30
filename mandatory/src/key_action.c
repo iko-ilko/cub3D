@@ -54,35 +54,66 @@ int	get_wall_index_y(int i, t_point point)
 	return (res);
 }	
 
-int	calculate_distance(t_vector pos, int i)
+int	calculate_distance(t_vector pos, t_vector diff, int i)
 {
+	printf("diff x %f diff y%f\n", diff.x, diff.y);
 	if (i == NORTH)
 	{
-		if (ft_abs(pos.y - floor(pos.y)) < 0.137)
+		if (ft_abs(pos.y + diff.y - floor(pos.y)) < 0.137)
 			return (-1);
 	}
 	if (i == SOUTH)
 	{
-		if (ft_abs(1 - pos.y + floor(pos.y)) < 0.137)
+		printf("---%f\n", 1 - pos.y + diff.y - floor(pos.y));
+		if (ft_abs(pos.y + diff.y - ceil(pos.y)) < 0.137)
 			return (-1);
 	}
 	if (i == EAST)
 	{
-		if (ft_abs(1 - pos.x + floor(pos.x)) < 0.137)
+		if (ft_abs(pos.x + diff.x - ceil(pos.x)) < 0.137)
 			return (-1);
 	}
 	if (i == WEST)
 	{
-		if (ft_abs(pos.x - floor(pos.x)) < 0.137)
+		if (ft_abs(pos.x + diff.x - floor(pos.x)) < 0.137)
 			return (-1);
 	}
 	return (1);
 }
+void	set_corrected_pos(t_data *d, t_vector diff, int move_i[4], int f)
+{
+	printf("f: %d\n", f);
+	if (f == X + Y + 1)
+	{
+		d->point.pos.x += diff.x;
+		d->point.pos.y += diff.y;
+	}
+	else if (f == Y)
+	{
+		printf("Y\n");
+		if (move_i[NORTH] == 0)
+			d->point.pos.y = floor(d->point.pos.y + diff.y) + 0.1;
+		else if (move_i[SOUTH] == 0)
+			d->point.pos.y = ceil(d->point.pos.y + diff.y) - 0.1;
+		d->point.pos.x += diff.x;
+	}
+	else if (f == X)
+	{
+		printf("X\n");
+		if (move_i[WEST] == 0)
+			d->point.pos.x = floor(d->point.pos.x + diff.x) + 0.1;
+		else if (move_i[EAST] == 0)
+			d->point.pos.x = ceil(d->point.pos.x + diff.x) - 0.1;
+		d->point.pos.y += diff.y;
+	}
+}
 
 void	vector_move(t_data *data, t_point *point, int move_index[4], t_vector *diff)
 {
-	t_vector	temp;
+	t_vector	pre_temp;
+	// t_vector	temp;
 
+	pre_temp = vector_calculate(point->pos, *diff, PLUS);
 	if (move_index[NORTH] == 0 && diff->y < 0)
 		diff->y = 0;
 	else if (move_index[SOUTH] == 0 && diff->y >= 0)
@@ -91,13 +122,25 @@ void	vector_move(t_data *data, t_point *point, int move_index[4], t_vector *diff
 		diff->x = 0;
 	else if (move_index[EAST] == 0 && diff->x >= 0)
 		diff->x = 0;
-	temp.x = data->point.pos.x + diff->x;
-	temp.y = data->point.pos.y + diff->y;
-	if ((int)temp.x != (int)point->pos.x && (int)temp.y != (int)point->pos.y \
-		&& data->map[(int)temp.y][(int)temp.x] == '1')
+	pre_temp.x += point->pos.x;
+	pre_temp.y += point->pos.y;
+	// temp = vector_calculate(point->pos, *diff, PLUS);
+	// (void)temp;
+	// set_corrected_pos(data, point, )
+	/*if (data->map[(int)temp.y][(int)temp.x] == '1')//둘 다 //앞 선 조건 딱 맞춰나눠떨어질 경우에 필요한걸까?
 				return;
-	point->pos.y += diff->y;
-	point->pos.x += diff->x;
+	else */if (data->map[(int)pre_temp.y][(int)pre_temp.x] == '0')
+		set_corrected_pos(data, *diff, move_index, X + Y + 1);
+	else if (data->map[(int)pre_temp.y][(int)point->pos.x] == '0')
+		set_corrected_pos(data, *diff, move_index, Y);
+	else if (data->map[(int)point->pos.y][(int)pre_temp.x] == '0')
+		set_corrected_pos(data, *diff, move_index, X);
+	// else if (data->map[(int)temp.y][(int)point->pos.x] == '0')
+	// 	diff->x = get_corrected_pos(data->map, move_index);
+	// else if (data->map[(int)point->pos.y][(int)temp.x] == '0')
+	// 	diff->y = get_corrected_pos(data->map, move_index);
+	// point->pos.y += diff->y;//else 안해도될듯? 어차피 못움직이면 0일테니
+	// point->pos.x += diff->x;
 }
 
 void	player_move(t_data *data, int key)
@@ -107,20 +150,21 @@ void	player_move(t_data *data, int key)
 	int			move_index[4];
 	t_vector	diff;
 
+	diff = vector_normalizing(data->point.dir);
+	diff = sight_rotate(diff, key);
+	diff = vector_multiple(diff, 0.137);
 	i = -1;
 	while (++i < 4)
 	{
 		change[i][Y] = get_wall_index_y(i, data->point);
 		change[i][X] = get_wall_index_x(i, data->point);
 		if (data->map[change[i][Y]][change[i][X]] == '1' && \
-			calculate_distance(data->point.pos, i) == -1)
+			calculate_distance(data->point.pos, diff, i) == -1)
 			move_index[i] = 0;
 		else
 			move_index[i] = 1;
+		printf("%d: %d\n", i, move_index[i]);
 	}
-	diff = vector_normalizing(data->point.dir);
-	diff = sight_rotate(diff, key);
-	diff = vector_multiple(diff, 0.137);
 	vector_move(data, &data->point, move_index, &diff);
 }
 
@@ -146,5 +190,6 @@ int	ft_key_action(int key, t_data *data)
 		mlx_clear_window(data->mlx, data->mlx_win);
 		ray_casting(data);
 	}
+	printf("pos x:%f pos y:%f\n", data->point.pos.x, data->point.pos.y);
 	return (SUCCESS);
 }
