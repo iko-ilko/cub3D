@@ -6,7 +6,7 @@
 /*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:49:20 by seongwol          #+#    #+#             */
-/*   Updated: 2024/01/31 20:37:27 by ilko             ###   ########.fr       */
+/*   Updated: 2024/01/31 21:20:29 by ilko             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ int	main(int argc, char **argv)
 	&data.palet.bits_per_pixel, &data.palet.line_length, &data.palet.endian);
 	data.point = get_point_data(&data);
 	ray_casting(&data);
+	put_minimap(&data, 0, 0);
 	mlx_hook(data.mlx_win, KEY_PRESS, 0, ft_key_action, &data);
 	mlx_loop(data.mlx);
 }
