@@ -6,7 +6,7 @@
 /*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:21:28 by ilko              #+#    #+#             */
-/*   Updated: 2024/01/31 18:59:25 by ilko             ###   ########.fr       */
+/*   Updated: 2024/01/31 20:31:58 by ilko             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,6 @@
 # define SOUTH 1 //DOWN
 # define WEST 2 //LEFT
 # define EAST 3 //RIGHT
-
-# define BLOCK_MAX 11//
-# define MULTIPLE 8//
 
 /* preprocess.c */
 void	preprocess(t_data *data, int arc, char **arv);

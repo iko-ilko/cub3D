@@ -6,7 +6,7 @@
 /*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:21:39 by ilko              #+#    #+#             */
-/*   Updated: 2024/01/25 19:21:53 by ilko             ###   ########.fr       */
+/*   Updated: 2024/01/31 20:22:27 by ilko             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ typedef struct s_data
 	unsigned int		floor_color;
 	unsigned int		ceiling_color;
 	t_image				image[4];
-	t_image				palette;
 	t_image				minimap;
+	t_image				palet;
 	t_point				point;
 }	t_data;
 

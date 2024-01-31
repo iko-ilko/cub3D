@@ -6,7 +6,7 @@
 /*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:32:05 by seongwol          #+#    #+#             */
-/*   Updated: 2024/01/31 18:33:19 by ilko             ###   ########.fr       */
+/*   Updated: 2024/01/31 20:38:06 by ilko             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,12 @@
 # define PLUS 1
 # define MINUS 2
 # define CROSS 3
-# define MULTI 4
 # define SUCCESS 0
 # define FOV 66
 # define WIN_HOR 500
 # define WIN_VER 500
-# define IMG_HOR 64 /* 이미지 사이즈 일단 이렇게 해서 진행. */
-# define IMG_VER 64 /* 이미지 사이즈 일단 이렇게 해서 진행. */
+# define IMG_HOR 64
+# define IMG_VER 64
 # define KEY_PRESS 2
 # define KEY_RELEASE 3
 # define EXIT_BUTTON_PRESS 17

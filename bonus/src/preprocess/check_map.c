@@ -6,7 +6,7 @@
 /*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 11:25:49 by ilko              #+#    #+#             */
-/*   Updated: 2024/01/24 11:25:57 by ilko             ###   ########.fr       */
+/*   Updated: 2024/01/31 20:09:32 by ilko             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,10 +113,13 @@ void	check_map(char **map, int y_max, int x_max)
 			if (map[idx[Y]][idx[X]] == '\0')
 				break ;
 			check_vaild_letter(map[idx[Y]][idx[X]], map[idx[Y]], &player_cnt);
-			if (map[idx[Y]][idx[X]] == '0')
+			if (map[idx[Y]][idx[X]] == '0' || \
+				ft_strchr("NESW", map[idx[Y]][idx[X]]))
 				check_vaild_route(map, idx, max);
 			idx[X]++;
 		}
 		idx[Y]++;
 	}
+	if (player_cnt != 1)
+		exit_error(FEW_PLAYER_LETTER, NULL);
 }

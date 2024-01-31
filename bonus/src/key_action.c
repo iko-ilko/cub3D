@@ -6,7 +6,7 @@
 /*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 20:32:26 by ilko              #+#    #+#             */
-/*   Updated: 2024/01/26 03:56:19 by ilko             ###   ########.fr       */
+/*   Updated: 2024/01/31 20:33:39 by ilko             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,94 +14,92 @@
 
 t_vector	sight_rotate(t_vector change, int key)
 {
-	if (key == UP)
+	if (key == W)
 		return (change);
-	else if (key == DOWN)
+	else if (key == S)
 		return (vector_multiple(change, -1));
-	else if (key == LEFT)
-		return (vector_rotate(change, -M_PI_2));
-	else if (key == RIGHT)
+	else if (key == A)
 		return (vector_rotate(change, M_PI_2));
+	else if (key == D)
+		return (vector_rotate(change, -M_PI_2));
 	return ((t_vector){0, 0});
 }
 
-int	check_wall(t_data *data, t_vector dir, t_vector temp)
+void	vector_move(t_data *data, t_point *point, int move[4], t_vector *df)
 {
-	printf("-------------x:%f    y:%f\n", dir.x, dir.y);
-	if (dir.x < 0 && dir.y > 0)//x:- y:+////
+	t_vector	temp;
+
+	temp = vector_calculate(point->pos, *df, PLUS);
+	if (data->map[(int)point->pos.y][(int)temp.x] == '1' || \
+		move[WEST] == 0 || move[EAST] == 0)
 	{
-		if (data->map[(int)(temp.y + 0.2)][(int)(temp.x - 0.2)] == '1')
-			return (-1);
+		if ((df->x < 0 && move[WEST] == 0) || (df->x >= 0 && move[EAST] == 0))
+			point->pos.x = set_corrected_pos(data, move, X);
+		else if (data->map[(int)point->pos.y][(int)temp.x] == '1')
+			point->pos.x = set_corrected_pos(data, move, X + 3);
 	}
-	else if (dir.x > 0 && dir.y > 0)//x:+ y:-////
+	else
+		point->pos.x += df->x;
+	temp = vector_calculate(point->pos, *df, PLUS);
+	if (data->map[(int)temp.y][(int)point->pos.x] == '1' || \
+		move[NORTH] == 0 || move[SOUTH] == 0)
 	{
-		if (data->map[(int)(temp.y + 0.2)][(int)(temp.x + 0.2)] == '1')
-			return (-1);
+		if ((df->y < 0 && move[NORTH] == 0) || (df->y >= 0 && move[SOUTH] == 0))
+			point->pos.y = set_corrected_pos(data, move, Y);
+		else if (data->map[(int)temp.y][(int)point->pos.x] == '1')
+			point->pos.y = set_corrected_pos(data, move, Y + 3);
 	}
-	else if (dir.x > 0 && dir.y < 0)//x:+ y:////
-	{
-		if (data->map[(int)(temp.y - 0.2)][(int)(temp.x + 0.2)] == '1')
-			return (-1);
-	}
-	else if (dir.x < 0 && dir.y < 0)//x:- y:+////
-	{
-		if (data->map[(int)(temp.y - 0.2)][(int)(temp.x - 0.2)] == '1')
-			return (-1);
-	}
-	printf("temp x:%f temp:%f\n", temp.x, temp.y);
-	return (0);
+	else
+		point->pos.y += df->y;
 }
 
 void	player_move(t_data *data, int key)
 {
-	t_vector	change;
-	t_vector	temp;
+	int			change[4][2];
+	int			i;
+	int			move_index[4];
+	t_vector	diff;
 
-	temp.x = data->point.pos.x;
-	temp.y = data->point.pos.y;
-	change = vector_normalizing(data->point.dir);
-	change = sight_rotate(change, key);
-	change = vector_multiple(change, 0.137);//0.137
-	temp = vector_calculate(data->point.pos, change, PLUS);
-	if (data->map[(int)temp.y][(int)temp.x] == '1')
-	{//벽 미끄러짐
-		change = vector_normalizing(data->point.dir);
-		if (data->map[(int)data->point.pos.y][(int)temp.x] == '0')
-			data->point.pos.x += change.x * 0.137;
-		else if (data->map[(int)temp.y][(int)data->point.pos.x] == '0')
-			data->point.pos.y += change.y * 0.137;
-		return ;
+	diff = vector_normalizing(data->point.dir);
+	diff = sight_rotate(diff, key);
+	diff = vector_multiple(diff, 0.137);
+	i = -1;
+	while (++i < 4)
+	{
+		change[i][Y] = get_wall_index_y(i, data->point);
+		change[i][X] = get_wall_index_x(i, data->point);
+		if (data->map[change[i][Y]][change[i][X]] == '1' && \
+			calculate_distance(data->point.pos, diff, i) == -1)
+			move_index[i] = 0;
+		else
+			move_index[i] = 1;
 	}
-	// if (check_wall(data, data->point.dir, temp) == -1)
-	// 	return ;//이걸로 플레이어와 벽 의 간격을 줄라했음.
-	data->point.pos.x = temp.x;
-	data->point.pos.y = temp.y;
+	vector_move(data, &data->point, move_index, &diff);
 }
 
 int	ft_key_action(int key, t_data *data)
 {
-	printf("=========\n");
 	if (key == 53)
 	{
 		mlx_destroy_window(data->mlx, data->mlx_win);
 		exit(0);
 	}
-	if (key == UP || key == DOWN || key == LEFT || key == RIGHT)
+	if (key == W || key == S || key == A || key == D)
 	{
 		player_move(data, key);
 		mlx_clear_window(data->mlx, data->mlx_win);
 		ray_casting(data);
+		put_minimap(data, 0, 0);
 	}
-	if (key == A || key == D)
+	if (key == LEFT || key == RIGHT)
 	{
-		data->point.dir = vector_rotate(data->point.dir, (-0.12 * (key == A) \
-							+ 0.12 * (key == D)));
-		data->point.plane = vector_rotate(data->point.plane, (-0.12 * (key == A) \
-							+ 0.12 * (key == D)));
+		data->point.dir = vector_rotate(data->point.dir, (0.1 * \
+		(key == LEFT) + -0.1 * (key == RIGHT)));
+		data->point.plane = vector_rotate(data->point.plane, (0.1 * \
+		(key == LEFT) + -0.1 * (key == RIGHT)));
 		mlx_clear_window(data->mlx, data->mlx_win);
 		ray_casting(data);
+		put_minimap(data, 0, 0);
 	}
-	printf("dir x: %f dir y: %f\n", data->point.dir.x, data->point.dir.y);
-	printf("pos x: %f pos y: %f\n------\n", data->point.pos.x, data->point.pos.y);
 	return (SUCCESS);
 }

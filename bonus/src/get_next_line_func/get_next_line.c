@@ -6,7 +6,7 @@
 /*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 20:55:53 by ilko              #+#    #+#             */
-/*   Updated: 2024/01/07 16:09:05 by ilko             ###   ########.fr       */
+/*   Updated: 2024/01/26 04:39:55 by ilko             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	cat_backup(t_list **backup, char *buf, int rd_size)
 static int	check_nl(t_list **backup, char **res)
 {
 	int		i;
-	char	*temp;
+	char	*t;
 
 	i = -1;
 	while ((*backup)->len != 0 && *((*backup)->str + ++i))
@@ -48,15 +48,15 @@ static int	check_nl(t_list **backup, char **res)
 			*res = my_strndup_gnl((*backup)->str, i + 1);
 			if (*res == NULL)
 				return (-1);
-			temp = my_strndup_gnl((*backup)->str + i + 1, (*backup)->len - i - 1);
-			if (temp == NULL)
+			t = my_strndup_gnl((*backup)->str + i + 1, (*backup)->len - i - 1);
+			if (t == NULL)
 			{
 				free(*res);
 				*res = NULL;
 				return (-1);
 			}
 			free((*backup)->str);
-			(*backup)->str = temp;
+			(*backup)->str = t;
 			(*backup)->len = (*backup)->len - i - 1;
 			return (0);
 		}
