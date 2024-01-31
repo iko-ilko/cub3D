@@ -6,7 +6,7 @@
 /*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 11:28:23 by ilko              #+#    #+#             */
-/*   Updated: 2024/01/24 11:28:42 by ilko             ###   ########.fr       */
+/*   Updated: 2024/01/31 19:32:52 by ilko             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	check_last_line_ln(char ***info_map)
 			my_strcpy(temp, map[i - 1]);
 			temp[len] = '\n';
 			temp[len + 1] = '\0';
-			single_free(&map[i]);
+			single_free(&map[i - 1]);
 			map[i - 1] = temp;
 			break ;
 		}

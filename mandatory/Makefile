@@ -15,6 +15,7 @@ SRCS = ./src/main.c \
 		./src/draw/vector.c \
 		./src/draw/ray_casting.c \
 		./src/key_action.c \
+		./src/wall_check.c \
 		./src/draw/get_texture_color.c
 
 LIBFT = libft.a

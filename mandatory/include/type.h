@@ -6,7 +6,7 @@
 /*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:21:39 by ilko              #+#    #+#             */
-/*   Updated: 2024/01/29 19:30:30 by ilko             ###   ########.fr       */
+/*   Updated: 2024/01/31 20:08:50 by ilko             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_data
 	int					y_max;
 	int					x_max;
 	char				**map;
-	int					endian;//
+	int					endian;
 	void				*mlx;
 	void				*mlx_win;
 	unsigned int		floor_color;

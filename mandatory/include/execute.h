@@ -6,7 +6,7 @@
 /*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:32:05 by seongwol          #+#    #+#             */
-/*   Updated: 2024/01/26 04:48:41 by ilko             ###   ########.fr       */
+/*   Updated: 2024/01/31 18:33:19 by ilko             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,11 @@ int			get_color(t_image *texture, int pixel_x, int pixel_y);
 int			get_texture_index(t_ray *ray);
 void		find_texture_x(t_ray *ray);
 void		put_texture_color(t_data *data, t_ray *ray, int x, int y);
+
+/* wall_check.c */
+int			get_wall_index_x(int i, t_point point);
+int			get_wall_index_y(int i, t_point point);
+int			calculate_distance(t_vector pos, t_vector diff, int i);
+double		set_corrected_pos(t_data *d, int move_i[4], int flag);
 
 #endif

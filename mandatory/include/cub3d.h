@@ -6,7 +6,7 @@
 /*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:21:28 by ilko              #+#    #+#             */
-/*   Updated: 2024/01/26 02:31:50 by ilko             ###   ########.fr       */
+/*   Updated: 2024/01/31 18:59:25 by ilko             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,9 @@
 # define RGB_VALUE_ERROR "invaild rgb value"
 # define RGB_COUNT_ERROR "invaild rgb count"
 # define INVAILD_LETTER "invalid map letter"
-# define BREACHED_MAP "breached map"
+# define BREACHED_MAP "breached map route"
 # define MANY_PLAYER_LETTER "many player letter"
+# define FEW_PLAYER_LETTER "few player letter"
 
 # define Y 0
 # define X 1
