@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: seongwol <seongwol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 04:25:05 by ilko              #+#    #+#             */
-/*   Updated: 2024/01/29 00:04:59 by ilko             ###   ########.fr       */
+/*   Updated: 2024/02/02 15:37:58 by seongwol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,7 @@ void	perform_dda(t_data *data, t_ray *ray)
 			ray->map_y += ray->step_y;
 			ray->side = 1;
 		}
-		if (ray->map_y < 0.25
-			|| ray->map_x < 0.25
-			|| ray->map_y > data->x_max - 0.25
-			|| ray->map_x > data->y_max - 1.25)
-			break ;
-		else if (data->map[ray->map_y][ray->map_x] > '0')
+		if (data->map[ray->map_y][ray->map_x] > '0')
 			hit = 1;
 	}
 }
