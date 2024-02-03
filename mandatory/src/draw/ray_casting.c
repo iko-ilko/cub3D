@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seongwol <seongwol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 04:25:05 by ilko              #+#    #+#             */
-/*   Updated: 2024/02/02 15:38:48 by seongwol         ###   ########.fr       */
+/*   Updated: 2024/02/03 16:52:46 by ilko             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	set_dda(t_data *data, t_ray *ray)
 	}
 }
 
-void	perform_dda(t_ray *ray)
+void	perform_dda(t_data *data, t_ray *ray)
 {
 	int	hit;
 

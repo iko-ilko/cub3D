@@ -6,7 +6,7 @@
 /*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 20:32:26 by ilko              #+#    #+#             */
-/*   Updated: 2024/01/31 21:23:26 by ilko             ###   ########.fr       */
+/*   Updated: 2024/02/03 16:44:00 by ilko             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ void	vector_move(t_data *data, t_point *point, int move[4], t_vector *df)
 	{
 		if ((df->x < 0 && move[WEST] == 0) || (df->x >= 0 && move[EAST] == 0))
 			point->pos.x = set_corrected_pos(data, move, X);
-		else if (data->map[(int)point->pos.y][(int)temp.x] == '1')
-			point->pos.x = set_corrected_pos(data, move, X + 3);
 	}
 	else
 		point->pos.x += df->x;
@@ -46,8 +44,6 @@ void	vector_move(t_data *data, t_point *point, int move[4], t_vector *df)
 	{
 		if ((df->y < 0 && move[NORTH] == 0) || (df->y >= 0 && move[SOUTH] == 0))
 			point->pos.y = set_corrected_pos(data, move, Y);
-		else if (data->map[(int)temp.y][(int)point->pos.x] == '1')
-			point->pos.y = set_corrected_pos(data, move, Y + 3);
 	}
 	else
 		point->pos.y += df->y;

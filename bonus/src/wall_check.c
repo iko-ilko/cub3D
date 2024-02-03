@@ -6,7 +6,7 @@
 /*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:28:04 by ilko              #+#    #+#             */
-/*   Updated: 2024/01/31 18:29:32 by ilko             ###   ########.fr       */
+/*   Updated: 2024/02/03 16:46:15 by ilko             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,19 +77,5 @@ double	set_corrected_pos(t_data *d, int move_i[4], int flag)
 		return (floor(d->point.pos.x) + 0.1);
 	if (move_i[EAST] == 0 && flag == X)
 		return (ceil(d->point.pos.x) - 0.1);
-	if (flag == Y + 3)
-	{
-		if (d->point.dir.y < 0)
-			return (floor(d->point.pos.y) + 0.1);
-		else
-			return (ceil(d->point.pos.y) - 0.1);
-	}
-	if (flag == X + 3)
-	{
-		if (d->point.dir.x > 0)
-			return (floor(d->point.pos.x) + 0.1);
-		else
-			return (ceil(d->point.pos.x) - 0.1);
-	}
 	return (0);
 }
