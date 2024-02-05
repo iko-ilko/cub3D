@@ -1,23 +1,23 @@
 CC = cc  -g3 -Wall -Wextra -Werror
-SRCS = ./src/main.c \
-		./src/preprocess/preprocess.c \
-		./src/preprocess/parse_map.c \
-		./src/preprocess/convert_map_info.c \
-		./src/preprocess/check_map.c \
-		./src/preprocess/utils.c \
+SRCS = ./src/main_bonus.c \
+		./src/preprocess/preprocess_bonus.c \
+		./src/preprocess/parse_map_bonus.c \
+		./src/preprocess/convert_map_info_bonus.c \
+		./src/preprocess/check_map_bonus.c \
+		./src/preprocess/utils_bonus.c \
 		./src/str_src/str_func1.c \
 		./src/str_src/str_func2.c \
 		./src/str_src/split.c \
 		./src/get_next_line_func/get_next_line.c \
 		./src/get_next_line_func/get_next_line_utils.c \
-		./src/draw/utils.c \
-		./src/draw/utils2.c \
-		./src/draw/vector.c \
-		./src/draw/ray_casting.c \
-		./src/key_action.c \
-		./src/wall_check.c \
-		./src/draw/get_texture_color.c \
-		./src/minimap/minimap.c
+		./src/draw/utils_bonus.c \
+		./src/draw/utils2_bonus.c \
+		./src/draw/vector_bonus.c \
+		./src/draw/ray_casting_bonus.c \
+		./src/key_action_bonus.c \
+		./src/wall_check_bonus.c \
+		./src/draw/get_texture_color_bonus.c \
+		./src/minimap/minimap_bonus.c
 
 LIBFT = libft.a
 LIBFTDIR = ./libft
