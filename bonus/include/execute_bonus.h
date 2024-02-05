@@ -6,7 +6,7 @@
 /*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 15:29:50 by seongwol          #+#    #+#             */
-/*   Updated: 2024/02/05 16:32:42 by ilko             ###   ########.fr       */
+/*   Updated: 2024/02/05 19:34:38 by ilko             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ double		ft_abs(double i);
 double		deg_to_rad(double deg);
 
 /* key_actionn.c */
+int			goodbye(t_data *data);
 void		player_move(t_data *data, int key);
 
 /* vector.c */

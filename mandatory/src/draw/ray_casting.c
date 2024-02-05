@@ -6,7 +6,7 @@
 /*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 04:25:05 by ilko              #+#    #+#             */
-/*   Updated: 2024/02/03 16:52:46 by ilko             ###   ########.fr       */
+/*   Updated: 2024/02/05 19:30:53 by ilko             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,12 @@ void	plot_line(t_data *data, int x, t_ray *ray)
 
 	y = -1;
 	while (++y < ray->draw_start)
-		my_mlx_pixel_put(&data->palet, x, y, 0x5B6BFF);
+		my_mlx_pixel_put(&data->palet, x, y, data->ceiling_color);
 	while (y >= ray->draw_start && y < ray->draw_end)
 	{
 		put_texture_color(data, ray, x, y);
 		y++;
 	}
 	while (y < WIN_VER)
-		my_mlx_pixel_put(&data->palet, x, y++, 0xFFEBF0);
+		my_mlx_pixel_put(&data->palet, x, y++, data->floor_color);
 }

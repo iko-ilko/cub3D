@@ -1,10 +1,9 @@
 NO ./texture/north_wall.xpm
 SO ./texture/south_wall.xpm
-  C 225,30,0
 WE ./texture/west_wall.xpm
+C 	91,107,255
+F  255,235,240
 
-
-F 220,100,0
 
 EA ./texture/east_wall.xpm
 

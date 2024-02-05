@@ -6,7 +6,7 @@
 /*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 15:18:06 by seongwol          #+#    #+#             */
-/*   Updated: 2024/02/05 16:30:36 by ilko             ###   ########.fr       */
+/*   Updated: 2024/02/05 19:34:20 by ilko             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,16 @@ void	player_move(t_data *data, int key)
 	vector_move(data, &data->point, move_index, &diff);
 }
 
+int	goodbye(t_data *data)
+{
+	mlx_destroy_window(data->mlx, data->mlx_win);
+	exit(0);
+}
+
 int	ft_key_action(int key, t_data *data)
 {
-	if (key == 53)
-	{
-		mlx_destroy_window(data->mlx, data->mlx_win);
-		exit(0);
-	}
+	if (key == ESC)
+		goodbye(data);
 	if (key == W || key == S || key == A || key == D)
 	{
 		player_move(data, key);
