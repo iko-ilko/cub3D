@@ -6,7 +6,7 @@
 /*   By: seongwol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 20:36:18 by seongwol          #+#    #+#             */
-/*   Updated: 2023/08/03 20:37:37 by seongwol         ###   ########.fr       */
+/*   Updated: 2024/02/05 15:02:43 by seongwol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	count_len(char **strs)
 	int	i;
 
 	i = 0;
-	if(strs)
+	if (strs)
 		while (strs[i] != NULL)
 			i++;
 	return (i);
