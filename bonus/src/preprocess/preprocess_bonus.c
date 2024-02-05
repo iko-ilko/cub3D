@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   preprocess_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seongwol <seongwol@student.42seoul.>       +#+  +:+       +#+        */
+/*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 15:17:35 by seongwol          #+#    #+#             */
-/*   Updated: 2024/02/05 15:17:36 by seongwol         ###   ########.fr       */
+/*   Updated: 2024/02/05 16:28:03 by ilko             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../include/cub3d_bonus.h"
 #include "../include/get_next_line.h"
 
 void	init_pre_struct(t_pre_data *pre, t_data *data)

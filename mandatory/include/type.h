@@ -6,7 +6,7 @@
 /*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:21:39 by ilko              #+#    #+#             */
-/*   Updated: 2024/01/31 20:08:50 by ilko             ###   ########.fr       */
+/*   Updated: 2024/02/05 16:35:10 by ilko             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ typedef struct s_image
 	char	*addr;
 }	t_image;
 
-/* ray 벡터 구조체는 함수 내에서 이걸로 만들어서 쓰고 버리면 될듯. */
 typedef struct s_vector
 {
 	double	x;

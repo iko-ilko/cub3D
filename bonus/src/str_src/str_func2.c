@@ -6,11 +6,11 @@
 /*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 10:06:53 by ilko              #+#    #+#             */
-/*   Updated: 2024/01/24 11:22:36 by ilko             ###   ########.fr       */
+/*   Updated: 2024/02/05 16:28:44 by ilko             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3d.h"
+#include "../../include/cub3d_bonus.h"
 
 int	my_atoi_cub(char *str)
 {

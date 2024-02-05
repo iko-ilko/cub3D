@@ -6,11 +6,11 @@
 /*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:26:31 by ilko              #+#    #+#             */
-/*   Updated: 2024/01/25 19:26:32 by ilko             ###   ########.fr       */
+/*   Updated: 2024/02/05 16:28:49 by ilko             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3d.h"
+#include "../../include/cub3d_bonus.h"
 
 static void	my_free_exit(char **res, int cnt_idx)
 {

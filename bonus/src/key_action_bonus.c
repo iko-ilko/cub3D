@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   key_action_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seongwol <seongwol@student.42seoul.>       +#+  +:+       +#+        */
+/*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 15:18:06 by seongwol          #+#    #+#             */
-/*   Updated: 2024/02/05 15:18:08 by seongwol         ###   ########.fr       */
+/*   Updated: 2024/02/05 16:30:36 by ilko             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../include/cub3d_bonus.h"
 
 t_vector	sight_rotate(t_vector change, int key)
 {

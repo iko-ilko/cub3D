@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   type_bonus.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seongwol <seongwol@student.42seoul.>       +#+  +:+       +#+        */
+/*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 15:29:56 by seongwol          #+#    #+#             */
-/*   Updated: 2024/02/05 15:29:59 by seongwol         ###   ########.fr       */
+/*   Updated: 2024/02/05 16:32:56 by ilko             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TYPE_H
-# define TYPE_H
+#ifndef TYPE_BONUS_H
+# define TYPE_BONUS_H
 
 typedef struct s_image
 {
@@ -24,7 +24,6 @@ typedef struct s_image
 	char	*addr;
 }	t_image;
 
-/* ray 벡터 구조체는 함수 내에서 이걸로 만들어서 쓰고 버리면 될듯. */
 typedef struct s_vector
 {
 	double	x;

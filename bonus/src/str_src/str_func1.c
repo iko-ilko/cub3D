@@ -6,11 +6,11 @@
 /*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:26:36 by ilko              #+#    #+#             */
-/*   Updated: 2024/01/25 19:26:37 by ilko             ###   ########.fr       */
+/*   Updated: 2024/02/05 16:28:40 by ilko             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3d.h"
+#include "../../include/cub3d_bonus.h"
 
 int	my_strlen(char *s)
 {

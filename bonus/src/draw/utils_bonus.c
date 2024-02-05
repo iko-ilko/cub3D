@@ -3,18 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seongwol <seongwol@student.42seoul.>       +#+  +:+       +#+        */
+/*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 15:07:00 by seongwol          #+#    #+#             */
-/*   Updated: 2024/02/05 15:07:03 by seongwol         ###   ########.fr       */
+/*   Updated: 2024/02/05 16:32:08 by ilko             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3d.h"
+#include "../../include/cub3d_bonus.h"
 
-/**
- * img의 특정 좌표에 점을 찍기 위해 만드는 커스텀 함수.  
-*/
 void	my_mlx_pixel_put(t_image *img, int x, int y, int color)
 {
 	char	*dst;
@@ -25,7 +22,6 @@ void	my_mlx_pixel_put(t_image *img, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-/* 이미지 포인터와 좌표값을 넣었을 때 해당 좌표가 가진 칼라 값을 unsigned int 로 반환 */
 int	get_color(t_image *texture, int pixel_x, int pixel_y)
 {
 	return (*(unsigned int *)((texture->addr + (pixel_y * texture->line_length)

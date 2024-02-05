@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seongwol <seongwol@student.42seoul.>       +#+  +:+       +#+        */
+/*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 15:29:40 by seongwol          #+#    #+#             */
-/*   Updated: 2024/02/05 15:29:45 by seongwol         ###   ########.fr       */
+/*   Updated: 2024/02/05 16:32:30 by ilko             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef CUB3D_BONUS_H
+# define CUB3D_BONUS_H
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -20,9 +20,9 @@
 # include <errno.h>
 # include <string.h>
 # include "mlx.h"
-# include "execute.h"
+# include "execute_bonus.h"
 # include "../libft/libft.h"
-# include "type.h"
+# include "type_bonus.h"
 
 # define MANY_ARG "too many argument"
 # define FEW_ARG "too few argument"

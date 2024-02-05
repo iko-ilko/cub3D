@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_map_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seongwol <seongwol@student.42seoul.>       +#+  +:+       +#+        */
+/*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 15:17:11 by seongwol          #+#    #+#             */
-/*   Updated: 2024/02/05 15:17:12 by seongwol         ###   ########.fr       */
+/*   Updated: 2024/02/05 16:28:31 by ilko             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../include/cub3d_bonus.h"
 
 void	remake_map(t_pre_data *pre, t_data *data, char **map)
 {

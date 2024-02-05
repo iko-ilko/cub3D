@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   wall_check_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seongwol <seongwol@student.42seoul.>       +#+  +:+       +#+        */
+/*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 15:18:42 by seongwol          #+#    #+#             */
-/*   Updated: 2024/02/05 15:18:44 by seongwol         ###   ########.fr       */
+/*   Updated: 2024/02/05 16:30:38 by ilko             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../include/cub3d_bonus.h"
 
 int	get_wall_index_x(int i, t_point point)
 {

@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   execute_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seongwol <seongwol@student.42seoul.>       +#+  +:+       +#+        */
+/*   By: ilko <ilko@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 15:29:50 by seongwol          #+#    #+#             */
-/*   Updated: 2024/02/05 15:29:51 by seongwol         ###   ########.fr       */
+/*   Updated: 2024/02/05 16:32:42 by ilko             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXECUTE_H
-# define EXECUTE_H
+#ifndef EXECUTE_BONUS_H
+# define EXECUTE_BONUS_H
 # include <stdio.h>
 # include <fcntl.h>
 # include <unistd.h>
@@ -19,7 +19,7 @@
 # include <errno.h>
 # include <math.h>
 # include "../mlx/mlx.h"
-# include "type.h"
+# include "type_bonus.h"
 
 # define TRUE 1
 # define FALSE 0
@@ -30,8 +30,8 @@
 # define FOV 66
 # define WIN_HOR 500
 # define WIN_VER 500
-# define IMG_HOR 64 /* 이미지 사이즈 일단 이렇게 해서 진행. */
-# define IMG_VER 64 /* 이미지 사이즈 일단 이렇게 해서 진행. */
+# define IMG_HOR 64
+# define IMG_VER 64
 # define KEY_PRESS 2
 # define KEY_RELEASE 3
 # define EXIT_BUTTON_PRESS 17
